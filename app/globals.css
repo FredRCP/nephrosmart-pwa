@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/* `dark:` passa a seguir o botão de tema do app (data-theme), e não a preferência do sistema operacional. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Variáveis de cor dos dois temas (mesmas do app original e do protótipo web). Tema claro é o padrão. */
+:root,
+[data-theme='light'] {
+  --gradient1: #e5e7eb;
+  --gradient2: #f3f4f6;
+  --text: #104e8b;
+  --button: #104e8b;
+  --buttonText: #ffffff;
+  --inputBg: #ffffff;
+  --inputBorder: #d1d5db;
+  --inputError: #ef4444;
+  --resultBg: #ffffff;
+  --resultBorder: #d1d5db;
+  --resultTitle: #104e8b;
+  --resultText: #22c55e;
+  --icon: #104e8b;
+  --iconSecondary: #1e293b;
+  --modalBg: #ffffff;
+  --modalBorder: #d1d5db;
+  --modalTitle: #104e8b;
+  --modalText: #4b5563;
+  --buttonPrimary: #104e8b;
+  --buttonSecondary: #9ca3af;
+}
+
+[data-theme='dark'] {
+  --gradient1: #0f172a;
+  --gradient2: #1e293b;
+  --text: #e0f2fe;
+  --button: #1d4ed8;
+  --buttonText: #ffffff;
+  --inputBg: #1e293b;
+  --inputBorder: #334155;
+  --inputError: #ef4444;
+  --resultBg: #1e293b;
+  --resultBorder: #334155;
+  --resultTitle: #e0f2fe;
+  --resultText: #22c55e;
+  --icon: #94a3b8;
+  --iconSecondary: #94a3b8;
+  --modalBg: #1e293b;
+  --modalBorder: #334155;
+  --modalTitle: #e0f2fe;
+  --modalText: #94a3b8;
+  --buttonPrimary: #1d4ed8;
+  --buttonSecondary: #475569;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.2s ease;
+}
+
+@keyframes resultado-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-resultado {
+  animation: resultado-in 0.25s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}

@@ -1,0 +1,1046 @@
+[
+  {
+    "slug": "ajuste-de-dose",
+    "titulo": "Ajuste de Dose",
+    "descricao": "Ajuste de dose de medicamentos conforme função renal",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora-dados",
+    "sensibilidade": "alta",
+    "prioridade": "P1",
+    "rotaLegada": "Ajuste",
+    "idsLegados": [
+      "64"
+    ]
+  },
+  {
+    "slug": "ckd-epi-2021",
+    "titulo": "CKD-EPI 2021",
+    "descricao": "Fórmula que estima a função renal baseada na Creatinina sérica.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P1",
+    "rotaLegada": "Clearance",
+    "idsLegados": [
+      "60"
+    ]
+  },
+  {
+    "slug": "ckd-epi-creat-cistatina-c",
+    "titulo": "CKD-EPI (Creat + Cistatina C)",
+    "descricao": "Fórmula que estima a função renal baseada na Creatinina e Cistatina C séricas.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P1",
+    "rotaLegada": "CKDEPI2021CreatCysCalculator",
+    "idsLegados": [
+      "4"
+    ]
+  },
+  {
+    "slug": "clearance-de-creatinina-ped",
+    "titulo": "Clearance de Creatinina (Ped)",
+    "descricao": "Estima o ClCr em pediatria (Fórmula de Schwartz Simplificada).",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P1",
+    "rotaLegada": "ClCrPediatricCalculator",
+    "idsLegados": [
+      "5"
+    ]
+  },
+  {
+    "slug": "cockcroft-gault",
+    "titulo": "Cockcroft-Gault",
+    "descricao": "Estima ClCr pela fórmula de Cockcroft-Gault.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P1",
+    "rotaLegada": "CockcroftGaultCalculator",
+    "idsLegados": [
+      "6"
+    ]
+  },
+  {
+    "slug": "conversor-entre-corticoides",
+    "titulo": "Conversor entre Corticoides",
+    "descricao": "Equivalências entre prednisona, hidrocortisona, dexametasona, etc.",
+    "categorias": [
+      "drc",
+      "diversos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "CorticoidesConversor",
+    "idsLegados": [
+      "65",
+      "65a"
+    ]
+  },
+  {
+    "slug": "desmame-de-corticoides",
+    "titulo": "Desmame de Corticoides",
+    "descricao": "Sugestão para desmame de corticoide",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "DesmameCalculator",
+    "idsLegados": [
+      "72"
+    ],
+    "oculta": true
+  },
+  {
+    "slug": "disturbios-acido-base",
+    "titulo": "Distúrbios Ácido-Base",
+    "descricao": "Fórmulas para calcular pCO2 e BIC esperados.",
+    "categorias": [
+      "drc",
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "AcidBaseCalculator",
+    "idsLegados": [
+      "13",
+      "13a"
+    ]
+  },
+  {
+    "slug": "drpad",
+    "titulo": "DRPAD",
+    "descricao": "Ferramenta para diagnóstico e classificar o risco de progressão da Doença Renal Policística Autossômica Dominante.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "ADPKDClassification",
+    "idsLegados": [
+      "55"
+    ]
+  },
+  {
+    "slug": "eritropoetina",
+    "titulo": "Eritropoetina",
+    "descricao": "Calcula a dose inicial de eritropoetina/outros agentes para anemia em DRC.",
+    "categorias": [
+      "drc",
+      "hemodialise"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "ErythropoietinCalculator",
+    "idsLegados": [
+      "14",
+      "14a"
+    ]
+  },
+  {
+    "slug": "funcao-renal-esperada-p-idade",
+    "titulo": "Função Renal esperada p/ idade",
+    "descricao": "Estimativa simples da função renal esperada para a idade.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "ExpectedGFRCalculator",
+    "idsLegados": [
+      "26"
+    ]
+  },
+  {
+    "slug": "glomerulopatia-por-iga",
+    "titulo": "Glomerulopatia por IgA",
+    "descricao": "Ferramentas para avaliação: MEST-C e International Prediction Tool.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "FerramentasIgAScreen",
+    "idsLegados": [
+      "27"
+    ]
+  },
+  {
+    "slug": "imc",
+    "titulo": "IMC",
+    "descricao": "Calcula o Índice de Massa Corporal.",
+    "categorias": [
+      "drc",
+      "diversos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P1",
+    "rotaLegada": "IMCCalculator",
+    "idsLegados": [
+      "41",
+      "41a"
+    ]
+  },
+  {
+    "slug": "ingestao-diaria-de-sodio",
+    "titulo": "Ingestão Diária de Sódio",
+    "descricao": "Estima a ingestão diária de sódio baseada na dosagem de sódio urinário.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "SodiumIntakeCalculator",
+    "idsLegados": [
+      "43"
+    ]
+  },
+  {
+    "slug": "injuria-renal-aguda-ira",
+    "titulo": "Injúria Renal Aguda (IRA)",
+    "descricao": "Orientações relacionadas ao paciente com lesão renal aguda.",
+    "categorias": [
+      "drc",
+      "emergencia"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "InjuriaRenalAgudaScreen",
+    "idsLegados": [
+      "61",
+      "61a"
+    ]
+  },
+  {
+    "slug": "ist",
+    "titulo": "IST",
+    "descricao": "Calcula o Índice de Saturação de Transferrina.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "TransferrinSaturationCalculator",
+    "idsLegados": [
+      "42"
+    ]
+  },
+  {
+    "slug": "paricalcitol",
+    "titulo": "Paricalcitol",
+    "descricao": "Orientações para uso do paricalcitol no DRC com HPTS.",
+    "categorias": [
+      "drc",
+      "hemodialise"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "ParicalcitolCalculator",
+    "idsLegados": [
+      "48",
+      "48a"
+    ]
+  },
+  {
+    "slug": "rein-score",
+    "titulo": "Rein Score",
+    "descricao": "Escore utilizado para verificar prognóstico do paciente dialítico.",
+    "categorias": [
+      "drc",
+      "hemodialise"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "ReinScoreScreen",
+    "idsLegados": [
+      "50",
+      "50a"
+    ]
+  },
+  {
+    "slug": "reposicao-de-bicarbonato",
+    "titulo": "Reposição de Bicarbonato",
+    "descricao": "Recomendações para reposição de bicarbonato na acidose metabólica.",
+    "categorias": [
+      "drc",
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "BicarbonateReplacementCalculator",
+    "idsLegados": [
+      "51",
+      "51a"
+    ]
+  },
+  {
+    "slug": "reposicao-de-ferro",
+    "titulo": "Reposição de Ferro",
+    "descricao": "Recomendações para reposição de ferro no paciente DRC.",
+    "categorias": [
+      "drc",
+      "hemodialise"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "IronReplacementCalculator",
+    "idsLegados": [
+      "52",
+      "52a"
+    ]
+  },
+  {
+    "slug": "risco-cardiovascular",
+    "titulo": "Risco Cardiovascular",
+    "descricao": "Estima o risco cardiovascular pelo escore ASCVD Risk Estimator.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "CardiovascularRiskCalculator",
+    "idsLegados": [
+      "53"
+    ]
+  },
+  {
+    "slug": "risco-de-progressao-de-drc",
+    "titulo": "Risco de Progressão de DRC",
+    "descricao": "Estima o risco de progressão da DRC nos próximos 2-5 anos.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "CKDProgressionRiskCalculator",
+    "idsLegados": [
+      "54"
+    ]
+  },
+  {
+    "slug": "vacinas-drc",
+    "titulo": "Vacinas - DRC",
+    "descricao": "Orientações sobre vacinação no paciente com DRC.",
+    "categorias": [
+      "drc",
+      "hemodialise"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "ChronicKidneyVaccineScreen",
+    "idsLegados": [
+      "58",
+      "58a"
+    ]
+  },
+  {
+    "slug": "correcao-do-calcio-ca2",
+    "titulo": "Correção do Cálcio (Ca²⁺)",
+    "descricao": "Corrige o cálcio para a albumina sérica.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "CalciumCorrectionCalculator",
+    "idsLegados": [
+      "8"
+    ]
+  },
+  {
+    "slug": "correcao-do-magnesio-mg2",
+    "titulo": "Correção do Magnésio (Mg²⁺)",
+    "descricao": "Corrige o magnésio para a albumina sérica.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "MagnesiumCorrectionCalculator",
+    "idsLegados": [
+      "9"
+    ]
+  },
+  {
+    "slug": "correcao-de-hipernatremia-na",
+    "titulo": "Correção de Hipernatremia (Na⁺)",
+    "descricao": "Recomendações para correção de sódio na hipernatremia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "HypernatremiaCalculator",
+    "idsLegados": [
+      "10"
+    ]
+  },
+  {
+    "slug": "correcao-de-hiponatremia-na",
+    "titulo": "Correção de Hiponatremia (Na⁺)",
+    "descricao": "Recomendações para reposição de sódio na hiponatremia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "SodiumCorrectionCalculator",
+    "idsLegados": [
+      "11"
+    ]
+  },
+  {
+    "slug": "f-e-de-acido-urico",
+    "titulo": "F.E. de Ácido Úrico",
+    "descricao": "Calcula a fração de excreção de ácido úrico.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FEUACalculator",
+    "idsLegados": [
+      "19"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-calcio",
+    "titulo": "Fração de Excreção de Cálcio",
+    "descricao": "Calcula a fração de excreção de cálcio.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FECaCalculator",
+    "idsLegados": [
+      "20"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-fosforo",
+    "titulo": "Fração de Excreção de Fósforo",
+    "descricao": "Calcula a fração de excreção de fósforo.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FEPCalculator",
+    "idsLegados": [
+      "21"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-magnesio",
+    "titulo": "Fração de Excreção de Magnésio",
+    "descricao": "Calcula a fração de excreção de magnésio.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FEMgCalculator",
+    "idsLegados": [
+      "22"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-potassio",
+    "titulo": "Fração de Excreção de Potássio",
+    "descricao": "Calcula a fração de excreção de potássio.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FEKCalculator",
+    "idsLegados": [
+      "23"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-sodio",
+    "titulo": "Fração de Excreção de Sódio",
+    "descricao": "Calcula a fração de excreção de sódio.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FENaCalculator",
+    "idsLegados": [
+      "24"
+    ]
+  },
+  {
+    "slug": "fracao-de-excrecao-de-ureia",
+    "titulo": "Fração de Excreção de Uréia",
+    "descricao": "Calcula a fração de excreção de uréia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "FEUrCalculator",
+    "idsLegados": [
+      "25"
+    ]
+  },
+  {
+    "slug": "gradiente-transtubular-de-k",
+    "titulo": "Gradiente Transtubular de K⁺",
+    "descricao": "Cálculo do TTKG; estima a secreção de potássio nos túbulos renais.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "TTKGCalculator",
+    "idsLegados": [
+      "28"
+    ]
+  },
+  {
+    "slug": "hipercalcemia-calcio",
+    "titulo": "Hipercalcemia (Cálcio)",
+    "descricao": "Orientações gerais sobre hipercalcemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipercalcemiaScreen",
+    "idsLegados": [
+      "30"
+    ]
+  },
+  {
+    "slug": "hipercalemia-potassio",
+    "titulo": "Hipercalemia (Potássio)",
+    "descricao": "Orientações gerais sobre hipercalemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HyperkalemiaScreen",
+    "idsLegados": [
+      "31"
+    ]
+  },
+  {
+    "slug": "hiperfosfatemia-fosforo",
+    "titulo": "Hiperfosfatemia (Fósforo)",
+    "descricao": "Orientações gerais sobre hiperfosfatemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HiperfosfatemiaScreen",
+    "idsLegados": [
+      "32"
+    ]
+  },
+  {
+    "slug": "hipermagnesemia-magnesio",
+    "titulo": "Hipermagnesemia (Magnésio)",
+    "descricao": "Orientações gerais sobre hipermagnesemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipermagnesemiaScreen",
+    "idsLegados": [
+      "33"
+    ]
+  },
+  {
+    "slug": "hipernatremia-sodio",
+    "titulo": "Hipernatremia (Sódio)",
+    "descricao": "Orientações gerais sobre hipernatremia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipernatremiaScreen",
+    "idsLegados": [
+      "34"
+    ]
+  },
+  {
+    "slug": "hipocalcemia-calcio",
+    "titulo": "Hipocalcemia (Cálcio)",
+    "descricao": "Orientações gerais sobre hipocalcemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipocalcemiaScreen",
+    "idsLegados": [
+      "35"
+    ]
+  },
+  {
+    "slug": "hipocalemia-potassio",
+    "titulo": "Hipocalemia (Potássio)",
+    "descricao": "Orientações gerais sobre hipocalemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HypokalemiaScreen",
+    "idsLegados": [
+      "36"
+    ]
+  },
+  {
+    "slug": "hipofosfatemia-fosforo",
+    "titulo": "Hipofosfatemia (Fósforo)",
+    "descricao": "Orientações gerais sobre hipofosfatemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipofosfatemiaScreen",
+    "idsLegados": [
+      "37"
+    ]
+  },
+  {
+    "slug": "hipomagnesemia-magnesio",
+    "titulo": "Hipomagnesemia (Magnésio)",
+    "descricao": "Orientações gerais sobre hipomagnesemia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HipomagnesemiaScreen",
+    "idsLegados": [
+      "38"
+    ]
+  },
+  {
+    "slug": "hiponatremia-sodio",
+    "titulo": "Hiponatremia (Sódio)",
+    "descricao": "Orientações gerais sobre hiponatremia.",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "HiponatremiaScreen",
+    "idsLegados": [
+      "39"
+    ]
+  },
+  {
+    "slug": "hiponatremia-fluxograma-na",
+    "titulo": "Hiponatremia Fluxograma (Na⁺)",
+    "descricao": "Fluxograma para diagnóstico diferencial de hiponatremia. (EM CONSTRUÇÃO)",
+    "categorias": [
+      "eletrolitos"
+    ],
+    "tipo": "fluxograma",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "HyponatremiaFlowchartScreen",
+    "idsLegados": [
+      "40"
+    ]
+  },
+  {
+    "slug": "escore-brescia-cimino-doqi",
+    "titulo": "Escore Brescia-Cimino (DOQI)",
+    "descricao": "Escore utilizado para avaliar a maturação da Fístula Arteriovenosa (FAV).",
+    "categorias": [
+      "hemodialise"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "BresciaCiminoScreen",
+    "idsLegados": [
+      "16"
+    ]
+  },
+  {
+    "slug": "heparina-na-hemodialise",
+    "titulo": "Heparina na Hemodiálise",
+    "descricao": "Calcula a dosagem de heparina utilizada na sessão de hemodiálise.",
+    "categorias": [
+      "hemodialise"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "HeparinDosageScreen",
+    "idsLegados": [
+      "29"
+    ]
+  },
+  {
+    "slug": "intoxicacoes-exogenas",
+    "titulo": "Intoxicações exógenas",
+    "descricao": "Orientações sobre intoxicações exógenas e indicação de terapias renais.",
+    "categorias": [
+      "hemodialise",
+      "emergencia"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "ExogenousIntoxicationGuide",
+    "idsLegados": [
+      "44",
+      "44a"
+    ]
+  },
+  {
+    "slug": "kt-v-hemodialise",
+    "titulo": "Kt/V (Hemodiálise)",
+    "descricao": "Calcula o KtV do paciente em hemodiálise.",
+    "categorias": [
+      "hemodialise"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "KtVCalculator",
+    "idsLegados": [
+      "46"
+    ]
+  },
+  {
+    "slug": "anion-gap",
+    "titulo": "Ânion Gap",
+    "descricao": "Calcula ânion gap; e também corrige para albumina sérica.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "AnionGapCalculator",
+    "idsLegados": [
+      "2"
+    ]
+  },
+  {
+    "slug": "conversor-de-dose",
+    "titulo": "Conversor de Dose",
+    "descricao": "Converte mL/h para mcg/kg/min e vice-versa (ex.: dopamina, noradrenalina).",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "DoseConverterCalculator",
+    "idsLegados": [
+      "7"
+    ]
+  },
+  {
+    "slug": "drogas-e-infusoes",
+    "titulo": "Drogas e Infusões",
+    "descricao": "Guia de diluições padrão de drogas vasoativas, sedoanalgésicos e outros (ex.: noradrenalina, propofol).",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "alta",
+    "prioridade": "P3",
+    "rotaLegada": "DrugDilutionsScreen",
+    "idsLegados": [
+      "12"
+    ]
+  },
+  {
+    "slug": "escala-de-avc-nihss",
+    "titulo": "Escala de AVC NIHSS",
+    "descricao": "Escala neurológica padronizada para avaliação de AVC",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "NIHStrokeScale",
+    "idsLegados": [
+      "74"
+    ]
+  },
+  {
+    "slug": "gasometria-arterial",
+    "titulo": "Gasometria Arterial",
+    "descricao": "Calculadora para auxílio na interpretação de gasometrias.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "GasometriaCalculator",
+    "idsLegados": [
+      "67"
+    ]
+  },
+  {
+    "slug": "osmolaridade-serica",
+    "titulo": "Osmolaridade Sérica",
+    "descricao": "Calcula a osmolaridade sérica.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "OsmolarityCalculator",
+    "idsLegados": [
+      "47"
+    ]
+  },
+  {
+    "slug": "sequencia-rapida-de-intubacao",
+    "titulo": "Sequência Rápida de Intubação",
+    "descricao": "Doses recomendadas de drogas utilizadas na sequência rápida de intubação.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "alta",
+    "prioridade": "P3",
+    "rotaLegada": "RapidSequenceIntubationScreen",
+    "idsLegados": [
+      "56"
+    ]
+  },
+  {
+    "slug": "qsofa",
+    "titulo": "qSOFA",
+    "descricao": "Triagem rápida para paciente com suspeita de sepse fora da UTI.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "QSOFACalculator",
+    "idsLegados": [
+      "49"
+    ]
+  },
+  {
+    "slug": "sofa",
+    "titulo": "SOFA",
+    "descricao": "Escore que avalia disfunção orgânica em paciente crítico.",
+    "categorias": [
+      "emergencia"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "SOFACalculator",
+    "idsLegados": [
+      "57"
+    ]
+  },
+  {
+    "slug": "agua-corporal-total",
+    "titulo": "Água Corporal Total",
+    "descricao": "Estima a água corporal total (Fórmula de Watson). Útil na reanimação.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "TotalBodyWaterCalculator",
+    "idsLegados": [
+      "1a"
+    ]
+  },
+  {
+    "slug": "cid-10",
+    "titulo": "CID-10",
+    "descricao": "Consulta códigos da CID-10.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "consulta",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "Cid10",
+    "idsLegados": [
+      "3"
+    ]
+  },
+  {
+    "slug": "classificacao-de-fraturas",
+    "titulo": "Classificação de Fraturas",
+    "descricao": "Classificação de Fraturas.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "FraturasClassification",
+    "idsLegados": [
+      "66"
+    ],
+    "oculta": true
+  },
+  {
+    "slug": "escala-de-coma-de-glasgow",
+    "titulo": "Escala de Coma de Glasgow",
+    "descricao": "Fórmula para Escala de Coma de Glasgow.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "GlasgowCalculator",
+    "idsLegados": [
+      "15"
+    ]
+  },
+  {
+    "slug": "escore-de-tromboprofilaxia",
+    "titulo": "Escore de Tromboprofilaxia",
+    "descricao": "Orienta tromboprofilaxia em pacientes internados (Padua para clínicos, Caprini para cirúrgicos).",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "ThromboprophylaxisScoreScreen",
+    "idsLegados": [
+      "17"
+    ]
+  },
+  {
+    "slug": "escore-de-wells",
+    "titulo": "Escore de Wells",
+    "descricao": "Escore utilizado para calcular a probabilidade de TVP e TEP.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "WellsScoreTVPScreen",
+    "idsLegados": [
+      "18"
+    ]
+  },
+  {
+    "slug": "kdpi-epts",
+    "titulo": "KDPI & EPTS",
+    "descricao": "Transplante renal - Calculadoras oficiais OPTN para qualidade do doador (KDPI) e sobrevida do receptor (EPTS).",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "escore",
+    "sensibilidade": "normal",
+    "prioridade": "P4",
+    "rotaLegada": "TransplantAllocationScreen",
+    "idsLegados": [
+      "45"
+    ]
+  },
+  {
+    "slug": "nefrolitiase",
+    "titulo": "Nefrolitíase",
+    "descricao": "Orientações em paciente com nefrolitíase.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "NefrolitiaseForm",
+    "idsLegados": [
+      "63"
+    ]
+  },
+  {
+    "slug": "vacinas-adultos",
+    "titulo": "Vacinas - Adultos",
+    "descricao": "Orientações sobre vacinação no paciente adulto.",
+    "categorias": [
+      "diversos"
+    ],
+    "tipo": "conteudo",
+    "sensibilidade": "normal",
+    "prioridade": "P3",
+    "rotaLegada": "GeneralVaccineCalendarScreen",
+    "idsLegados": [
+      "62"
+    ]
+  }
+]

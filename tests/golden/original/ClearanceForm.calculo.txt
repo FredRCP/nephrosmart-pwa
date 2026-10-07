@@ -1,0 +1,157 @@
+  };
+
+  const normalizeInput = (text: string): string => {
+    let normalized = text.replace(',', '.').trim();
+    if (normalized.startsWith('.')) normalized = '0' + normalized;
+    return normalized;
+  };
+
+  const toggleDesindex = () => {
+    setExpandedDesindex(!expandedDesindex);
+    Haptics.selectionAsync();
+  };
+
+  const toggleDisclaimer = () => {
+    setShowDisclaimer(p => !p);
+    Haptics.selectionAsync();
+  };
+
+  const getGfrColor = (gfr: number): string => {
+    if (gfr >= 90) return '#22c55e';
+    if (gfr >= 60) return '#fef08a';
+    if (gfr >= 45) return '#facc15';
+    if (gfr >= 30) return '#f97316';
+    if (gfr >= 15) return '#ef4444';
+    return '#dc2626';
+  };
+
+  const classificarDRC = (eGFR: number, acrValue: number): string => {
+    let g = '';
+    if (eGFR >= 90) g = 'G1';
+    else if (eGFR >= 60) g = 'G2';
+    else if (eGFR >= 45) g = 'G3a';
+    else if (eGFR >= 30) g = 'G3b';
+    else if (eGFR >= 15) g = 'G4';
+    else g = 'G5';
+
+    let a = '';
+    if (acrValue < 30) a = 'A1';
+    else if (acrValue <= 300) a = 'A2';
+    else a = 'A3';
+
+    return `${g} ${a}`;
+  };
+
+  const calcularBSA = (alturaCm: number, pesoKg: number): number => {
+    return 0.007184 * Math.pow(pesoKg, 0.425) * Math.pow(alturaCm, 0.725);
+  };
+
+  const salvarResultadoCompleto = async (dados: SavedGFRData) => {
+    try {
+      await AsyncStorage.setItem('ultimoGFR_completo', JSON.stringify(dados));
+      setHasSavedResult(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const recarregarUltimoResultado = async () => {
+    try {
+      const json = await AsyncStorage.getItem('ultimoGFR_completo');
+      if (json) {
+        const dados: SavedGFRData = JSON.parse(json);
+        setResultado(dados.resultadoTexto);
+        setGfrColor(getGfrColor(dados.gfrIndexado));
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      } else {
+        setResultado('Nenhum resultado salvo anteriormente.');
+        setGfrColor(colors.inputError || '#ef4444');
+      }
+    } catch (e) {
+      console.error(e);
+      setResultado('Erro ao carregar resultado salvo.');
+    }
+  };
+
+  const calcularCKDEPI2021 = () => {
+    Keyboard.dismiss();
+
+    const cr = parseFloat(normalizeInput(creatinina));
+    const age = parseInt(idade);
+    const acrValue = parseFloat(normalizeInput(acr));
+    const alturaNum = parseFloat(normalizeInput(altura));
+    const pesoNum = parseFloat(normalizeInput(peso));
+    const isMulher = sexo === 'f';
+
+    // Reset erros
+    setCreatininaError(false); setIdadeError(false); setSexoError(false);
+    setAlturaError(false); setPesoError(false); setAcrError(false);
+
+    // Validação obrigatória
+    if (
+      !creatinina || isNaN(cr) || cr <= 0 ||
+      !idade || isNaN(age) || age <= 0 ||
+      !sexo
+    ) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      if (!creatinina || isNaN(cr) || cr <= 0) { setCreatininaError(true); shakeAnimation(creatininaShake); }
+      if (!idade || isNaN(age) || age <= 0) { setIdadeError(true); shakeAnimation(idadeShake); }
+      if (!sexo) { setSexoError(true); shakeAnimation(sexoShake); }
+
+      setResultado('Por favor, preencha creatinina, idade e sexo.');
+      setGfrColor(colors.inputError || '#ef4444');
+      return;
+    }
+
+    if (isRenalCronico && (!acr || isNaN(acrValue) || acrValue <= 0)) {
+      setAcrError(true);
+      shakeAnimation(acrShake);
+    }
+
+    Haptics.selectionAsync();
+
+    const k = isMulher ? 0.7 : 0.9;
+    const alpha = isMulher ? -0.241 : -0.302;
+    const minCrK = Math.min(cr / k, 1);
+    const maxCrK = Math.max(cr / k, 1);
+    const fatorSexo = isMulher ? 1.012 : 1;
+
+    const gfrIndexado = 142 *
+      Math.pow(minCrK, alpha) *
+      Math.pow(maxCrK, -1.200) *
+      Math.pow(0.9938, age) *
+      fatorSexo;
+
+    let gfrAbsoluto: number | undefined = undefined;
+    let textoAbsoluto = '';
+
+    if (!isNaN(alturaNum) && !isNaN(pesoNum) && alturaNum > 0 && pesoNum > 0) {
+      const bsa = calcularBSA(alturaNum, pesoNum);
+      gfrAbsoluto = gfrIndexado * (bsa / 1.73);
+      textoAbsoluto = `\n\nValor absoluto (desindexado):\n${gfrAbsoluto.toFixed(1)} mL/min\n(recomendado para ajuste de dose)`;
+    } else {
+      textoAbsoluto = '\n\n💡 Toque na seção "Valor desindexado" acima\npara inserir altura e peso (recomendado)';
+    }
+
+    let textoResultado = `TFG estimada:\n${gfrIndexado.toFixed(1)} mL/min/1.73m²${textoAbsoluto}`;
+
+    if (isRenalCronico && !isNaN(acrValue)) {
+      const classificacao = classificarDRC(gfrIndexado, acrValue);
+      textoResultado += `\n\nClassificação DRC: ${classificacao}`;
+    }
+
+    setResultado(textoResultado);
+    setGfrColor(getGfrColor(gfrIndexado));
+
+    const valorParaAjuste = gfrAbsoluto || gfrIndexado;
+    AsyncStorage.setItem('ultimoGFR', valorParaAjuste.toFixed(1));
+
+    salvarResultadoCompleto({
+      gfrIndexado,
+      gfrAbsoluto,
+      comDRC: isRenalCronico,
+      acr: isRenalCronico ? acrValue : undefined,
+      resultadoTexto: textoResultado,
+    });
+  };
+

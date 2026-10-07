@@ -1,0 +1,45 @@
+  const calcularIMC = async () => {
+    Keyboard.dismiss();
+    resetErros();
+
+    const pesoNum = parseFloat(peso.replace(',', '.'));
+    const alturaNum = parseFloat(altura.replace(',', '.')) / 100;
+
+    setErroPeso(!peso.trim() || isNaN(pesoNum) || pesoNum <= 0);
+    setErroAltura(!altura.trim() || isNaN(alturaNum) || alturaNum <= 0);
+
+    if (!peso.trim() || isNaN(pesoNum) || pesoNum <= 0 || !altura.trim() || isNaN(alturaNum) || alturaNum <= 0) {
+      if (!peso.trim() || isNaN(pesoNum) || pesoNum <= 0) shake(pesoShake);
+      if (!altura.trim() || isNaN(alturaNum) || alturaNum <= 0) shake(alturaShake);
+
+      let mensagemErro = 'Por favor, insira ';
+      const erros = [];
+      if (!peso.trim() || isNaN(pesoNum) || pesoNum <= 0) erros.push('um peso válido (ex.: 70.5)');
+      if (!altura.trim() || isNaN(alturaNum) || alturaNum <= 0) erros.push('uma altura válida (ex.: 1.75)');
+
+      if (erros.length === 1) {
+        mensagemErro += erros[0] + '.';
+      } else {
+        mensagemErro += erros.join(' e ') + '.';
+      }
+
+      setResultado(mensagemErro);
+      return;
+    }
+
+    const imc = pesoNum / (alturaNum * alturaNum);
+    let classificacao = '';
+    if (imc < 18.5) classificacao = 'Abaixo do peso';
+    else if (imc < 25) classificacao = 'Peso normal';
+    else if (imc < 30) classificacao = 'Sobrepeso';
+    else if (imc < 35) classificacao = 'Obesidade Grau I';
+    else if (imc < 40) classificacao = 'Obesidade Grau II';
+    else classificacao = 'Obesidade Grau III';
+
+    const resultText = `IMC: ${imc.toFixed(1)} kg/m²\nClassificação: ${classificacao}`;
+    setResultado(resultText);
+
+    try {
+      await AsyncStorage.setItem('ultimoIMC', imc.toString());
+    } catch (error) {
+      console.error('Erro ao salvar IMC:', error);
