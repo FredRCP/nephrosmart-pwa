@@ -55,7 +55,7 @@ npm run dev
 - Também vale: botão direito no zip → **Extrair tudo…** → escolha a pasta do projeto → substituir os arquivos.
 - `-Force` copia por cima e **não apaga** nada: `node_modules`, `.env` e `.git` ficam intactos.
 - Se eu avisar que algum arquivo deve ser **apagado**, o `Remove-Item` vem junto.
-- Como saber se a atualização entrou: o `npm test` mostra o total de testes (agora **191**).
+- Como saber se a atualização entrou: o `npm test` mostra o total de testes (agora **205**).
 
 ### Se precisar trocar o projeto inteiro (zip completo)
 
@@ -89,7 +89,7 @@ npm test
 
 - `node -v` precisa mostrar **v22** ou mais novo (`nvm use 22`, como administrador, se mostrar v20).
 - `npm install` só é demorado na primeira vez.
-- `npm test` deve terminar com **191 testes passando**.
+- `npm test` deve terminar com **205 testes passando**.
 - Se o `npm audit` apontar vulnerabilidades, rode **`npm audit fix`** (sem `--force`) e depois `npm test`. **Nunca use `--force`**: ele pode trocar versões principais e quebrar o projeto.
 
 ---
@@ -243,6 +243,20 @@ O plano gratuito da Vercel (Hobby) serve enquanto não houver cobrança; ao cobr
 
 ---
 
+## 7c. Conferir as variáveis que estão na Vercel (sem expor nada)
+
+Baixa as variáveis para um arquivo temporário e mostra só o **nome** e os **12 primeiros caracteres** de cada valor (a URL tem que começar com `https://`; a chave pública, com `eyJ` ou `sb_publishable_`):
+
+```powershell
+vercel env pull .env.verificacao --environment=production --yes
+Get-Content .env.verificacao | Where-Object { $_ -match '=' -and $_ -notmatch '^\s*#' } | ForEach-Object { $n,$v = $_ -split '=',2; $v = $v.Trim('"'); "{0}  ->  começa com: {1}" -f $n, $v.Substring(0,[Math]::Min(12,$v.Length)) }
+Remove-Item .env.verificacao
+```
+
+Para corrigir uma variável: `vercel env rm NOME production`, depois `vercel env add NOME production` (e o mesmo em `preview`), colando **só o valor**, sem aspas. Em seguida, novo deploy (`git push` ou *Redeploy*).
+
+---
+
 ## 8. Regenerar o catálogo de ferramentas
 
 Só se o menu do app antigo mudar:
@@ -293,4 +307,5 @@ A chave de serviço fica **fora de qualquer pasta de projeto** e é apagada depo
 | Página em branco depois de atualizar o zip | `Remove-Item -Recurse -Force .next` e `npm run dev` |
 | Aviso amarelo `webpack.cache ... snapshot` | Inofensivo; some limpando `.next` |
 | Site na Vercel sem "Entrar" nem "Criar conta" | Abra `https://SEU-SITE.vercel.app/cadastro`. Se aparecer o aviso "o login ainda não está configurado", o build ficou sem as chaves: em *Settings → Environment Variables* confira os dois nomes **exatos** (`NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`), marcados para *Production* e *Preview*, e faça **Redeploy** |
+| Site na Vercel mostra **"Internal Server Error"** em todas as páginas | Causa mais comum: valor inválido em `NEXT_PUBLIC_SUPABASE_URL` (sem `https://`, com aspas ou o texto errado colado). **Desde a versão de 08/10 o site não cai mais por isso**: o login fica desligado e `/cadastro` diz qual variável está errada. **Emergência:** Vercel → *Deployments* → no último deploy que funcionava, *⋯ → Instant Rollback* (ou *Promote to Production*) |
 | Celular não abre `http://IP:3000` | Mesmo Wi-Fi? Firewall do Windows? Passo 5 |

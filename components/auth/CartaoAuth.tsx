@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { isSupabaseConfigured } from '@/lib/supabase/env';
+import { DIAGNOSTICO_SUPABASE, isSupabaseConfigured } from '@/lib/supabase/env';
 
 /** Moldura das telas de conta. Avisa quando o projeto Supabase ainda não foi configurado no .env. */
 export default function CartaoAuth({ titulo, subtitulo, children }: { titulo: string; subtitulo?: string; children: ReactNode }) {
@@ -16,7 +16,9 @@ export default function CartaoAuth({ titulo, subtitulo, children }: { titulo: st
           <p role="status" className="text-center text-sm" style={{ color: colors.text }}>
             O login ainda não está configurado neste ambiente: faltam as chaves do Supabase. No computador, use o arquivo
             <code>.env.local</code>; na Vercel, crie as variáveis de ambiente e faça um <strong>novo deploy</strong>.
-            As ferramentas continuam funcionando normalmente.
+            {DIAGNOSTICO_SUPABASE === 'url-invalida' && <strong> Problema encontrado: o valor de NEXT_PUBLIC_SUPABASE_URL está inválido (precisa começar com https://).</strong>}
+            {DIAGNOSTICO_SUPABASE === 'chave-ausente' && <strong> Problema encontrado: falta a variável NEXT_PUBLIC_SUPABASE_ANON_KEY.</strong>}
+            {' '}As ferramentas continuam funcionando normalmente.
           </p>
         )}
       </div>
