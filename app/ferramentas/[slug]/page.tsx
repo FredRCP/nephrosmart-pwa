@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import PortaoPremium from '@/components/ui/PortaoPremium';
 import { ferramentasDisponiveis, porSlug } from '@/lib/tools/catalogo';
 import { implementacoes } from './implementacoes';
 
@@ -17,5 +18,5 @@ export default async function FerramentaPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const render = implementacoes[slug];
   if (!porSlug(slug) || !render) notFound();
-  return <>{render()}</>;
+  return <PortaoPremium slug={slug}>{render()}</PortaoPremium>;
 }

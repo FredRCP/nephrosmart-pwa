@@ -46,7 +46,7 @@ export default function FormCadastro() {
   if (enviado) {
     return (
       <CartaoAuth titulo="Confirme seu e-mail">
-        <MensagemInfo texto={`Se ${enviado} puder receber uma conta, enviamos uma mensagem com o link de confirmação. Abra o link neste mesmo aparelho e navegador (e olhe o spam). Depois de confirmar, seu cadastro será liberado pelo responsável pelo app.`} />
+        <MensagemInfo texto={`Se ${enviado} puder receber uma conta, enviamos uma mensagem com o link de confirmação. Abra o link neste mesmo aparelho e navegador (e olhe o spam). Depois de confirmar, é só entrar com seu e-mail e senha.`} />
         <p className="text-center text-sm" style={{ color: colors.text }}>
           <Link href="/entrar" className="font-semibold underline">Ir para Entrar</Link>
         </p>

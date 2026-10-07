@@ -1,10 +1,8 @@
-// ─── Flags de feature do NephroSmart PWA ─────────────────────────────────────
-// Para ativar o paywall/premium no futuro, basta mudar PREMIUM_ENABLED para true.
-// Enquanto false, canAccess() sempre libera acesso total pra todo mundo.
+// ─── Plano gratuito × premium do NephroSmart ─────────────────────────────────
+// PREMIUM_ENABLED liga o bloqueio: com false, todas as ferramentas ficam livres para todos.
+export const PREMIUM_ENABLED = true;
 
-export const PREMIUM_ENABLED = false;
-
-// Mesmos planos do app antigo: beta (todos os testadores, com validade), free e premium.
+// Mesmos planos do app antigo: beta (testadores, com validade), free e premium.
 export type PlanType = 'beta' | 'free' | 'premium';
 
 export const PLANS: Record<PlanType, { label: string; allTools: boolean }> = {
@@ -13,6 +11,9 @@ export const PLANS: Record<PlanType, { label: string; allTools: boolean }> = {
   premium: { label: 'Premium', allTools: true },
 };
 
-// Lista de ferramentas consideradas "premium" quando o paywall estiver ativo.
-// Preencha aqui quando for ativar (ex: nomes de rota das calculadoras).
-export const PREMIUM_ONLY_TOOLS: string[] = [];
+// Ferramentas LIVRES (sem login e sem pagar), pelos slugs do catálogo. Todas as outras são Premium.
+// Aviso honesto: como o app funciona offline, o código das calculadoras vai para o aparelho; o bloqueio é
+// "de cortesia". O que precisa de proteção real (a base do Ajuste de Dose) será servido só a assinantes.
+export const FERRAMENTAS_GRATUITAS: readonly string[] = ['ckd-epi-2021', 'cockcroft-gault', 'hipercalemia-potassio', 'imc'];
+
+export const eGratuita = (slug: string): boolean => FERRAMENTAS_GRATUITAS.includes(slug);

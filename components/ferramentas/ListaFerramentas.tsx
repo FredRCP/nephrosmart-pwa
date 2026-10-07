@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
+import { canAccess } from '@/lib/access/canAccess';
+import { useSessao } from '@/lib/auth/useSessao';
 import { filtrarFerramentas } from '@/lib/tools/catalogo';
 import { FILTROS, corDaCategoria } from '@/lib/tools/categorias';
 import type { Ferramenta, FiltroId } from '@/lib/tools/tipos';
@@ -13,6 +15,7 @@ const CHAVE_FAVORITOS = 'favoritos';
 
 export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferramenta[] }) {
   const { colors } = useTheme();
+  const sessao = useSessao();
   const [busca, setBusca] = useState('');
   const [filtro, setFiltro] = useState<FiltroId>('todos');
   const [favoritos, setFavoritos] = useState<string[]>([]);
@@ -37,7 +40,13 @@ export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferrame
         <Link href={`/ferramentas/${f.slug}`}
           className="block min-h-[88px] rounded-xl p-4 pr-14 shadow-md transition-transform active:scale-[0.99]"
           style={{ backgroundColor: colors.inputBg, borderLeft: `4px solid ${borda}` }}>
-          <span className="mb-1 block text-lg font-semibold" style={{ color: colors.text }}>{f.titulo}</span>
+          <span className="mb-1 block text-lg font-semibold" style={{ color: colors.text }}>
+            {f.titulo}
+            {!sessao.carregando && !canAccess(f.slug, sessao.plano) && (
+              <span aria-label="Ferramenta Premium" className="ml-2 rounded-full px-2 py-0.5 align-middle text-[11px] font-bold"
+                style={{ backgroundColor: colors.button, color: colors.buttonText }}>🔒 Premium</span>
+            )}
+          </span>
           <span className="line-clamp-2 text-[15px] leading-5 opacity-80" style={{ color: colors.text }}>{f.descricao}</span>
         </Link>
         <button type="button" onClick={() => alternarFavorito(f.slug)} aria-pressed={fav}

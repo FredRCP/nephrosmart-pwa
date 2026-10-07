@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, screen, within } from '@testing-library/react';
+import { cleanup, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import AppShell from '@/components/shell/AppShell';
@@ -8,6 +8,7 @@ import PrivacidadePage from '@/app/privacidade/page';
 import TermosPage from '@/app/termodeuso/page';
 import ContatoPage from '@/app/contato/page';
 import ExcluirConta from '@/components/legal/ExcluirConta';
+import FormEntrar from '@/components/auth/FormEntrar';
 import { renderComTema } from './helpers';
 
 const estado = vi.hoisted(() => ({ caminho: '/' }));
@@ -103,6 +104,31 @@ describe('Home', () => {
     expect(modulos.getByRole('link', { name: /Ajuste de Dose/ }).getAttribute('href')).toBe('/ajuste-de-dose');
     expect(modulos.getByRole('link', { name: 'Ferramentas Clínicas' }).getAttribute('href')).toBe('/ferramentas');
     expect(screen.getByText(/Não realiza diagnóstico, não prescreve tratamentos/)).toBeTruthy();
+  });
+});
+
+describe('Home: logotipo oficial', () => {
+  it('mostra o logotipo NephroSmart como título da página', () => {
+    renderComTema(<Home />);
+    const titulo = screen.getByRole('heading', { level: 1 });
+    const imagem = within(titulo).getByRole('img', { name: 'NephroSmart' });
+    expect(imagem.getAttribute('src')).toBe('/images/ns1a.webp');
+  });
+  it('no tema escuro o logotipo ganha fundo claro (azul sobre escuro não se lê)', () => {
+    window.localStorage.setItem('theme', 'dark');
+    renderComTema(<Home />);
+    return waitFor(() => expect(screen.getByRole('heading', { level: 1 }).className).toContain('bg-white'));
+  });
+});
+
+describe('login não configurado (ex.: site publicado sem as chaves do Supabase)', () => {
+  it('explica o que fazer: .env.local no computador, variáveis e novo deploy na Vercel', () => {
+    renderComTema(<FormEntrar />);
+    const aviso = screen.getByRole('status').textContent ?? '';
+    expect(aviso).toContain('.env.local');
+    expect(aviso).toContain('Vercel');
+    expect(aviso).toContain('novo deploy');
+    expect(screen.queryByPlaceholderText('Senha')).toBeNull(); // sem formulário que não funcionaria
   });
 });
 

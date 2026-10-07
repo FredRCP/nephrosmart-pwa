@@ -14,7 +14,8 @@ export default function CartaoAuth({ titulo, subtitulo, children }: { titulo: st
       <div className="mt-6 rounded-2xl p-5 shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.inputBorder}` }}>
         {isSupabaseConfigured ? children : (
           <p role="status" className="text-center text-sm" style={{ color: colors.text }}>
-            O login ainda não está configurado neste ambiente (faltam as chaves do Supabase no arquivo <code>.env</code>).
+            O login ainda não está configurado neste ambiente: faltam as chaves do Supabase. No computador, use o arquivo
+            <code>.env.local</code>; na Vercel, crie as variáveis de ambiente e faça um <strong>novo deploy</strong>.
             As ferramentas continuam funcionando normalmente.
           </p>
         )}

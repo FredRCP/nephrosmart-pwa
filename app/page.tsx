@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import Logotipo from '@/components/shell/Logotipo';
 import MenuConfiguracoes from '@/components/shell/MenuConfiguracoes';
 import { PLANS } from '@/lib/access/plans';
 import { primeiroNome } from '@/lib/auth/nome';
 import { useSessao } from '@/lib/auth/useSessao';
+import { saudacaoPara } from '@/lib/saudacao';
 
 const GRADIENTE = 'linear-gradient(135deg, #1e5a9c, #2b6cb0)';
 
@@ -16,16 +16,16 @@ const APRESENTACAO = ['Ferramentas clínicas para médicos e profissionais de sa
 const AVISO_LEGAL =
   'O NephroSmart é uma ferramenta educacional e de consulta técnica, destinada exclusivamente a médicos e profissionais de saúde legalmente habilitados. Não realiza diagnóstico, não prescreve tratamentos e não substitui o julgamento clínico profissional.';
 
-function saudacao(): string {
-  const h = new Date().getHours();
-  return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
-}
-
 export default function Home() {
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
   const sessao = useSessao();
   const [ola, setOla] = useState('Olá');
-  useEffect(() => setOla(saudacao()), []);
+  useEffect(() => {
+    const atualizar = () => setOla(saudacaoPara(new Date()));
+    atualizar();
+    const id = setInterval(atualizar, 60_000); // o app pode ficar aberto atravessando 6h, 12h ou 18h
+    return () => clearInterval(id);
+  }, []);
 
   const botao = 'block w-full rounded-2xl px-6 py-5 text-center text-xl font-bold text-white shadow-lg transition-transform active:scale-[0.98]';
 
@@ -39,7 +39,7 @@ export default function Home() {
           </p>
           {sessao.email && (
             <p className="text-xs" style={{ color: colors.text, opacity: 0.7 }} data-testid="situacao-login">
-              Conectado · {sessao.ativo ? `Plano ${PLANS[sessao.plano].label}` : 'aguardando liberação'}
+              Conectado · {sessao.ativo ? `Plano ${PLANS[sessao.plano].label}` : 'conta suspensa'}
             </p>
           )}
         </div>
@@ -47,8 +47,10 @@ export default function Home() {
       </div>
 
       <div className="my-8 text-center">
-        <img src="/images/rins.webp" alt="" width={210} height={175} className="mx-auto h-auto w-44 md:w-52" />
-        <h1 className="mt-4" style={{ color: '#104E8B' }}><Logotipo tamanho="3.4rem" /></h1>
+        {/* O logotipo é azul sobre transparente: no tema escuro ganha um fundo claro para continuar legível */}
+        <h1 className={`mx-auto w-fit rounded-3xl ${theme === 'dark' ? 'bg-white/95 px-6 py-3' : ''}`}>
+          <img src="/images/ns1a.webp" alt="NephroSmart" width={300} height={250} className="mx-auto h-auto w-56 md:w-64" />
+        </h1>
         <p className="mx-auto mt-4 max-w-sm text-base leading-6" style={{ color: colors.text, opacity: 0.8 }}>
           {APRESENTACAO[0]}<br />{APRESENTACAO[1]}
         </p>

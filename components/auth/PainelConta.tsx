@@ -72,7 +72,7 @@ export default function PainelConta() {
 
   const efetivo = perfil ? planoEfetivo(perfil) : 'free';
   const situacao = !perfil ? '' : !perfil.ativo
-    ? 'Cadastro recebido: aguardando liberação pelo responsável pelo app.'
+    ? 'Sua conta está suspensa. Fale com nefrosmartapp@gmail.com.'
     : perfil.plano === 'beta' && efetivo === 'free' && perfil.beta_expira
       ? `Seu período beta terminou em ${dataBR(perfil.beta_expira)}.`
       : `Plano ${PLANS[efetivo].label}${perfil.plano === 'beta' && perfil.beta_expira ? `, válido até ${dataBR(perfil.beta_expira)}` : ''}.`;

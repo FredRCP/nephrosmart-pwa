@@ -49,11 +49,11 @@ describe('saudação e situação do login', () => {
     expect(screen.getByTestId('atalho-conta').textContent).toBe('👤 Ana');
     expect(screen.getByTestId('atalho-conta').getAttribute('href')).toBe('/conta');
   });
-  it('logado e ainda não liberado: mostra "aguardando liberação"', async () => {
+  it('logado com conta suspensa: mostra o aviso', async () => {
     logado();
     h.definir({ data: { nome: null, plano: 'free', ativo: false, beta_expira: null }, error: null });
     app();
-    await waitFor(() => expect(screen.getByTestId('situacao-login').textContent).toBe('Conectado · aguardando liberação'));
+    await waitFor(() => expect(screen.getByTestId('situacao-login').textContent).toBe('Conectado · conta suspensa'));
     expect(screen.getByTestId('saudacao').textContent).toMatch(/, Ana$/); // sem nome: usa o e-mail
   });
   it('beta vencido aparece como plano Gratuito', async () => {
@@ -88,6 +88,12 @@ describe('saudação e situação do login', () => {
     await u.click(botoes[0]);
     const item = within(await screen.findByRole('menu')).getByRole('menuitem', { name: /Minha conta/ });
     expect(item.textContent).toContain('ana@exemplo.com');
+  });
+  it('se a leitura da sessão falhar, o "Entrar" aparece (não fica escondido para sempre)', async () => {
+    h.cliente.auth.getSession.mockRejectedValue(new Error('storage indisponível'));
+    app();
+    await waitFor(() => expect(screen.getByTestId('atalho-conta').textContent).toBe('Entrar'));
+    expect(screen.getByTestId('saudacao').textContent).toMatch(/, Usuário$/);
   });
   it('sem avisos do React', async () => {
     const erro = vi.spyOn(console, 'error').mockImplementation(() => {});

@@ -176,11 +176,11 @@ describe('Minha conta', () => {
     renderComTema(<PainelConta />);
     await waitFor(() => expect(h.roteador.replace).toHaveBeenCalledWith('/entrar'));
   });
-  it('conta ainda não liberada: mostra "aguardando liberação"', async () => {
+  it('conta suspensa (ativo = false): mostra o aviso', async () => {
     auth.getUser.mockResolvedValue({ data: { user: usuario } });
     h.definirPerfil({ nome: 'Ana', plano: 'free', ativo: false, beta_expira: null });
     renderComTema(<PainelConta />);
-    expect((await screen.findByTestId('situacao')).textContent).toMatch(/aguardando liberação/);
+    expect((await screen.findByTestId('situacao')).textContent).toMatch(/conta está suspensa/);
     expect(screen.getByText('ana@exemplo.com')).toBeTruthy();
   });
   it('beta liberado mostra a validade; beta vencido avisa', async () => {

@@ -54,7 +54,9 @@ function useSessaoInterna(ligado: boolean): Sessao {
       setEstado(daqui(novo));
     }
 
-    supabase.auth.getSession().then(({ data }) => aplicarUsuario(data.session?.user ?? null));
+    supabase.auth.getSession()
+      .then(({ data }) => aplicarUsuario(data.session?.user ?? null))
+      .catch(() => { if (vivo) setEstado({ ...SEM_LOGIN, configurado: true }); }); // falha ao ler: mostra "Entrar" em vez de esconder tudo
     const { data } = supabase.auth.onAuthStateChange((_evento, sessao) => { void aplicarUsuario(sessao?.user ?? null); });
     const recarregar = () => { supabase.auth.getSession().then(({ data: d }) => aplicarUsuario(d.session?.user ?? null)); };
     window.addEventListener(EVENTO_PERFIL, recarregar);

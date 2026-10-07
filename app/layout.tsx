@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: 'Calculadoras e ferramentas clínicas de nefrologia',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: APP_NAME },
   formatDetection: { telephone: false },
-  icons: { apple: '/icons/icon-192.png' },
+  icons: { apple: '/icons/apple-touch-icon.png' },
 };
 
 export const viewport: Viewport = {
