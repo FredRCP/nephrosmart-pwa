@@ -42,7 +42,7 @@ const ativoEm = (pathname: string, href: string) => (href === '/' ? pathname ===
 export default function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
   const sessao = useSessao();
   const ehHome = pathname === '/';
 
@@ -51,7 +51,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={`flex min-h-dvh flex-col ${ehHome ? 'pt-[env(safe-area-inset-top)] md:pt-0' : ''}`} style={{ background: `linear-gradient(to bottom, ${colors.gradient[0]}, ${colors.gradient[1]})` }}>
       {/* iPhone (PWA em tela cheia): faixa escura sob a hora/bateria, em todas as telas */}
-      <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: COR_CABECALHO_CELULAR }} />
+      <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: ehHome && theme === 'dark' ? colors.gradient[0] : COR_CABECALHO_CELULAR }} />
 
       {/* Tablet e desktop: menu azul no topo (igual ao do site) */}
       <nav aria-label="Principal" className="sticky top-0 z-40 hidden h-14 shadow-md md:block" style={{ backgroundColor: colors.button }}>
@@ -91,7 +91,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         </header>
       )}
 
-      <main className="flex-1 px-4 py-6 md:px-10 md:pb-24">{children}</main>
+      <main className="flex-1 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-6 md:px-10 md:pb-24">{children}</main>
 
       {/* Rodapé fixo na base da tela (desktop/tablet), em todas as páginas */}
       <footer className="fixed inset-x-0 bottom-0 z-30 hidden border-t px-6 py-3 text-sm md:block"
