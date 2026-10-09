@@ -17,15 +17,20 @@ export const metadata: Metadata = {
   applicationName: APP_NAME,
   title: { default: APP_NAME, template: `%s | ${APP_NAME}` },
   description: 'Calculadoras e ferramentas clínicas de nefrologia',
-  appleWebApp: { capable: true, statusBarStyle: 'default', title: APP_NAME },
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: APP_NAME },
   formatDetection: { telephone: false },
   icons: { apple: '/icons/apple-touch-icon.png' },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#104E8B',
+  // Celular: barra do sistema escura (igual ao cabeçalho); tablet/desktop: azul do menu
+  themeColor: [
+    { media: '(max-width: 767px)', color: '#1f2937' },
+    { media: '(min-width: 768px)', color: '#104E8B' },
+  ],
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover', // o app ocupa a tela toda, inclusive sob a barra de status do iPhone
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

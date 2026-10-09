@@ -16,7 +16,7 @@ export default function InfoDialog({ titulo = 'Informações', children }: { tit
         type="button"
         aria-label="Informações"
         onClick={() => ref.current?.showModal()}
-        className="fixed bottom-6 right-6 z-30 rounded-full p-3 shadow-lg transition-transform active:scale-95"
+        className="fixed bottom-6 right-6 z-30 flex size-12 items-center justify-center rounded-full p-0 shadow-lg transition-transform active:scale-95 md:bottom-20"
         style={{ backgroundColor: colors.inputBg, border: `1px solid ${colors.inputBorder}` }}
       >
         <Icone nome="info-circle" tamanho={26} cor={colors.icon} />

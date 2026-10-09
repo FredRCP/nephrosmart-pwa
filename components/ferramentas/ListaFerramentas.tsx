@@ -38,16 +38,16 @@ export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferrame
     return (
       <li key={f.slug} className="relative">
         <Link href={`/ferramentas/${f.slug}`}
-          className="block min-h-[88px] rounded-xl p-4 pr-14 shadow-md transition-transform active:scale-[0.99]"
+          className="flex h-[88px] flex-col justify-center rounded-xl px-4 py-2 pr-14 shadow-md transition-transform active:scale-[0.99]"
           style={{ backgroundColor: colors.inputBg, borderLeft: `4px solid ${borda}` }}>
-          <span className="mb-1 block text-lg font-semibold" style={{ color: colors.text }}>
-            {f.titulo}
+          <span className="mb-0.5 flex items-center gap-2 text-base font-semibold" style={{ color: colors.text }}>
+            <span className="truncate">{f.titulo}</span>
             {!sessao.carregando && !canAccess(f.slug, sessao.plano) && (
-              <span aria-label="Ferramenta Premium" className="ml-2 rounded-full px-2 py-0.5 align-middle text-[11px] font-bold"
+              <span aria-label="Ferramenta Premium" className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold"
                 style={{ backgroundColor: colors.button, color: colors.buttonText }}>🔒 Premium</span>
             )}
           </span>
-          <span className="line-clamp-2 text-[15px] leading-5 opacity-80" style={{ color: colors.text }}>{f.descricao}</span>
+          <span className="line-clamp-2 text-sm leading-[18px] opacity-80" style={{ color: colors.text }}>{f.descricao}</span>
         </Link>
         <button type="button" onClick={() => alternarFavorito(f.slug)} aria-pressed={fav}
           aria-label={fav ? `Remover ${f.titulo} dos favoritos` : `Adicionar ${f.titulo} aos favoritos`}
@@ -87,7 +87,7 @@ export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferrame
         })}
       </div>
 
-      <ul className="flex flex-col gap-3 pb-20">
+      <ul className="flex flex-col gap-2.5 pb-20">
         {lista.length === 0 ? (
           <li className="mt-10 text-center text-base" style={{ color: colors.text }}>
             {busca ? 'Nenhum resultado encontrado.' : 'Nenhuma ferramenta desta categoria foi migrada ainda.'}

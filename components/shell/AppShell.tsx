@@ -49,7 +49,10 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const voltar = () => (window.history.length > 1 ? router.back() : router.push('/'));
 
   return (
-    <div className="flex min-h-dvh flex-col" style={{ background: `linear-gradient(to bottom, ${colors.gradient[0]}, ${colors.gradient[1]})` }}>
+    <div className={`flex min-h-dvh flex-col ${ehHome ? 'pt-[env(safe-area-inset-top)] md:pt-0' : ''}`} style={{ background: `linear-gradient(to bottom, ${colors.gradient[0]}, ${colors.gradient[1]})` }}>
+      {/* iPhone (PWA em tela cheia): faixa escura sob a hora/bateria, em todas as telas */}
+      <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: COR_CABECALHO_CELULAR }} />
+
       {/* Tablet e desktop: menu azul no topo (igual ao do site) */}
       <nav aria-label="Principal" className="sticky top-0 z-40 hidden h-14 shadow-md md:block" style={{ backgroundColor: colors.button }}>
         <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
@@ -79,7 +82,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
 
       {/* Celular: cabeçalho escuro com botão voltar (como no app); na Home não há cabeçalho */}
       {!ehHome && (
-        <header className="sticky top-0 z-30 flex h-14 items-center px-3 text-white md:hidden" style={{ backgroundColor: COR_CABECALHO_CELULAR }}>
+        <header className="sticky top-0 z-30 flex h-[calc(3.5rem+env(safe-area-inset-top))] items-center px-3 pt-[env(safe-area-inset-top)] text-white md:hidden" style={{ backgroundColor: COR_CABECALHO_CELULAR }}>
           <button type="button" onClick={voltar} aria-label="Voltar" className="flex size-10 items-center justify-center rounded-full bg-white/20">
             <Icone nome="chevron-left" tamanho={18} cor="#fff" />
           </button>
@@ -88,12 +91,14 @@ export default function AppShell({ children }: { children: ReactNode }) {
         </header>
       )}
 
-      <main className="flex-1 px-4 py-6 md:px-10">{children}</main>
+      <main className="flex-1 px-4 py-6 md:px-10 md:pb-24">{children}</main>
 
-      <footer className="hidden border-t px-6 py-5 text-sm md:block" style={{ borderColor: colors.inputBorder, color: colors.text }}>
+      {/* Rodapé fixo na base da tela (desktop/tablet), em todas as páginas */}
+      <footer className="fixed inset-x-0 bottom-0 z-30 hidden border-t px-6 py-3 text-sm md:block"
+        style={{ borderColor: colors.inputBorder, color: colors.text, backgroundColor: colors.gradient[1] }}>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <span className="flex items-center gap-3 opacity-80">
-            <img src="/images/rcp-creative.png" alt="RCP Creative" width={32} height={32} className="size-8 rounded-lg" />
+            <img src="/images/rcp-creative.png" alt="RCP Creative" width={28} height={28} className="size-7 rounded-lg" />
             © 2026 NephroSmart — RCP Creative
           </span>
           <span className="flex gap-5 opacity-80">

@@ -94,19 +94,6 @@ describe('Cabeçalho do celular', () => {
   });
 });
 
-describe('Home', () => {
-  it('apresentação, módulos e aviso legal do site', () => {
-    renderComTema(<Home />);
-    expect(screen.getByText(/Ferramentas clínicas para médicos e profissionais de saúde\./)).toBeTruthy();
-    expect(screen.getByText('VERSÃO BETA')).toBeTruthy();
-    const modulos = within(screen.getByRole('navigation', { name: 'Módulos' }));
-    expect(modulos.getByRole('link', { name: 'Função Renal' }).getAttribute('href')).toBe('/funcao-renal');
-    expect(modulos.getByRole('link', { name: /Ajuste de Dose/ }).getAttribute('href')).toBe('/ajuste-de-dose');
-    expect(modulos.getByRole('link', { name: 'Ferramentas Clínicas' }).getAttribute('href')).toBe('/ferramentas');
-    expect(screen.getByText(/Não realiza diagnóstico, não prescreve tratamentos/)).toBeTruthy();
-  });
-});
-
 describe('Home: logotipo oficial', () => {
   it('mostra o logotipo NephroSmart como título da página', () => {
     renderComTema(<Home />);

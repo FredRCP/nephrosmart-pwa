@@ -5,6 +5,7 @@ export const FAIXAS = {
   alturaCm: { min: 50, max: 250 },
   idadeAnos: { min: 1, max: 120 },
   creatininaMgDl: { min: 0.1, max: 30 },
+  cistatinaMgL: { min: 0.1, max: 20 },
 } as const;
 
 export const dentroDaFaixa = (valor: number, f: { min: number; max: number }): boolean => valor >= f.min && valor <= f.max;

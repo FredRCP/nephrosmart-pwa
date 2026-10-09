@@ -6,14 +6,14 @@ import LegalNote from '@/components/ui/LegalNote';
 import InfoDialog from '@/components/ui/InfoDialog';
 
 /** Modelo de tela para calculadoras: título, aviso legal, formulário (children) e janela de informações. */
-export default function CalculadoraLayout({ titulo, info, children }: { titulo: string; info?: ReactNode; children: ReactNode }) {
+export default function CalculadoraLayout({ titulo, info, infoTitulo, children }: { titulo: string; info?: ReactNode; infoTitulo?: string; children: ReactNode }) {
   const { colors } = useTheme();
   return (
     <div className="mx-auto w-full max-w-md pb-24">
       <h1 className="text-center text-2xl font-extrabold" style={{ color: colors.text }}>{titulo}</h1>
       <LegalNote />
       <div className="mt-2">{children}</div>
-      {info && <InfoDialog>{info}</InfoDialog>}
+      {info && <InfoDialog titulo={infoTitulo}>{info}</InfoDialog>}
     </div>
   );
 }

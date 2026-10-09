@@ -46,8 +46,13 @@ describe('Conteúdo em acordeão (Hipercalemia)', () => {
 describe('Menu de ferramentas', () => {
   it('lista só as migradas, em ordem alfabética', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
-    const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span')?.textContent);
-    expect(titulos).toEqual(['CKD-EPI 2021', 'Hipercalemia (Potássio)', 'IMC']);
+    const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
+    expect(titulos).toEqual([
+      'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault',
+      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Distúrbios Ácido-Base', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
+      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Osmolaridade Sérica',
+      'Reposição de Bicarbonato',
+    ]);
   });
   it('busca sem acento', async () => {
     const u = userEvent.setup();
@@ -62,7 +67,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
-    expect(screen.getAllByRole('link').length).toBe(1);
+    expect(screen.getAllByRole('link').length).toBe(6);
     await u.click(screen.getByRole('tab', { name: 'Hemodiálise' }));
     expect(screen.getByText('Nenhuma ferramenta desta categoria foi migrada ainda.')).toBeTruthy();
   });

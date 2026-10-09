@@ -180,15 +180,29 @@ A3: >300 mg/g`}</BlocoMono>
         {botaoSexo('f', 'Feminino', 'venus')}
       </div>
 
-      <button type="button" onClick={() => setDesindexadoAberto((a) => !a)} aria-expanded={desindexadoAberto}
-        className="mb-3 w-full rounded-xl p-4 text-left shadow-sm"
-        style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.inputBorder}` }}>
-        <span className="flex items-center justify-between gap-2">
-          <span className="font-semibold" style={{ color: colors.text }}>Valor desindexado (recomendado para ajuste de dose)</span>
-          <span className="rounded-full bg-green-600 px-2 py-0.5 text-xs font-bold text-white">Recomendado</span>
-        </span>
-        <span className="mt-1 block text-sm" style={{ color: colors.text, opacity: 0.7 }}>Toque para inserir altura e peso</span>
-      </button>
+      {/* Opções extras como "chips" discretos: a tela fica enxuta e só mostra o que for pedido */}
+      <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Opções adicionais">
+        <button type="button" onClick={() => setDesindexadoAberto((a) => !a)} aria-expanded={desindexadoAberto}
+          title="Altura e peso: valor absoluto recomendado para ajuste de dose"
+          className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold"
+          style={{ backgroundColor: desindexadoAberto ? colors.button : colors.inputBg, color: desindexadoAberto ? colors.buttonText : colors.text,
+            border: `1px solid ${desindexadoAberto ? colors.button : colors.inputBorder}` }}>
+          <span aria-hidden className="font-bold">{desindexadoAberto ? '−' : '+'}</span>
+          Valor desindexado
+        </button>
+        <label className="flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold"
+          style={{ backgroundColor: drc ? colors.button : colors.inputBg, color: drc ? colors.buttonText : colors.text,
+            border: `1px solid ${drc ? colors.button : colors.inputBorder}` }}>
+          <input type="checkbox" aria-label="Paciente com DRC" checked={drc} onChange={(e) => setDrc(e.target.checked)} className="sr-only" />
+          <span aria-hidden className="font-bold">{drc ? '−' : '+'}</span>
+          <span>Paciente com DRC</span>
+        </label>
+      </div>
+      {desindexadoAberto && (
+        <p className="-mt-1 mb-3 text-sm" style={{ color: colors.text, opacity: 0.7 }}>
+          Informe altura e peso para obter o valor absoluto (recomendado para ajuste de dose).
+        </p>
+      )}
       {desindexadoAberto && (
         <>
           <Campo icone="ruler-vertical" placeholder="Altura (cm)" dica="Altura em centímetros (ex.: 170)" inputMode="decimal"
@@ -200,10 +214,6 @@ A3: >300 mg/g`}</BlocoMono>
         </>
       )}
 
-      <label className="mb-3 flex cursor-pointer items-center gap-2" style={{ color: colors.text }}>
-        <input type="checkbox" checked={drc} onChange={(e) => setDrc(e.target.checked)} className="size-5" />
-        <span>Paciente com DRC</span>
-      </label>
       {drc && (
         <Campo icone="flask" placeholder="Relação Albumina/Creatinina (mg/g)" inputMode="decimal" valor={acr} erro={erros.acr} tentativa={tentativa}
           onChange={(v) => { setAcr(normalizarNumero(v)); setErros((e) => ({ ...e, acr: false })); }} />

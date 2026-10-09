@@ -1,6 +1,6 @@
 'use client';
 
-import type { InputHTMLAttributes } from 'react';
+import { useEffect, useRef, type InputHTMLAttributes } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import Icone from './Icone';
 
@@ -17,11 +17,21 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> 
 
 export default function Campo({ icone, valor, onChange, erro = false, tentativa = 0, dica, ...resto }: Props) {
   const { colors } = useTheme();
+  const caixa = useRef<HTMLDivElement>(null);
+  // A "tremida" é reiniciada por classe (e não trocando a `key` do elemento): remontar o campo tirava o foco
+  // do teclado na primeira letra digitada depois de um erro.
+  useEffect(() => {
+    const el = caixa.current;
+    if (!erro || !el) return;
+    el.classList.remove('animate-shake');
+    void el.offsetWidth;
+    el.classList.add('animate-shake');
+  }, [erro, tentativa]);
   return (
     <div className="mb-3">
     <div
-      key={erro ? `erro-${tentativa}` : 'ok'}
-      className={`flex items-center rounded-xl px-3 ${erro ? 'animate-shake' : ''}`}
+      ref={caixa}
+      className="flex items-center rounded-xl px-3"
       style={{ backgroundColor: colors.inputBg, border: `1px solid ${erro ? colors.inputError : colors.inputBorder}` }}
     >
       <Icone nome={icone} tamanho={22} cor={colors.icon} className="mr-3" />

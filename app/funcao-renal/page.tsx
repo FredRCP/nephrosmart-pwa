@@ -26,16 +26,16 @@ export default function FuncaoRenalPage() {
       <h1 className="mb-2 text-center text-2xl font-extrabold" style={{ color: colors.text }}>Função Renal</h1>
       <p className="mb-6 text-center text-base italic" style={{ color: colors.text, opacity: 0.6 }}>Estimativa de TFG / Clearance de Creatinina</p>
 
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-2.5">
         {FERRAMENTAS.map((f) => {
           const disponivel = estaDisponivel(f.slug);
           const estilo = { backgroundColor: `rgba(${hexParaRgb(f.cor)}, 0.2)`, border: `2px solid ${f.cor}`, opacity: disponivel ? 1 : 0.55 };
           const conteudo = (
-            <span className="flex items-center gap-5">
-              <span className="flex w-10 justify-center"><Icone nome={f.icone} tamanho={32} cor={f.cor} /></span>
-              <span className="flex-1">
-                <span className="mb-1.5 block text-lg font-semibold" style={{ color: colors.text }}>{f.titulo}</span>
-                <span className="block text-[15px] leading-5" style={{ color: colors.text, opacity: 0.7 }}>{f.descricao}</span>
+            <span className="flex h-full items-center gap-4">
+              <span className="flex w-8 shrink-0 justify-center"><Icone nome={f.icone} tamanho={26} cor={f.cor} /></span>
+              <span className="min-w-0 flex-1">
+                <span className="mb-0.5 block truncate text-base font-semibold" style={{ color: colors.text }}>{f.titulo}</span>
+                <span className="line-clamp-2 block text-sm leading-[18px]" style={{ color: colors.text, opacity: 0.7 }}>{f.descricao}</span>
               </span>
               {!disponivel && <span className="rounded-full px-2 py-0.5 text-xs font-bold" style={{ backgroundColor: colors.buttonSecondary, color: colors.buttonText }}>Em breve</span>}
             </span>
@@ -43,9 +43,9 @@ export default function FuncaoRenalPage() {
           return (
             <li key={f.slug}>
               {disponivel ? (
-                <Link href={`/ferramentas/${f.slug}`} className="block rounded-2xl p-5 transition-transform active:scale-[0.99]" style={estilo}>{conteudo}</Link>
+                <Link href={`/ferramentas/${f.slug}`} className="block h-[88px] rounded-2xl px-4 py-3 transition-transform active:scale-[0.99]" style={estilo}>{conteudo}</Link>
               ) : (
-                <div className="rounded-2xl p-5" style={estilo} aria-disabled>{conteudo}</div>
+                <div className="h-[88px] rounded-2xl px-4 py-3" style={estilo} aria-disabled>{conteudo}</div>
               )}
             </li>
           );
