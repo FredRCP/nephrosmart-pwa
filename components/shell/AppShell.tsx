@@ -53,9 +53,12 @@ export default function AppShell({ children }: { children: ReactNode }) {
       {/* iPhone (PWA em tela cheia): faixa escura sob a hora/bateria, em todas as telas */}
       <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: ehHome && theme === 'dark' ? colors.gradient[0] : COR_CABECALHO_CELULAR }} />
 
+      {/* iPhone: faixa inferior (sob o indicador de início) na cor final do fundo do app */}
+      <div aria-hidden data-testid="faixa-inferior" className="fixed inset-x-0 bottom-0 z-50 h-[env(safe-area-inset-bottom)] md:hidden" style={{ backgroundColor: colors.gradient[1] }} />
+
       {/* Tablet e desktop: menu azul no topo (igual ao do site) */}
       <nav aria-label="Principal" className="sticky top-0 z-40 hidden h-14 shadow-md md:block" style={{ backgroundColor: colors.button }}>
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
+        <div className="flex h-full w-full items-center justify-between px-6">
           <Link href="/" aria-label="NephroSmart — início" className="shrink-0 text-white"><Logotipo /></Link>
           <div className="flex items-center gap-1">
             {NAV.map((n) => {
@@ -96,7 +99,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       {/* Rodapé fixo na base da tela (desktop/tablet), em todas as páginas */}
       <footer className="fixed inset-x-0 bottom-0 z-30 hidden border-t px-6 py-3 text-sm md:block"
         style={{ borderColor: colors.inputBorder, color: colors.text, backgroundColor: colors.gradient[1] }}>
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div className="flex w-full items-center justify-between gap-4">
           <span className="flex items-center gap-3 opacity-80">
             <img src="/images/rcp-creative.png" alt="RCP Creative" width={28} height={28} className="size-7 rounded-lg" />
             © 2026 NephroSmart — RCP Creative

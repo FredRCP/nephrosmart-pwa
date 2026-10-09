@@ -77,7 +77,7 @@ export default function Home() {
       )}
 
       {/* Saudação com o nome de quem está logado; a engrenagem aqui só no celular (no desktop fica no menu azul) */}
-      <div className="intro-item flex w-full items-start justify-between gap-3" style={atraso(1)}>
+      <div className="intro-item flex w-full items-start justify-between gap-3 md:fixed md:left-8 md:top-[4.75rem] md:w-auto" style={atraso(1)}>
         <div>
           <p className="text-xl font-bold" style={{ color: colors.text }} data-testid="saudacao">
             {ola}, {sessao.email ? primeiroNome(sessao.nome, sessao.email) : 'Usuário'}

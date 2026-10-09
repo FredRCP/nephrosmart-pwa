@@ -8,6 +8,9 @@ import ConteudoPagina from '@/components/archetypes/ConteudoPagina';
 import hipercalemia from '@/lib/content/hipercalemia';
 import SodioHub from '@/components/hubs/SodioHub';
 import AcidoBaseHub from '@/components/hubs/AcidoBaseHub';
+import IraHub from '@/components/hubs/IraHub';
+import FracoesHub from '@/components/hubs/FracoesHub';
+import FuncaoRenalEsperada from '@/components/calculators/FuncaoRenalEsperada';
 import OsmolaridadeCalculator from '@/components/calculators/OsmolaridadeCalculator';
 
 // slug do catálogo → tela. Ao migrar uma ferramenta, registre aqui E em lib/tools/disponiveis.ts.
@@ -30,4 +33,14 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'gasometria-arterial': () => <AcidoBaseHub inicial="gasometria" />,
   'reposicao-de-bicarbonato': () => <AcidoBaseHub inicial="bicarbonato" />,
   'osmolaridade-serica': () => <OsmolaridadeCalculator />,
+  // Onda 2
+  'injuria-renal-aguda-ira': () => <IraHub inicial="ira" />,
+  'fracao-de-excrecao-de-sodio': () => <FracoesHub inicial="sodio" />,
+  'fracao-de-excrecao-de-ureia': () => <FracoesHub inicial="ureia" />,
+  'fracao-de-excrecao-de-potassio': () => <FracoesHub inicial="potassio" />,
+  'fracao-de-excrecao-de-calcio': () => <FracoesHub inicial="calcio" />,
+  'fracao-de-excrecao-de-fosforo': () => <FracoesHub inicial="fosforo" />,
+  'f-e-de-acido-urico': () => <FracoesHub inicial="acido-urico" />,
+  'fracao-de-excrecao-de-magnesio': () => <FracoesHub inicial="magnesio" />,
+  'funcao-renal-esperada-p-idade': () => <FuncaoRenalEsperada />,
 };

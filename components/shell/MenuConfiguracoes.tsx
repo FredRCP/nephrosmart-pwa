@@ -9,6 +9,7 @@ import Icone from '@/components/ui/Icone';
 // Mesmos itens do menu da engrenagem do site. "Login" entra quando o login for migrado.
 export const ITENS_MENU = [
   { href: '/contato', rotulo: 'Contato', emoji: '✉️' },
+  { href: '/sobre', rotulo: 'Sobre', emoji: 'ℹ️' },
   { href: '/termodeuso', rotulo: 'Termos de Uso', emoji: '📄' },
   { href: '/privacidade', rotulo: 'Política de Privacidade', emoji: '🔒' },
   { href: '/excluir-conta', rotulo: 'Excluir Conta', emoji: '🗑️' },

@@ -23,6 +23,30 @@ vi.mock('next/link', () => ({
 beforeEach(() => { window.localStorage.clear(); estado.caminho = '/'; delete document.documentElement.dataset.theme; });
 afterEach(cleanup);
 
+describe('iPhone e desktop: barras e margens', () => {
+  it('faixa inferior (sob o indicador de início) existe, só no celular, na cor final do fundo', () => {
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    const faixa = screen.getByTestId('faixa-inferior');
+    expect(faixa.className).toContain('h-[env(safe-area-inset-bottom)]');
+    expect(faixa.className).toContain('md:hidden');
+    expect(faixa.getAttribute('style')).toContain('background-color');
+  });
+  it('menu azul ocupa a largura toda (título à esquerda, navegação à direita), sem contêiner centralizado', () => {
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    const nav = screen.getByRole('navigation', { name: 'Principal' });
+    const linha = nav.firstElementChild as HTMLElement;
+    expect(linha.className).toContain('w-full');
+    expect(linha.className).toContain('justify-between');
+    expect(linha.className).not.toContain('max-w');
+  });
+  it('na Home, a saudação sai do contêiner central e vai para a esquerda no desktop', () => {
+    renderComTema(<Home />);
+    const saud = screen.getByTestId('saudacao').parentElement!.parentElement!;
+    expect(saud.className).toContain('md:fixed');
+    expect(saud.className).toContain('md:left-8');
+  });
+});
+
 describe('Menu azul no topo (tablet/desktop)', () => {
   it('tem os 4 itens do site e marca o ativo', () => {
     estado.caminho = '/ferramentas';
@@ -49,7 +73,7 @@ describe('Menu azul no topo (tablet/desktop)', () => {
     await u.click(screen.getByRole('button', { name: 'Configurações' }));
     const menu = screen.getByRole('menu');
     expect(within(menu).getAllByRole('menuitem').map((i) => i.textContent)).toEqual(
-      ['🌙Tema Escuro', '✉️Contato', '📄Termos de Uso', '🔒Política de Privacidade', '🗑️Excluir Conta'],
+      ['🌙Tema Escuro', '✉️Contato', 'ℹ️Sobre', '📄Termos de Uso', '🔒Política de Privacidade', '🗑️Excluir Conta'],
     );
     expect(within(menu).getByRole('menuitem', { name: /Política de Privacidade/ }).getAttribute('href')).toBe('/privacidade');
     expect(within(menu).getByRole('menuitem', { name: /Excluir Conta/ }).getAttribute('href')).toBe('/excluir-conta');

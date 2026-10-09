@@ -15,7 +15,7 @@ export const NIVEL: Record<string, Nivel> = {
   // Eletrólitos
   'correcao-do-calcio-ca2': 'nucleo', 'correcao-do-magnesio-mg2': 'nucleo', 'correcao-de-hipernatremia-na': 'nucleo', 'correcao-de-hiponatremia-na': 'nucleo',
   'f-e-de-acido-urico': 'nucleo', 'fracao-de-excrecao-de-calcio': 'nucleo', 'fracao-de-excrecao-de-fosforo': 'nucleo', 'fracao-de-excrecao-de-magnesio': 'nucleo',
-  'fracao-de-excrecao-de-potassio': 'nucleo', 'fracao-de-excrecao-de-sodio': 'nucleo', 'fracao-de-excrecao-de-ureia': 'nucleo', 'gradiente-transtubular-de-k': 'nucleo',
+  'fracao-de-excrecao-de-potassio': 'nucleo', 'fracao-de-excrecao-de-sodio': 'nucleo', 'fracao-de-excrecao-de-ureia': 'nucleo', 'gradiente-transtubular-de-k': 'fora',
   'hipercalcemia-calcio': 'nucleo', 'hipercalemia-potassio': 'nucleo', 'hiperfosfatemia-fosforo': 'nucleo', 'hipermagnesemia-magnesio': 'nucleo',
   'hipernatremia-sodio': 'nucleo', 'hipocalcemia-calcio': 'nucleo', 'hipocalemia-potassio': 'nucleo', 'hipofosfatemia-fosforo': 'nucleo',
   'hipomagnesemia-magnesio': 'nucleo', 'hiponatremia-sodio': 'nucleo', 'hiponatremia-fluxograma-na': 'nucleo',
@@ -34,13 +34,9 @@ export const NIVEL: Record<string, Nivel> = {
 
 /** Ordem sugerida de migração (as já migradas ficam de fora). Ondas curtas, com revisão clínica entre elas. */
 export const ONDAS: { titulo: string; slugs: string[] }[] = [
-  { titulo: 'Onda 2 — LRA e frações de excreção', slugs: [
-    'injuria-renal-aguda-ira', 'fracao-de-excrecao-de-sodio', 'fracao-de-excrecao-de-ureia', 'fracao-de-excrecao-de-potassio', 'gradiente-transtubular-de-k',
-    'funcao-renal-esperada-p-idade' ] },
   { titulo: 'Onda 3 — potássio, cálcio, magnésio e fósforo', slugs: [
     'hipocalemia-potassio', 'hipocalcemia-calcio', 'hipercalcemia-calcio', 'correcao-do-calcio-ca2', 'hipomagnesemia-magnesio', 'hipermagnesemia-magnesio',
-    'correcao-do-magnesio-mg2', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', 'fracao-de-excrecao-de-calcio', 'fracao-de-excrecao-de-fosforo',
-    'fracao-de-excrecao-de-magnesio', 'f-e-de-acido-urico' ] },
+    'correcao-do-magnesio-mg2', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', ] },
   { titulo: 'Onda 4 — hemodiálise, anemia e DMO', slugs: [
     'kt-v-hemodialise', 'heparina-na-hemodialise', 'intoxicacoes-exogenas', 'reposicao-de-ferro', 'eritropoetina', 'paricalcitol' ] },
   { titulo: 'Onda 5 — Ajuste de Dose (premium; depende das suas respostas em DIVERGENCIAS.md)', slugs: ['ajuste-de-dose'] },

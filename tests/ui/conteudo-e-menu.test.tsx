@@ -49,8 +49,10 @@ describe('Menu de ferramentas', () => {
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
       'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault',
-      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Distúrbios Ácido-Base', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
-      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Osmolaridade Sérica',
+      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Distúrbios Ácido-Base', 'F.E. de Ácido Úrico', 'Fração de Excreção de Cálcio', 'Fração de Excreção de Fósforo',
+      'Fração de Excreção de Magnésio', 'Fração de Excreção de Potássio', 'Fração de Excreção de Sódio', 'Fração de Excreção de Uréia',
+      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
+      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Osmolaridade Sérica',
       'Reposição de Bicarbonato',
     ]);
   });
@@ -58,7 +60,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.type(screen.getByLabelText('Buscar ferramenta'), 'potassio');
-    expect(screen.getAllByRole('link').length).toBe(1);
+    expect(screen.getAllByRole('link').length).toBe(2); // Hipercalemia (Potássio) e Fração de Excreção de Potássio
     await u.clear(screen.getByLabelText('Buscar ferramenta'));
     await u.type(screen.getByLabelText('Buscar ferramenta'), 'zzz');
     expect(screen.getByText('Nenhum resultado encontrado.')).toBeTruthy();
@@ -67,7 +69,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
-    expect(screen.getAllByRole('link').length).toBe(6);
+    expect(screen.getAllByRole('link').length).toBe(13);
     await u.click(screen.getByRole('tab', { name: 'Hemodiálise' }));
     expect(screen.getByText('Nenhuma ferramenta desta categoria foi migrada ainda.')).toBeTruthy();
   });
