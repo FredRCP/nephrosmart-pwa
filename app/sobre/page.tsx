@@ -29,7 +29,7 @@ export default function SobrePage() {
 
       <section className={cartao} style={estilo}>
         <h2 className="mb-1 text-base font-semibold" style={{ color: 'var(--text)' }}>Desenvolvido por</h2>
-        <p className="text-base leading-6">Desenvolvido e operado por Frederico Rodrigues da Cunha Pereira<br />RCP Creative · Desenvolvedor independente</p>
+        <p className="text-base leading-6">RCP Creative · Desenvolvedor independente</p>
       </section>
 
       <section className={cartao} style={estilo}>
