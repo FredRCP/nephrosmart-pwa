@@ -31,11 +31,6 @@ describe('iPhone e desktop: barras e margens', () => {
     expect(faixa.className).toContain('md:hidden');
     expect(faixa.getAttribute('style')).toContain('background-color');
   });
-  it('menu azul mostra o ícone do rim ao lado do título', () => {
-    renderComTema(<AppShell><p>x</p></AppShell>);
-    const nav = screen.getByRole('navigation', { name: 'Principal' });
-    expect(nav.querySelector('img[src="/icons/icon-192.png"]')).toBeTruthy();
-  });
   it('menu azul ocupa a largura toda (título à esquerda, navegação à direita), sem contêiner centralizado', () => {
     renderComTema(<AppShell><p>x</p></AppShell>);
     const nav = screen.getByRole('navigation', { name: 'Principal' });

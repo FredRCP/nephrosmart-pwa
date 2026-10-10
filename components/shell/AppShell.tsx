@@ -59,10 +59,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       {/* Tablet e desktop: menu azul no topo (igual ao do site) */}
       <nav aria-label="Principal" className="sticky top-0 z-40 hidden h-14 shadow-md md:block" style={{ backgroundColor: colors.button }}>
         <div className="flex h-full w-full items-center justify-between px-6">
-          <Link href="/" aria-label="NephroSmart — início" className="flex shrink-0 items-center gap-3 text-white">
-            <img src="/icons/icon-192.png" alt="" width={36} height={36} className="size-9 rounded-lg bg-white/95 p-0.5" />
-            <Logotipo />
-          </Link>
+          <Link href="/" aria-label="NephroSmart — início" className="shrink-0 text-white"><Logotipo /></Link>
           <div className="flex items-center gap-1">
             {NAV.map((n) => {
               const ativo = ativoEm(pathname, n.href);

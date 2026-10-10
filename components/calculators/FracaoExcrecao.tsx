@@ -40,7 +40,7 @@ export default function FracaoExcrecao({ tipo }: { tipo: TipoFE }) {
   const limpar = () => { setV(VAZIO); setErros([]); setResultado(''); setAvisos([]); };
 
   return (
-    <CalculadoraLayout titulo={cfg.nome} info={
+    <CalculadoraLayout titulo={cfg.nome} infoTitulo={`${cfg.sigla} — informações`} info={
       <>
         <TituloInfo>Fórmula</TituloInfo>
         <BlocoMono>{cfg.formula}</BlocoMono>

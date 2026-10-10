@@ -167,9 +167,27 @@ describe('Faixa de abas e ícone', () => {
     const c = screen.getByRole('tablist').className;
     expect(c).toContain('overflow-x-auto');
     expect(c).toContain('mask-image:linear-gradient');
-    expect(c).toContain('md:flex-wrap');
-    expect(c).toContain('md:overflow-visible');
+    expect(c).toContain('sm:flex-wrap');
+    expect(c).toContain('sm:overflow-visible');
     expect(screen.getAllByRole('tab')).toHaveLength(7);
+  });
+});
+
+describe('Informações de cada fração são diferentes', () => {
+  it('cada aba tem título e fórmula próprios no modal', async () => {
+    const u = userEvent.setup();
+    renderComTema(<FracoesHub inicial="sodio" />);
+    const esperado: Record<string, string[]> = {
+      FENa: ['FENa — informações', 'FENa (%) = (U_Na'], FEUr: ['FEUr — informações', 'FEUr (%) = (U_ureia'], FEK: ['FEK — informações', 'FEK (%) = (U_K'],
+      FECa: ['FECa — informações', 'FECa (%) = (U_Ca'], FEP: ['FEP — informações', 'FEP (%) = (U_P'], FEUA: ['FEUA — informações', 'FEUA (%) = (U_ácido úrico'],
+      FEMg: ['FEMg — informações', 'FEMg (%) = (U_Mg'],
+    };
+    for (const [aba, trechos] of Object.entries(esperado)) {
+      await u.click(screen.getByRole('tab', { name: aba }));
+      const d = document.querySelector('dialog')!.textContent!;
+      for (const t of trechos) expect(d, aba).toContain(t);
+      expect(document.querySelectorAll('dialog')).toHaveLength(1);
+    }
   });
 });
 

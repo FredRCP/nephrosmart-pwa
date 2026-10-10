@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation';
 import PortaoPremium from '@/components/ui/PortaoPremium';
-import { ferramentasDisponiveis, porSlug } from '@/lib/tools/catalogo';
+import { catalogo, estaDisponivel, porSlug } from '@/lib/tools/catalogo';
 import { implementacoes } from './implementacoes';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return ferramentasDisponiveis.map((f) => ({ slug: f.slug }));
+  // Todas as migradas, inclusive as que não aparecem no menu (as frações de excreção abrem o mesmo hub).
+  return catalogo.filter((f) => estaDisponivel(f.slug)).map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

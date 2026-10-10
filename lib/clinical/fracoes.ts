@@ -31,12 +31,12 @@ export interface ConfigFE {
   textoAlta: string;
 }
 
-const GERAL = 'FE (%) = (U_soluto × Cr_sérica) / (S_soluto × Cr_urinária) × 100';
+const formulaDe = (sigla: string, soluto: string, extra = '') => `${sigla} (%) = (U_${soluto} × Cr_sérica) / (S_${soluto} × Cr_urinária) × 100\n${extra}`;
 
 export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   sodio: {
     tipo: 'sodio', sigla: 'FENa', nome: 'Fração de excreção de sódio', unidade: 'mEq/L', fatorSoro: 1, cortes: [1, 2], chave: 'ultimaFENa',
-    formula: `${GERAL}\nSoluto = sódio (mesma unidade na urina e no soro; creatinina em mg/dL).`,
+    formula: formulaDe('FENa', 'Na', 'Soluto = sódio (mEq/L); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['< 1%: sugere azotemia pré-renal.', '1–2%: faixa indeterminada.', '> 2%: sugere lesão tubular (NTA).'],
     usos: ['Diferenciar IRA pré-renal de necrose tubular aguda em paciente com oligúria.'],
     limites: [
@@ -52,7 +52,7 @@ export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   },
   ureia: {
     tipo: 'ureia', sigla: 'FEUr', nome: 'Fração de excreção de ureia', unidade: 'mg/dL', fatorSoro: 1, cortes: [35, 50], chave: 'ultimaFEUr',
-    formula: `${GERAL}\nSoluto = ureia (mesma unidade na urina e no soro; creatinina em mg/dL).`,
+    formula: formulaDe('FEUr', 'ureia', 'Soluto = ureia (mg/dL); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['< 35%: sugere azotemia pré-renal.', '35–50%: faixa indeterminada.', '> 50%: sugere lesão tubular (NTA).'],
     usos: ['Diferenciar pré-renal de NTA, sobretudo em paciente que usa diurético (a ureia é pouco afetada pelo diurético).'],
     limites: [
@@ -67,7 +67,7 @@ export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   },
   potassio: {
     tipo: 'potassio', sigla: 'FEK', nome: 'Fração de excreção de potássio', unidade: 'mEq/L', fatorSoro: 1, cortes: [6, 9.5], chave: 'ultimaFEK',
-    formula: `${GERAL}\nSoluto = potássio (mesma unidade na urina e no soro; creatinina em mg/dL).`,
+    formula: formulaDe('FEK', 'K', 'Soluto = potássio (mEq/L); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['Hipocalemia: < 6% sugere perda extrarrenal; > 9,5% sugere perda renal; entre 6 e 9,5% é zona cinzenta.', 'Hipercalemia: não há ponto de corte validado.'],
     usos: ['Investigar a causa da hipocalemia (renal × extrarrenal) e, com cautela, a hipercalemia.'],
     limites: [
@@ -82,7 +82,7 @@ export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   },
   calcio: {
     tipo: 'calcio', sigla: 'FECa', nome: 'Fração de excreção de cálcio', unidade: 'mg/dL', fatorSoro: 1, cortes: [1, 2], chave: 'ultimaFECa',
-    formula: `${GERAL}\nSoluto = cálcio total (mesma unidade na urina e no soro; creatinina em mg/dL).\nFECa < 1% equivale a depuração Ca/Cr < 0,01.`,
+    formula: formulaDe('FECa', 'Ca', 'Soluto = cálcio total (mg/dL); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['< 1%: baixa (hipocalciúria).', '1–2%: faixa usual / intermediária.', '> 2%: elevada (hipercalciúria).'],
     usos: ['Hipercalcemia PTH-dependente: FECa < 1% sugere hipercalcemia hipocalciúrica familiar (FHH).', 'Avaliar hipercalciúria e uso de diuréticos.'],
     limites: [
@@ -97,7 +97,7 @@ export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   },
   fosforo: {
     tipo: 'fosforo', sigla: 'FEP', nome: 'Fração de excreção de fósforo', unidade: 'mg/dL', fatorSoro: 1, cortes: [5, 20], chave: 'ultimaFEP',
-    formula: `${GERAL}\nSoluto = fósforo (mesma unidade na urina e no soro; creatinina em mg/dL).`,
+    formula: formulaDe('FEP', 'P', 'Soluto = fósforo (mg/dL); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['< 5%: baixa.', '5–20%: faixa usual.', '> 20%: elevada.', 'Na hipofosfatemia, FEP > 5% (alguns serviços usam > 10%) sugere perda renal.'],
     usos: ['Hipofosfatemia: separar perda renal de causa extrarrenal.', 'Hiperfosfatemia/DRC: avaliar a excreção residual.'],
     limites: [
@@ -112,7 +112,7 @@ export const CONFIG_FE: Record<TipoFE, ConfigFE> = {
   },
   'acido-urico': {
     tipo: 'acido-urico', sigla: 'FEUA', nome: 'Fração de excreção de ácido úrico', unidade: 'mg/dL', fatorSoro: 1, cortes: [5, 10], chave: 'ultimaFEUA',
-    formula: `${GERAL}\nSoluto = ácido úrico (mesma unidade na urina e no soro; creatinina em mg/dL).`,
+    formula: formulaDe('FEUA', 'ácido úrico', 'Soluto = ácido úrico (mg/dL); mesma unidade na urina e no sangue; creatinina em mg/dL.'),
     referenciaTexto: ['< 5%: baixa.', '5–10%: faixa usual (cerca de 10% em euvolêmicos).', '> 10%: elevada.', 'Em hiponatremia: > 12% favorece SIADH; < 8% favorece depleção de volume.'],
     usos: ['Hiponatremia: ajuda a separar SIADH de hipovolemia, inclusive com diurético.', 'Avaliar a hiperuricemia (sub-excretora × super-produtora).'],
     limites: [
