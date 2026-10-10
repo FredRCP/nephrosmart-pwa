@@ -9,15 +9,15 @@ describe('catálogo de ferramentas', () => {
   it('toda ferramenta disponível existe no catálogo', () => {
     for (const s of SLUGS_DISPONIVEIS) expect(catalogo.some((f) => f.slug === s), s).toBe(true);
   });
-  it('mesmo inventário do app original: 66 no menu + 2 ocultas', () => {
-    expect(catalogo.filter((f) => !f.oculta).length).toBe(66);
+  it('mesmo inventário do app original: 70 no menu + 2 ocultas', () => {
+    expect(catalogo.filter((f) => !f.oculta).length).toBe(70);
     expect(catalogo.filter((f) => f.oculta).length).toBe(2);
   });
   it('busca sem acento e filtro por categoria', () => {
     const todas = catalogo.filter((f) => !f.oculta);
     expect(filtrarFerramentas(todas, 'todos', 'hiponatremia').length).toBeGreaterThanOrEqual(2);
     expect(filtrarFerramentas(todas, 'todos', 'HIPERCALEMIA').some((f) => f.slug === 'hipercalemia-potassio')).toBe(true);
-    expect(filtrarFerramentas(todas, 'hemodialise', '').every((f) => f.categorias.includes('hemodialise'))).toBe(true);
+    expect(filtrarFerramentas(todas, 'dialise', '').every((f) => f.categorias.includes('dialise'))).toBe(true);
   });
   it('as migradas aparecem no menu', () => {
     const esperado = SLUGS_DISPONIVEIS.filter((s) => !SLUGS_FRACOES.includes(s) || s === SLUG_HUB_FRACOES);

@@ -1,4 +1,4 @@
-export type CategoriaId = 'drc' | 'eletrolitos' | 'hemodialise' | 'emergencia' | 'diversos';
+export type CategoriaId = 'drc' | 'eletrolitos' | 'acido-base' | 'ira-emergencia' | 'dialise' | 'outros';
 export type FiltroId = 'todos' | CategoriaId;
 
 export type TipoFerramenta = 'calculadora' | 'calculadora-dados' | 'conteudo' | 'escore' | 'fluxograma' | 'consulta';

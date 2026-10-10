@@ -12,6 +12,10 @@ import IraHub from '@/components/hubs/IraHub';
 import FracoesHub from '@/components/hubs/FracoesHub';
 import FuncaoRenalEsperada from '@/components/calculators/FuncaoRenalEsperada';
 import OsmolaridadeCalculator from '@/components/calculators/OsmolaridadeCalculator';
+import ConversorUnidades from '@/components/calculators/ConversorUnidades';
+import Clearance24h from '@/components/calculators/Clearance24h';
+import EstadiamentoDrc from '@/components/calculators/EstadiamentoDrc';
+import Diureticos from '@/components/calculators/Diureticos';
 
 // slug do catálogo → tela. Ao migrar uma ferramenta, registre aqui E em lib/tools/disponiveis.ts.
 export const implementacoes: Record<string, () => ReactNode> = {
@@ -43,4 +47,9 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'f-e-de-acido-urico': () => <FracoesHub inicial="acido-urico" />,
   'fracao-de-excrecao-de-magnesio': () => <FracoesHub inicial="magnesio" />,
   'funcao-renal-esperada-p-idade': () => <FuncaoRenalEsperada />,
+  // Onda 7 — ferramentas novas
+  'conversor-de-unidades-laboratoriais': () => <ConversorUnidades />,
+  'depuracao-de-creatinina-24h': () => <Clearance24h />,
+  'estadiamento-da-drc-kdigo': () => <EstadiamentoDrc />,
+  'equivalencia-de-diureticos': () => <Diureticos />,
 };

@@ -48,8 +48,8 @@ describe('Menu de ferramentas', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
-      'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault',
-      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Distúrbios Ácido-Base', 'Frações de Excreção',
+      'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Unidades Laboratoriais',
+      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Frações de Excreção',
       'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
       'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Osmolaridade Sérica',
       'Reposição de Bicarbonato',
@@ -69,16 +69,22 @@ describe('Menu de ferramentas', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
     expect(screen.getAllByRole('link').length).toBe(7);
-    await u.click(screen.getByRole('tab', { name: 'Hemodiálise' }));
+    await u.click(screen.getByRole('tab', { name: 'Diálise' }));
     expect(screen.getByText('Nenhuma ferramenta desta categoria foi migrada ainda.')).toBeTruthy();
   });
-  it('IMC aparece em DRC e em Diversos (uma ferramenta, duas categorias)', async () => {
+  it('filtros novos: Ácido-base (5), IRA e emergência (IRA) e Outros (IMC); a ferramenta some dos filtros que não são dela', async () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
+    expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['Todos', 'Eletrólitos', 'Ácido-base', 'IRA e emergência', 'Diálise', 'DRC', 'Outros']);
+    await u.click(screen.getByRole('tab', { name: 'Ácido-base' }));
+    expect(screen.getAllByRole('link')).toHaveLength(5);
+    await u.click(screen.getByRole('tab', { name: 'IRA e emergência' }));
+    expect(screen.getByText('Injúria Renal Aguda (IRA)')).toBeTruthy();
+    await u.click(screen.getByRole('tab', { name: 'Outros' }));
+    expect(screen.getByText('IMC')).toBeTruthy();
     await u.click(screen.getByRole('tab', { name: 'DRC' }));
-    expect(screen.getByText('IMC')).toBeTruthy();
-    await u.click(screen.getByRole('tab', { name: 'Diversos' }));
-    expect(screen.getByText('IMC')).toBeTruthy();
+    expect(screen.queryByText('IMC')).toBeNull();
+    expect(screen.getByText('CKD-EPI 2021')).toBeTruthy();
   });
   it('favorito sobe para "Favoritos" e persiste', async () => {
     const u = userEvent.setup();

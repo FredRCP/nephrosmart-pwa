@@ -79,8 +79,7 @@
     "titulo": "Conversor entre Corticoides",
     "descricao": "Equivalências entre prednisona, hidrocortisona, dexametasona, etc.",
     "categorias": [
-      "drc",
-      "diversos"
+      "outros"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -112,8 +111,7 @@
     "titulo": "Distúrbios Ácido-Base",
     "descricao": "Fórmulas para calcular pCO2 e BIC esperados.",
     "categorias": [
-      "drc",
-      "emergencia"
+      "acido-base"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -144,8 +142,7 @@
     "titulo": "Eritropoetina",
     "descricao": "Calcula a dose inicial de eritropoetina/outros agentes para anemia em DRC.",
     "categorias": [
-      "drc",
-      "hemodialise"
+      "drc"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -191,8 +188,7 @@
     "titulo": "IMC",
     "descricao": "Calcula o Índice de Massa Corporal.",
     "categorias": [
-      "drc",
-      "diversos"
+      "outros"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -223,8 +219,7 @@
     "titulo": "Injúria Renal Aguda (IRA)",
     "descricao": "Orientações relacionadas ao paciente com lesão renal aguda.",
     "categorias": [
-      "drc",
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -255,8 +250,7 @@
     "titulo": "Paricalcitol",
     "descricao": "Orientações para uso do paricalcitol no DRC com HPTS.",
     "categorias": [
-      "drc",
-      "hemodialise"
+      "drc"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -273,7 +267,7 @@
     "descricao": "Escore utilizado para verificar prognóstico do paciente dialítico.",
     "categorias": [
       "drc",
-      "hemodialise"
+      "dialise"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -289,8 +283,7 @@
     "titulo": "Reposição de Bicarbonato",
     "descricao": "Recomendações para reposição de bicarbonato na acidose metabólica.",
     "categorias": [
-      "drc",
-      "emergencia"
+      "acido-base"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -306,8 +299,7 @@
     "titulo": "Reposição de Ferro",
     "descricao": "Recomendações para reposição de ferro no paciente DRC.",
     "categorias": [
-      "drc",
-      "hemodialise"
+      "drc"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -353,8 +345,7 @@
     "titulo": "Vacinas - DRC",
     "descricao": "Orientações sobre vacinação no paciente com DRC.",
     "categorias": [
-      "drc",
-      "hemodialise"
+      "drc"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -715,7 +706,7 @@
     "titulo": "Escore Brescia-Cimino (DOQI)",
     "descricao": "Escore utilizado para avaliar a maturação da Fístula Arteriovenosa (FAV).",
     "categorias": [
-      "hemodialise"
+      "dialise"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -730,7 +721,7 @@
     "titulo": "Heparina na Hemodiálise",
     "descricao": "Calcula a dosagem de heparina utilizada na sessão de hemodiálise.",
     "categorias": [
-      "hemodialise"
+      "dialise"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -745,8 +736,8 @@
     "titulo": "Intoxicações exógenas",
     "descricao": "Orientações sobre intoxicações exógenas e indicação de terapias renais.",
     "categorias": [
-      "hemodialise",
-      "emergencia"
+      "ira-emergencia",
+      "dialise"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -762,7 +753,7 @@
     "titulo": "Kt/V (Hemodiálise)",
     "descricao": "Calcula o KtV do paciente em hemodiálise.",
     "categorias": [
-      "hemodialise"
+      "dialise"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -777,7 +768,7 @@
     "titulo": "Ânion Gap",
     "descricao": "Calcula ânion gap; e também corrige para albumina sérica.",
     "categorias": [
-      "emergencia"
+      "acido-base"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -792,7 +783,7 @@
     "titulo": "Conversor de Dose",
     "descricao": "Converte mL/h para mcg/kg/min e vice-versa (ex.: dopamina, noradrenalina).",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",
@@ -807,7 +798,7 @@
     "titulo": "Drogas e Infusões",
     "descricao": "Guia de diluições padrão de drogas vasoativas, sedoanalgésicos e outros (ex.: noradrenalina, propofol).",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "conteudo",
     "sensibilidade": "alta",
@@ -822,7 +813,7 @@
     "titulo": "Escala de AVC NIHSS",
     "descricao": "Escala neurológica padronizada para avaliação de AVC",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -837,7 +828,7 @@
     "titulo": "Gasometria Arterial",
     "descricao": "Calculadora para auxílio na interpretação de gasometrias.",
     "categorias": [
-      "emergencia"
+      "acido-base"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -852,7 +843,7 @@
     "titulo": "Osmolaridade Sérica",
     "descricao": "Calcula a osmolaridade sérica.",
     "categorias": [
-      "emergencia"
+      "acido-base"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -867,7 +858,7 @@
     "titulo": "Sequência Rápida de Intubação",
     "descricao": "Doses recomendadas de drogas utilizadas na sequência rápida de intubação.",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "conteudo",
     "sensibilidade": "alta",
@@ -882,7 +873,7 @@
     "titulo": "qSOFA",
     "descricao": "Triagem rápida para paciente com suspeita de sepse fora da UTI.",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -897,7 +888,7 @@
     "titulo": "SOFA",
     "descricao": "Escore que avalia disfunção orgânica em paciente crítico.",
     "categorias": [
-      "emergencia"
+      "ira-emergencia"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -912,7 +903,7 @@
     "titulo": "Água Corporal Total",
     "descricao": "Estima a água corporal total (Fórmula de Watson). Útil na reanimação.",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "calculadora",
     "sensibilidade": "normal",
@@ -927,7 +918,7 @@
     "titulo": "CID-10",
     "descricao": "Consulta códigos da CID-10.",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "consulta",
     "sensibilidade": "normal",
@@ -942,7 +933,7 @@
     "titulo": "Classificação de Fraturas",
     "descricao": "Classificação de Fraturas.",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -958,7 +949,7 @@
     "titulo": "Escala de Coma de Glasgow",
     "descricao": "Fórmula para Escala de Coma de Glasgow.",
     "categorias": [
-      "diversos"
+      "ira-emergencia"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -973,7 +964,7 @@
     "titulo": "Escore de Tromboprofilaxia",
     "descricao": "Orienta tromboprofilaxia em pacientes internados (Padua para clínicos, Caprini para cirúrgicos).",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -988,7 +979,7 @@
     "titulo": "Escore de Wells",
     "descricao": "Escore utilizado para calcular a probabilidade de TVP e TEP.",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -1003,7 +994,7 @@
     "titulo": "KDPI & EPTS",
     "descricao": "Transplante renal - Calculadoras oficiais OPTN para qualidade do doador (KDPI) e sobrevida do receptor (EPTS).",
     "categorias": [
-      "diversos"
+      "drc"
     ],
     "tipo": "escore",
     "sensibilidade": "normal",
@@ -1018,7 +1009,7 @@
     "titulo": "Nefrolitíase",
     "descricao": "Orientações em paciente com nefrolitíase.",
     "categorias": [
-      "diversos"
+      "drc"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -1033,7 +1024,7 @@
     "titulo": "Vacinas - Adultos",
     "descricao": "Orientações sobre vacinação no paciente adulto.",
     "categorias": [
-      "diversos"
+      "outros"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -1042,5 +1033,59 @@
     "idsLegados": [
       "62"
     ]
+  },
+  {
+    "slug": "conversor-de-unidades-laboratoriais",
+    "titulo": "Conversor de Unidades Laboratoriais",
+    "descricao": "Converte creatinina, ureia/BUN, cálcio, magnésio, fósforo, glicose, ácido úrico, albumina, hemoglobina, PTH e vitamina D entre unidades.",
+    "categorias": [
+      "drc",
+      "outros"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "novo",
+    "idsLegados": []
+  },
+  {
+    "slug": "depuracao-de-creatinina-24h",
+    "titulo": "Depuração de Creatinina (24 h)",
+    "descricao": "Clearance de creatinina em urina de 24 h, com correção para 1,73 m² e avaliação da coleta.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "novo",
+    "idsLegados": []
+  },
+  {
+    "slug": "estadiamento-da-drc-kdigo",
+    "titulo": "Estadiamento da DRC (KDIGO)",
+    "descricao": "Classifica a DRC por TFG (G) e albuminúria (A), com risco e frequência de monitorização.",
+    "categorias": [
+      "drc"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "normal",
+    "prioridade": "P2",
+    "rotaLegada": "novo",
+    "idsLegados": []
+  },
+  {
+    "slug": "equivalencia-de-diureticos",
+    "titulo": "Equivalência de Diuréticos",
+    "descricao": "Converte doses entre diuréticos de alça e entre tiazídicos.",
+    "categorias": [
+      "drc",
+      "ira-emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "novo",
+    "idsLegados": []
   }
 ]

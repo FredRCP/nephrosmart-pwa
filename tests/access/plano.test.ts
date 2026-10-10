@@ -28,7 +28,7 @@ describe('plano efetivo (mesma regra do app antigo)', () => {
 
 describe('canAccess (bloqueio ligado)', () => {
   it('a lista de ferramentas gratuitas é exatamente a combinada', () => {
-    expect([...FERRAMENTAS_GRATUITAS].sort()).toEqual(['ckd-epi-2021', 'clearance-de-creatinina-ped', 'cockcroft-gault', 'hipercalemia-potassio', 'imc']);
+    expect([...FERRAMENTAS_GRATUITAS].sort()).toEqual(['ckd-epi-2021', 'clearance-de-creatinina-ped', 'cockcroft-gault', 'conversor-de-unidades-laboratoriais', 'hipercalemia-potassio', 'imc']);
   });
   it('toda ferramenta gratuita existe no catálogo', () => {
     for (const slug of FERRAMENTAS_GRATUITAS) expect(porSlug(slug), slug).toBeDefined();

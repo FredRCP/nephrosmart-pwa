@@ -9,6 +9,7 @@ export const NIVEL: Record<string, Nivel> = {
   // Função renal e dose
   'ajuste-de-dose': 'nucleo', 'ckd-epi-2021': 'nucleo', 'ckd-epi-creat-cistatina-c': 'nucleo', 'clearance-de-creatinina-ped': 'nucleo',
   'cockcroft-gault': 'nucleo', 'funcao-renal-esperada-p-idade': 'nucleo', 'injuria-renal-aguda-ira': 'nucleo',
+  'conversor-de-unidades-laboratoriais': 'nucleo', 'depuracao-de-creatinina-24h': 'nucleo', 'estadiamento-da-drc-kdigo': 'nucleo', 'equivalencia-de-diureticos': 'nucleo',
   // Ácido-base
   'disturbios-acido-base': 'nucleo', 'anion-gap': 'nucleo', 'gasometria-arterial': 'nucleo', 'osmolaridade-serica': 'nucleo',
   'reposicao-de-bicarbonato': 'nucleo',
