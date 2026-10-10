@@ -52,13 +52,22 @@ export default function Home() {
     // Roda uma vez: depender de `fase` cancelava o segundo timer quando a fase mudava para "saindo" (tela presa no título).
   }, []);
 
-  // Som de abertura quando o logo termina de entrar (navegadores podem bloquear: nesse caso fica em silêncio)
+  // Som de abertura. Navegadores (principalmente iPhone) só liberam áudio depois de um toque do usuário:
+  // tenta tocar sozinho; se for bloqueado, toca no primeiro toque/tecla da sessão.
   useEffect(() => {
     if (!animar) return;
-    const t = setTimeout(() => {
-      try { void new Audio('/sounds/start.mp3').play().catch(() => {}); } catch { /* sem áudio */ }
-    }, 1000);
-    return () => clearTimeout(t);
+    let tocou = false;
+    const fim = () => { document.removeEventListener('pointerdown', gesto); document.removeEventListener('keydown', gesto); };
+    const tocar = () => {
+      if (tocou) return Promise.resolve(false);
+      try {
+        const a = new Audio('/sounds/start.mp3');
+        return a.play().then(() => { tocou = true; fim(); return true; }, () => false);
+      } catch { return Promise.resolve(false); }
+    };
+    function gesto() { void tocar(); }
+    const t = setTimeout(() => { void tocar().then((ok) => { if (!ok && !tocou) { document.addEventListener('pointerdown', gesto); document.addEventListener('keydown', gesto); } }); }, 1000);
+    return () => { clearTimeout(t); fim(); };
   }, [animar]);
 
   const botao = 'block w-full rounded-xl px-6 py-3.5 text-center text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98]';

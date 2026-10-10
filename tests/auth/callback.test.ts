@@ -18,12 +18,12 @@ describe('retorno do link do e-mail', () => {
   });
   it('sem "next": vai para a conta', async () => {
     trocar.mockResolvedValue({ error: null });
-    expect(destino(await chamar('?code=abc'))).toBe('http://localhost:3000/conta');
+    expect(destino(await chamar('?code=abc'))).toBe('http://localhost:3000/');
   });
   it('NÃO redireciona para sites de fora, mesmo com código válido', async () => {
     trocar.mockResolvedValue({ error: null });
     for (const ruim of ['https://golpe.com', '//golpe.com', '/\\golpe.com']) {
-      expect(destino(await chamar(`?code=abc&next=${encodeURIComponent(ruim)}`)), ruim).toBe('http://localhost:3000/conta');
+      expect(destino(await chamar(`?code=abc&next=${encodeURIComponent(ruim)}`)), ruim).toBe('http://localhost:3000/');
     }
   });
   it('erro inesperado ao trocar o código: volta para Entrar, sem tela de erro', async () => {

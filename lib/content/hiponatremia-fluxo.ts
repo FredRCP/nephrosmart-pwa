@@ -117,10 +117,10 @@ const R: Record<string, ResultData> = {
     color: '#ff9800', icon: 'tint-slash',
     title: 'Perdas Extrarrenais',
     subtitle: 'Hiponatremia Hipotônica Hipovolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipovolemia', 'Nau: Baixo (<20 mEq/L) — rim retém Na ao máximo', 'Osm urinária: Alta (>400 mOsm/kg)', 'Ácido úrico sérico: Elevado (hemoconcentração)'],
-    diagnosis: 'Perda de sódio e água por via extrarrenal. O rim responde retendo Na ao máximo (Nau <20 mEq/L). ADH elevado por estímulo hemodinâmico. A Osm urinária é alta (>400 mOsm/kg). Ácido úrico sérico elevado (hemoconcentração).',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipovolemia', 'Nau: Baixo (<30 mEq/L) — rim retém Na', 'Osm urinária: Alta (>400 mOsm/kg)', 'Ácido úrico sérico: Elevado (hemoconcentração)'],
+    diagnosis: 'Perda de sódio e água por via extrarrenal. O rim responde retendo Na ao máximo (Nau <30 mEq/L). ADH elevado por estímulo hemodinâmico. A Osm urinária é alta (>400 mOsm/kg). Ácido úrico sérico elevado (hemoconcentração).',
     exams: [
-      'Nau <20 mEq/L (retenção renal máxima — confirma extrarrenal)',
+      'Nau <30 mEq/L (retenção renal de sódio — sugere perda extrarrenal; vale se não houver diurético)',
       'Osmolalidade urinária >400 (ADH ativo)',
       'K⁺ sérico (hipocalemia frequente — agrava hiponatremia)',
       'Gasometria: alcalose metabólica (vômitos) ou acidose (diarreia)',
@@ -148,10 +148,10 @@ const R: Record<string, ResultData> = {
     color: '#ff9800', icon: 'kidneys',
     title: 'Perdas Renais',
     subtitle: 'Hiponatremia Hipotônica Hipovolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipovolemia', 'Nau: Alto (>20 mEq/L) — rim perde Na ativamente', 'K⁺: ↓ em diuréticos; ↑ em insuf. adrenal primária', 'FE_urato: <12% após correção → diferencia de SIADH'],
-    diagnosis: 'Perda de Na pela urina apesar de depleção de volume. Nau >20 mEq/L. Tiazídicos são a causa mais comum — bloqueiam NaCl no túbulo distal e potencializam ação do ADH. FE_ureia e FE_urato ajudam a diferenciar de SIADH quando paciente em uso de diurético.',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipovolemia', 'Nau: Alto (>30 mEq/L) — rim perde Na ativamente', 'K⁺: ↓ em diuréticos; ↑ em insuf. adrenal primária', 'FE_urato: <12% após correção → diferencia de SIADH'],
+    diagnosis: 'Perda de Na pela urina apesar de depleção de volume. Nau >30 mEq/L. Tiazídicos são a causa mais comum — bloqueiam NaCl no túbulo distal e potencializam ação do ADH. FE_ureia e FE_urato ajudam a diferenciar de SIADH quando paciente em uso de diurético.',
     exams: [
-      'Nau >20 mEq/L (perda renal ativa)',
+      'Nau >30 mEq/L (perda renal ativa)',
       'K⁺ sérico: ↓ em diuréticos; ↑ em insuficiência adrenal primária',
       'Cortisol basal urgente (insuf. adrenal se K⁺ alto + hipovolemia)',
       'FE_urato: <12% antes e normaliza após correção → diurético; persiste baixo → SIADH',
@@ -162,7 +162,7 @@ const R: Record<string, ResultData> = {
     treatment: [
       'Suspender o diurético se for a causa.',
       'NaCl 0,9% IV para restaurar volemia.',
-      'K⁺ alto + Nau >20 + sem diurético → suspeita de Addison → hidrocortisona 100 mg IV urgente.',
+      'K⁺ alto + Nau >30 + sem diurético → suspeita de Addison → hidrocortisona 100 mg IV urgente.',
       'ATR tipo 1: citrato de potássio + alcalinização.',
       'Nefropatia perdedora de sal: reposição oral de NaCl + fludrocortisona.',
       'Monitorar Na⁺ a cada 4–6h. Meta 6–8 mEq/L em 24h (máx. 8 se alto risco de ODS; 10 nos demais).',
@@ -180,7 +180,7 @@ const R: Record<string, ResultData> = {
     color: '#795548', icon: 'shield-virus',
     title: 'Hipotireoidismo',
     subtitle: 'Hiponatremia Hipotônica Euvolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Euvolemia', 'TSH: Elevado (hipotireoidismo primário)', 'T4 livre: Reduzido', 'Nau: Variável (geralmente >20 mEq/L)'],
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Euvolemia', 'TSH: Elevado (hipotireoidismo primário)', 'T4 livre: Reduzido', 'Nau: Variável (geralmente >30 mEq/L)'],
     diagnosis: 'Hipotireoidismo causa redução do débito cardíaco e da TFG → estímulo não osmótico de ADH → retenção de água livre. Deve ser excluído ANTES de diagnosticar SIADH.',
     exams: [
       'TSH (elevado no hipotireoidismo primário)',
@@ -227,9 +227,9 @@ const R: Record<string, ResultData> = {
     title: 'SIADH',
     subtitle: 'Síndrome de Antidiurese Inapropriada',
     perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Euvolemia (normovolemia)', 'Nau: Elevado (>30 mEq/L)', 'Osm urinária: Inapropriadamente alta (>100, tipic. >500)', 'Ácido úrico sérico: <4 mg/dL', 'FE_ureia: <35%'],
-    diagnosis: 'ADH elevado inapropriadamente, sem estímulo osmótico ou hemodinâmico. Critérios clássicos (Schwartz-Bartter; Bartter–Schwartz): Na <135 + Osm sérica <275 + Osm urinária >100 (tipic. >500) + Nau >20–30 mEq/L + euvolemia clínica + TSH e cortisol normais. Ácido úrico <4 mg/dL e FE_ureia <35% reforçam o diagnóstico.',
+    diagnosis: 'ADH elevado inapropriadamente, sem estímulo osmótico ou hemodinâmico. Critérios clássicos (Schwartz-Bartter; Bartter–Schwartz): Na <135 + Osm sérica <275 + Osm urinária >100 (tipic. >500) + Nau >30 mEq/L + euvolemia clínica + TSH e cortisol normais. Ácido úrico <4 mg/dL e FE_ureia <35% reforçam o diagnóstico.',
     exams: [
-      'Osmolalidade urinária e Nau (OsmU >100; Nau >20–30)',
+      'Osmolalidade urinária e Nau (OsmU >100; Nau >30)',
       'Ácido úrico sérico (<4 mg/dL: sugestivo de SIADH)',
       'FE_ureia <35% e FE_urato <12% (pós-correção: confirma SIADH vs salt-wasting)',
       'RX tórax + TC tórax/abdome (neoplasia oculta, TB, pneumonia)',
@@ -252,7 +252,7 @@ const R: Record<string, ResultData> = {
       { group: '🫁 Pulmonar', items: ['Pneumonia bacteriana / viral', 'Tuberculose pulmonar', 'Ventilação com pressão positiva', 'DPOC descompensada'] },
       { group: '🧬 Neoplásica (ADH ectópico)', items: ['Ca. de pulmão (pequenas células — mais comum)', 'Ca. de pâncreas, duodeno', 'Timoma, linfomas', 'Ca. de bexiga / próstata'] },
       { group: '💊 Drogas (Shepshelovich, Br J Clin Pharmacol 2017)', items: ['SSRIs (fluoxetina, sertralina, escitalopram)', 'Carbamazepina / oxcarbazepina', 'NSAIDs (inibem prostaglandinas)', 'Tramadol, antipsicóticos', 'Ciclofosfamida IV, vincristina', 'MDMA/ecstasy (Atila et al. JAMA Netw Open 2024)', 'Amiodarona (casos reportados)'] },
-      { group: '⚠️ DD SIADH vs Cerebral Salt Wasting', items: ['Ambos: euvolêmico clinicamente, Nau >20, OsmU alta', 'SIADH: FE_urato <12% após correção do Na (persiste)', 'CSW: FE_urato normaliza após correção do Na', 'CSW: hipovolemia real difícil de distinguir clinicamente', 'CSW: responde a reposição de sal e volume (não restrição!)'] },
+      { group: '⚠️ DD SIADH vs Cerebral Salt Wasting', items: ['Ambos: euvolêmico clinicamente, Nau >30, OsmU alta', 'SIADH: FE_urato <12% após correção do Na (persiste)', 'CSW: FE_urato normaliza após correção do Na', 'CSW: hipovolemia real difícil de distinguir clinicamente', 'CSW: responde a reposição de sal e volume (não restrição!)'] },
     ],
   },
 
@@ -281,14 +281,14 @@ const R: Record<string, ResultData> = {
     color: '#4caf50', icon: 'heartbeat',
     title: 'Insuficiência Cardíaca',
     subtitle: 'Hiponatremia Hipotônica Hipervolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (sobrecarga)', 'Nau: Baixo (<20 mEq/L, sem diurético)', 'BNP/NT-proBNP: Elevado', 'POCUS: VCI fixa/dilatada + Linhas B pulmonares difusas'],
-    diagnosis: 'Baixo débito cardíaco → ativação de SRAA e ADH → retenção de água e sódio, com predomínio de retenção de água. Nau <20 mEq/L (sem diurético). BNP elevado.',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (sobrecarga)', 'Nau: Baixo (<30 mEq/L, sem diurético)', 'BNP/NT-proBNP: Elevado', 'POCUS: VCI fixa/dilatada + Linhas B pulmonares difusas'],
+    diagnosis: 'Baixo débito cardíaco → ativação de SRAA e ADH → retenção de água e sódio, com predomínio de retenção de água. Nau <30 mEq/L (sem diurético). BNP elevado.',
     exams: [
       'BNP ou NT-proBNP (elevado)',
       'ECO cardíaco (FE reduzida ou preservada)',
       'Raio-X de tórax (congestão)',
       'Eletrólitos, creatinina, ureia',
-      'Nau geralmente <20 mEq/L sem diurético',
+      'Nau geralmente <30 mEq/L sem diurético',
     ],
     treatment: [
       'Restrição hídrica 500–1000 mL/dia + restrição de sódio dietético.',
@@ -303,13 +303,13 @@ const R: Record<string, ResultData> = {
     color: '#8d6e63', icon: 'procedures',
     title: 'Cirrose Hepática',
     subtitle: 'Hiponatremia Hipotônica Hipervolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (ascite, edema)', 'Nau: Baixo (<20 mEq/L, sem diurético)', 'Albumina: Reduzida', 'TFG hepática: Alterada (TP/INR, bilirrubinas)'],
-    diagnosis: 'Vasodilatação esplâncnica → ↓ volume arterial efetivo → ativação de SRAA e ADH → retenção hídrica. Ascite + edema + varizes. Nau <20 mEq/L (sem diurético).',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (ascite, edema)', 'Nau: Baixo (<30 mEq/L, sem diurético)', 'Albumina: Reduzida', 'TFG hepática: Alterada (TP/INR, bilirrubinas)'],
+    diagnosis: 'Vasodilatação esplâncnica → ↓ volume arterial efetivo → ativação de SRAA e ADH → retenção hídrica. Ascite + edema + varizes. Nau <30 mEq/L (sem diurético).',
     exams: [
       'TGO, TGP, GGT, FA, bilirrubinas, albumina',
       'TP/INR (função hepática)',
       'US abdome (ascite, esplenomegalia)',
-      'Nau (geralmente <20 mEq/L)',
+      'Nau (geralmente <30 mEq/L)',
       'Osmolalidade urinária',
       'Endoscopia (varizes esofágicas)',
     ],
@@ -327,7 +327,7 @@ const R: Record<string, ResultData> = {
     color: '#607d8b', icon: 'tint',
     title: 'Síndrome Nefrótica / DRC',
     subtitle: 'Hiponatremia Hipotônica Hipervolêmica',
-    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (edema anasarca)', 'Nau: Baixo (<20 mEq/L)', 'Proteinúria 24h: >3,5 g/dia (nefrótica)', 'Albumina sérica: Muito reduzida (<2,5 g/dL)', 'Creatinina: Elevada (DRC)'],
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Hipervolemia (edema anasarca)', 'Nau: Baixo (<30 mEq/L)', 'Proteinúria 24h: >3,5 g/dia (nefrótica)', 'Albumina sérica: Muito reduzida (<2,5 g/dL)', 'Creatinina: Elevada (DRC)'],
     diagnosis: 'Proteinúria maciça (>3,5g/dia) → hipoalbuminemia → ↓ pressão oncótica → extravasamento para 3º espaço → ↓ volume efetivo → ADH elevado. DRC avançada também causa retenção de água.',
     exams: [
       'Proteinúria 24h ou relação Prot/Creat urinária',
@@ -344,12 +344,77 @@ const R: Record<string, ResultData> = {
       'DRC: diálise se necessário.',
     ],
   },
+
+  tiazidico: {
+    color: '#ff5722', icon: 'pills',
+    title: 'Hiponatremia por Tiazídico',
+    subtitle: 'Hiponatremia Hipotônica — euvolêmica ou com leve hipovolemia',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Euvolemia ou leve hipovolemia', 'Nau: Frequentemente >30 mEq/L (imita SIADH)', 'K⁺: Frequentemente baixo', 'Início: dias a semanas após começar ou aumentar o tiazídico', 'Mais comum em idosos, mulheres e baixo peso'],
+    diagnosis: 'Tiazídicos (hidroclorotiazida, clortalidona, indapamida) bloqueiam o NaCl no túbulo distal, prejudicam a diluição da urina e potencializam o efeito do ADH. Hipocalemia e ingestão de água contribuem. O quadro imita SIADH: o diagnóstico é confirmado quando o Na normaliza depois da suspensão do fármaco.',
+    exams: [
+      'Cronologia: início ou aumento da dose do tiazídico (inclui associações em comprimido único)',
+      'K⁺ e Mg²⁺ séricos',
+      'Osmolalidade sérica e urinária, Nau',
+      'Ácido úrico, FE_urato e FE_ureia podem ajudar a diferenciar de SIADH',
+      'TSH e cortisol se o quadro não for explicado só pelo fármaco',
+    ],
+    treatment: [
+      'Suspender o tiazídico e não reintroduzir (o risco de recorrência é alto).',
+      'Restrição hídrica enquanto o Na estiver baixo.',
+      'Repor K⁺ e Mg²⁺ se baixos (a reposição de K⁺ também eleva o Na).',
+      'NaCl 0,9% se houver sinais de hipovolemia.',
+      'Sintomas graves: NaCl 3% conforme a aba "Calcular correção".',
+      'Meta 6–8 mEq/L em 24h (máx. 8 se alto risco de ODS; 10 nos demais).',
+    ],
+    warning: 'Ao suspender o tiazídico o ADH pode cair e vir diurese aquosa: risco de correção rápida demais. Dosar o Na a cada 2–4 h nas primeiras 24 h e acompanhar a diurese.',
+    calcRoute: 'SodiumCorrectionCalculator',
+    calcLabel: '🧮 Calcular Correção de Na⁺',
+  },
+
+  baixa_solutos: {
+    color: '#009688', icon: 'water',
+    title: 'Baixa Ingestão de Solutos',
+    subtitle: 'Hiponatremia Hipotônica Euvolêmica ("potomania de cerveja", dieta de chá e torradas)',
+    perfil: ['Osm sérica: Baixa (<275 mOsm/kg)', 'Volume: Euvolemia (reavaliar: pode haver hipovolemia leve)', 'Osm urinária: Baixa a intermediária (tipicamente 100–300 mOsm/kg)', 'Nau: Baixo (<30 mEq/L)', 'Ureia sérica baixa; história de dieta pobre em proteína e sal, álcool ou chá'],
+    diagnosis: 'A capacidade de excretar água livre depende da quantidade de solutos (ureia e eletrólitos) que o rim precisa eliminar. Com ingestão muito baixa de solutos, mesmo uma urina diluída elimina pouca água, e a ingestão de líquidos acima disso dilui o sódio.',
+    exams: [
+      'História alimentar detalhada, consumo de álcool, volume de líquidos ingeridos',
+      'Ureia, creatinina, albumina (estado nutricional)',
+      'K⁺, Mg²⁺ e fosfato (desnutrição, risco de síndrome de realimentação)',
+      'Osmolalidade urinária e Nau',
+    ],
+    treatment: [
+      'Aumentar a ingestão de solutos (proteína e sal na dieta) e reduzir o líquido ingerido.',
+      'Repor K⁺, Mg²⁺ e fosfato; em etilistas, tiamina antes da glicose.',
+      'Sintomas graves: NaCl 3% conforme a aba "Calcular correção".',
+      'Meta 6–8 mEq/L em 24h (máx. 8: alcoolismo e desnutrição são fatores de alto risco de ODS).',
+    ],
+    warning: 'Ao restabelecer a ingestão de solutos vem diurese aquosa e o Na pode subir rápido demais. Dosar o Na a cada 4 h; se passar do limite, discutir reduzir o Na (água livre/DDAVP).',
+    calcRoute: 'SodiumCorrectionCalculator',
+    calcLabel: '🧮 Calcular Correção de Na⁺',
+  },
 };
 
 /* ================================================================
    FLUXO — NÓS
 ================================================================ */
 const NODES: FlowNode[] = [
+  // ---- PASSO 0: Gravidade dos sintomas ----
+  {
+    id: 'gravidade',
+    type: 'choice',
+    icon: 'user-injured', iconColor: '#d32f2f',
+    question: 'Quais os sintomas do paciente?',
+    subtitle: 'A gravidade define a urgência: com sintomas graves o tratamento não espera o diagnóstico',
+    choiceKey: 'gravidade',
+    choices: [
+      { label: 'Graves', sublabel: 'Convulsão, rebaixamento da consciência/coma, vômitos intensos, sinais de herniação', icon: 'exclamation-triangle', color: '#d32f2f', value: 'grave' },
+      { label: 'Moderados', sublabel: 'Confusão, desorientação, náusea sem vômitos, cefaleia, tontura, ataxia', icon: 'exclamation-triangle', color: '#ff9800', value: 'moderado' },
+      { label: 'Leves ou ausentes', sublabel: 'Assintomático ou queixas discretas (fadiga, irritabilidade)', icon: 'check-circle', color: '#4caf50', value: 'leve' },
+    ],
+    next_choice: () => 'na',
+  },
+
   // ---- PASSO 1: Sódio ----
   {
     id: 'na',
@@ -444,7 +509,7 @@ const NODES: FlowNode[] = [
     ],
     next_choice: (v) => {
       if (v === 'hipo') return 'nau_hipo';
-      if (v === 'normo') return 'tsh';
+      if (v === 'normo') return 'tiazidico';
       return 'causa_hiper';
     },
   },
@@ -473,8 +538,23 @@ const NODES: FlowNode[] = [
         return 'result_hipo_extrarenal'; // rota mais comum como padrão
       }
       const nau = parseFloat(v);
-      return nau < 20 ? 'result_hipo_extrarenal' : 'result_hipo_renal';
+      return nau < 30 ? 'result_hipo_extrarenal' : 'result_hipo_renal';
     },
+  },
+
+  // ---- EUVOLÊMICA: Tiazídico ----
+  {
+    id: 'tiazidico',
+    type: 'choice',
+    icon: 'pills', iconColor: '#ff5722',
+    question: 'O paciente usa tiazídico (hidroclorotiazida, clortalidona, indapamida)?',
+    subtitle: 'Tiazídicos causam hiponatremia que imita SIADH; incluem associações em comprimido único',
+    choiceKey: 'tiazidico',
+    choices: [
+      { label: 'Sim, usa tiazídico', sublabel: 'Início ou aumento de dose nas últimas semanas reforça a hipótese', icon: 'check-circle', color: '#ff5722', value: 'sim' },
+      { label: 'Não', icon: 'times-circle', color: '#4caf50', value: 'nao' },
+    ],
+    next_choice: (v) => v === 'sim' ? 'result_tiazidico' : 'tsh',
   },
 
   // ---- EUVOLÊMICA: TSH ----
@@ -531,7 +611,34 @@ const NODES: FlowNode[] = [
         return 'result_siadh';
       }
       const osmu = parseFloat(v);
-      return osmu < 100 ? 'result_polidipsia' : 'result_siadh';
+      return osmu < 100 ? 'result_polidipsia' : 'nau_eu';
+    },
+  },
+
+  // ---- EUVOLÊMICA: Nau (separa SIADH de baixa ingestão de solutos) ----
+  {
+    id: 'nau_eu',
+    type: 'input',
+    icon: 'vial', iconColor: '#2196F3',
+    question: 'Qual o sódio urinário (Nau)?',
+    subtitle: 'Nau ≥30 sugere SIADH; Nau baixo sugere baixa ingestão de solutos (ou hipovolemia não reconhecida)',
+    inputKey: 'nau_eu',
+    inputUnit: 'mEq/L',
+    inputPlaceholder: 'Ex: 45',
+    inputKeyboardType: 'decimal-pad',
+    validate: (v) => {
+      if (!v) return null; // permite pular
+      const n = parseFloat(v);
+      if (isNaN(n) || n < 0 || n > 300) return 'Valor fora do esperado';
+      return null;
+    },
+    next: (v, ctx) => {
+      if (!v) {
+        ctx.missingExamsWarnings = (ctx.missingExamsWarnings || '') +
+          '• Sódio urinário não realizado: SIADH e baixa ingestão de solutos não puderam ser diferenciados. Assumido SIADH. Solicitar exame e revisar a dieta.\n';
+        return 'result_siadh';
+      }
+      return parseFloat(v) >= 30 ? 'result_siadh' : 'result_baixa_solutos';
     },
   },
 
@@ -565,6 +672,8 @@ const NODES: FlowNode[] = [
   { id: 'result_insuf_adrenal', type: 'result', result: R.insuf_adrenal },
   { id: 'result_siadh', type: 'result', result: R.siadh },
   { id: 'result_polidipsia', type: 'result', result: R.polidipsia },
+  { id: 'result_tiazidico', type: 'result', result: R.tiazidico },
+  { id: 'result_baixa_solutos', type: 'result', result: R.baixa_solutos },
   { id: 'result_ic', type: 'result', result: R.hipervolemia_ic },
   { id: 'result_cirrose', type: 'result', result: R.hipervolemia_cirrose },
   { id: 'result_nefro', type: 'result', result: R.hipervolemia_nefrotico },

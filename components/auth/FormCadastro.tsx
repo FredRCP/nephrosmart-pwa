@@ -9,6 +9,7 @@ import { validarCadastro } from '@/lib/auth/validacao';
 import { createClient } from '@/lib/supabase/client';
 import { BotaoPrimario } from '@/components/archetypes/CalculadoraLayout';
 import Campo from '@/components/ui/Campo';
+import { registrarAceiteLocal } from '@/components/shell/AvisoTermos';
 import CartaoAuth, { MensagemErro, MensagemInfo } from './CartaoAuth';
 
 export default function FormCadastro() {
@@ -32,13 +33,14 @@ export default function FormCadastro() {
       email: email.trim(),
       password: senha,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/conta`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
         // o banco grava o aceite (com as versões vistas pelo usuário) assim que a conta é criada
         data: { nome: nome.trim(), versao_termos: VERSAO_TERMOS, versao_privacidade: VERSAO_PRIVACIDADE },
       },
     });
     setEnviando(false);
     if (error) { setErro(mensagemDeErro(error)); return; }
+    registrarAceiteLocal(); // a pessoa marcou o aceite no cadastro: não pedir de novo neste aparelho
     // Mesma resposta para e-mail novo ou já cadastrado: não revela quem tem conta.
     setEnviado(email.trim());
   }

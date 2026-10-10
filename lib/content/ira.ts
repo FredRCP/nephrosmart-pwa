@@ -157,6 +157,22 @@ const ira: ConteudoPagina = {
       ],
     },
   ],
+  guiaRapido: {
+    titulo: 'Guia rápido',
+    secoes: [
+      { titulo: 'Critérios KDIGO', cor: '#2196F3', destaque: true, linhas: [
+        'Creatinina: aumento ≥ 0,3 mg/dL em 48 h, ou ≥ 1,5× a basal em até 7 dias',
+        'Diurese: < 0,5 mL/kg/h por 6 h ou mais',
+        'Estágio 3: creatinina ≥ 3× a basal, diurese < 0,3 mL/kg/h por 24 h ou anúria por 12 h, ou início de diálise',
+      ] },
+      { titulo: 'Primeiros passos', cor: '#4caf50', linhas: [
+        'Procurar e tratar a causa (pré-renal, renal, pós-renal)',
+        'Suspender nefrotóxicos e ajustar doses de medicamentos',
+        'Avaliar volemia e evitar sobrecarga de volume',
+      ] },
+      { titulo: 'Ferramentas relacionadas', cor: '#9c27b0', linhas: ['Aba "Estadiar (KDIGO)" e Frações de Excreção (FENa, FEUr)'] },
+    ],
+  },
   referencias: 'KDIGO Clinical Practice Guideline for Acute Kidney Injury. Kidney Int Suppl 2012;2:1. • KDIGO 2026 AKI/AKD Guideline, rascunho para consulta pública (março de 2026). • Chawla LS et al. (ADQI 16). Nat Rev Nephrol 2017;13:241. STARRT-AKI Investigators. N Engl J Med 2020;383:240. • Gaudry S et al. (AKIKI 2). Lancet 2021;397:1293. • Brenner & Rector\'s The Kidney.',
 };
 export default ira;

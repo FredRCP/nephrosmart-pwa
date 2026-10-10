@@ -56,7 +56,7 @@ export default function BicarbonatoCalculator() {
   );
 
   return (
-    <CalculadoraLayout titulo="Reposição de Bicarbonato" info={
+    <CalculadoraLayout reforcado titulo="Reposição de Bicarbonato" info={
       <>
         <TituloInfo>Fórmulas (repõe 50% do déficit)</TituloInfo>
         <BlocoMono>{'Padrão: déficit = (HCO₃ desejado − atual) × peso × 0,4 (0,5 se grave)\nBase excess: déficit = |BE| × peso × 0,3 (0,5 se grave)\nEmpírica: 1, 1,5 ou 2 mEq/kg\nDose = 50% do déficit, em 3 tomadas a cada 8 h'}</BlocoMono>

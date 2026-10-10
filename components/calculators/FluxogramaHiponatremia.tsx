@@ -3,17 +3,23 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { MAPA_NOS, RESULTADOS, type ContextoFluxo } from '@/lib/content/hiponatremia-fluxo';
+import { MAPA_NOS, type ContextoFluxo } from '@/lib/content/hiponatremia-fluxo';
 import { estaDisponivel } from '@/lib/tools/catalogo';
 import { normalizarNumero } from '@/lib/clinical/numeros';
 import LegalNote from '@/components/ui/LegalNote';
 import Campo from '@/components/ui/Campo';
+import InfoDialog, { TituloInfo } from '@/components/ui/InfoDialog';
 import { BotaoPrimario, BotaoSecundario } from '@/components/archetypes/CalculadoraLayout';
 
 /** Fluxograma diagnóstico passo a passo (dados em lib/content/hiponatremia-fluxo.ts). */
-export default function FluxogramaHiponatremia() {
+const AVISO_GRAVIDADE: Record<string, string> = {
+  grave: 'SINTOMAS GRAVES: não espere o fim do fluxograma. NaCl 3% 100–150 mL IV em 10–20 min (até 2 repetições), meta inicial +4–6 mEq/L, monitorização intensiva; depois investigue a causa.',
+  moderado: 'SINTOMAS MODERADOS: avalie internação com monitorização do Na⁺; trate a causa e considere NaCl 3% conforme a evolução (veja a aba "Calcular correção").',
+};
+
+export default function FluxogramaHiponatremia({ irParaCorrecao }: { irParaCorrecao?: () => void }) {
   const { colors } = useTheme();
-  const [historico, setHistorico] = useState<string[]>(['na']);
+  const [historico, setHistorico] = useState<string[]>(['gravidade']);
   const [ctx, setCtx] = useState<ContextoFluxo>({});
   const [texto, setTexto] = useState('');
   const [escolha, setEscolha] = useState('');
@@ -21,7 +27,7 @@ export default function FluxogramaHiponatremia() {
 
   const id = historico[historico.length - 1];
   const no = MAPA_NOS[id];
-  const resultado = id.startsWith('result_') ? RESULTADOS[id.slice('result_'.length)] : undefined;
+  const resultado = no?.type === 'result' ? no.result : undefined; // o resultado vem do próprio nó (os ids dos nós nem sempre coincidem com as chaves de RESULTADOS)
 
   const ir = (proximo: string, novoCtx: ContextoFluxo) => {
     setCtx(novoCtx); setHistorico((h) => [...h, proximo]); setTexto(''); setEscolha(''); setErro('');
@@ -40,13 +46,16 @@ export default function FluxogramaHiponatremia() {
     }
   };
   const voltar = () => { setHistorico((h) => (h.length > 1 ? h.slice(0, -1) : h)); setErro(''); };
-  const reiniciar = () => { setHistorico(['na']); setCtx({}); setTexto(''); setEscolha(''); setErro(''); };
+  const reiniciar = () => { setHistorico(['gravidade']); setCtx({}); setTexto(''); setEscolha(''); setErro(''); };
   const link = resultado?.calcRoute === 'OsmolarityCalculator' && estaDisponivel('osmolaridade-serica') ? '/ferramentas/osmolaridade-serica' : null;
 
   return (
     <div className="mx-auto w-full max-w-md pb-24">
       <h1 className="text-center text-2xl font-extrabold" style={{ color: colors.text }}>Fluxograma de Hiponatremia</h1>
-      <LegalNote />
+      <LegalNote reforcado />
+      {AVISO_GRAVIDADE[ctx.gravidade ?? ''] && (
+        <div role="alert" data-testid="aviso-gravidade" className="mt-3 rounded-xl p-3 text-sm font-semibold" style={{ backgroundColor: ctx.gravidade === 'grave' ? '#d32f2f' : colors.warningBg, color: ctx.gravidade === 'grave' ? '#fff' : '#111' }}>{AVISO_GRAVIDADE[ctx.gravidade!]}</div>
+      )}
       {resultado ? (
         <div className="mt-4 space-y-4">
           <div className="rounded-xl p-4" style={{ backgroundColor: colors.resultBg, border: `2px solid ${resultado.color}` }}>
@@ -62,6 +71,9 @@ export default function FluxogramaHiponatremia() {
           <Lista titulo="Conduta" itens={resultado.treatment} />
           {resultado.warning && <p className="rounded-xl p-3 text-sm font-semibold" style={{ backgroundColor: colors.warningBg, color: '#111' }}>⚠️ {resultado.warning}</p>}
           {link && <Link href={link} className="block text-center font-semibold underline" style={{ color: colors.button }}>{resultado.calcLabel ?? 'Calcular osmolalidade'}</Link>}
+          {resultado.calcRoute === 'SodiumCorrectionCalculator' && irParaCorrecao && (
+            <button type="button" onClick={irParaCorrecao} className="block w-full text-center font-semibold underline" style={{ color: colors.button }}>{resultado.calcLabel ?? 'Calcular correção de Na⁺'}</button>
+          )}
           {resultado.ddx?.map((g) => <Lista key={g.group} titulo={g.group} itens={g.items} />)}
           <div className="flex gap-3"><BotaoSecundario onClick={voltar}>Voltar</BotaoSecundario><BotaoPrimario onClick={reiniciar}>Recomeçar</BotaoPrimario></div>
         </div>
@@ -100,6 +112,27 @@ export default function FluxogramaHiponatremia() {
           </div>
         </div>
       ) : null}
+      <InfoDialog titulo="Como usar o fluxograma">
+        <TituloInfo>Passo a passo</TituloInfo>
+        <ul className="space-y-1">
+          <li>• Responda uma pergunta por vez; o botão "Voltar" corrige a resposta anterior.</li>
+          <li>• Sintomas graves: o tratamento de urgência (NaCl 3%) não espera o fim do fluxograma.</li>
+          <li>• Exames que você não tem podem ser pulados ("Não possuo este exame"); o resultado avisa o que ficou assumido.</li>
+        </ul>
+        <TituloInfo>Pontos de corte usados</TituloInfo>
+        <ul className="space-y-1">
+          <li>• Osmolalidade sérica: &lt; 275 hipotônica; 275–290 isotônica; &gt; 290 hipertônica.</li>
+          <li>• Sódio urinário: &lt; 30 mEq/L sugere perda extrarrenal (ou hipervolemia); &gt; 30 sugere perda renal ou SIADH.</li>
+          <li>• Osmolalidade urinária: &lt; 100 mOsm/kg sugere polidipsia primária.</li>
+        </ul>
+        <TituloInfo>Limites</TituloInfo>
+        <ul className="space-y-1">
+          <li>• Diuréticos alteram o sódio urinário e a avaliação da volemia.</li>
+          <li>• É um roteiro de raciocínio, não substitui a avaliação clínica.</li>
+        </ul>
+        <TituloInfo>Referência</TituloInfo>
+        <p>Spasovski G et al. Diretriz ESE/ESICM/ERA-EDTA sobre hiponatremia. Eur J Endocrinol 2014.</p>
+      </InfoDialog>
     </div>
   );
 }

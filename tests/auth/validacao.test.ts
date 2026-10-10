@@ -28,12 +28,12 @@ describe('destino seguro após o login (contra redirecionamento aberto)', () => 
     expect(caminhoSeguro('/ferramentas/imc?x=1')).toBe('/ferramentas/imc?x=1');
   });
   it('usa o padrão quando vazio', () => {
-    expect(caminhoSeguro(null)).toBe('/conta');
-    expect(caminhoSeguro('')).toBe('/conta');
+    expect(caminhoSeguro(null)).toBe('/');
+    expect(caminhoSeguro('')).toBe('/');
   });
   it('recusa endereços externos e truques', () => {
     for (const ruim of ['https://golpe.com', 'http://golpe.com', '//golpe.com', '/\\golpe.com', 'golpe.com', 'javascript:alert(1)', '/ok\n//golpe.com']) {
-      expect(caminhoSeguro(ruim), ruim).toBe('/conta');
+      expect(caminhoSeguro(ruim), ruim).toBe('/');
     }
   });
 });

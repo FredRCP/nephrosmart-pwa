@@ -37,9 +37,15 @@ export const viewport: Viewport = {
   viewportFit: 'cover', // o app ocupa a tela toda, inclusive sob a barra de status do iPhone
 };
 
+const SCRIPT_TEMA = `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Aplica o tema salvo antes da primeira pintura: evita o fundo claro/branco piscando (e a faixa branca no iPhone) para quem usa o tema escuro */}
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body>
         {/* Service worker desativado em dev para não cachear enquanto você edita */}
         <SerwistProvider swUrl="/serwist/sw.js" disable={process.env.NODE_ENV === 'development'}>

@@ -9,6 +9,7 @@ import { primeiroNome } from '@/lib/auth/nome';
 import { useSessao } from '@/lib/auth/useSessao';
 import Icone from '@/components/ui/Icone';
 import Logotipo from './Logotipo';
+import AvisoTermos from './AvisoTermos';
 import MenuConfiguracoes, { ITENS_MENU } from './MenuConfiguracoes';
 
 const COR_CABECALHO_CELULAR = '#1f2937'; // cabeçalho escuro do app original (celular)
@@ -49,12 +50,12 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const voltar = () => (window.history.length > 1 ? router.back() : router.push('/'));
 
   return (
-    <div className={`flex min-h-dvh flex-col ${ehHome ? 'pt-[env(safe-area-inset-top)] md:pt-0' : ''}`} style={{ background: `linear-gradient(to bottom, ${colors.gradient[0]}, ${colors.gradient[1]})` }}>
+    <div className={`flex min-h-dvh flex-col ${ehHome ? 'pt-[env(safe-area-inset-top)] md:pt-0' : ''}`} style={{ background: 'linear-gradient(to bottom, var(--gradient1), var(--gradient2))' }}>
       {/* iPhone (PWA em tela cheia): faixa escura sob a hora/bateria, em todas as telas */}
       <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: ehHome && theme === 'dark' ? colors.gradient[0] : COR_CABECALHO_CELULAR }} />
 
       {/* iPhone: faixa inferior (sob o indicador de início) na cor final do fundo do app */}
-      <div aria-hidden data-testid="faixa-inferior" className="fixed inset-x-0 bottom-0 z-50 h-[env(safe-area-inset-bottom)] md:hidden" style={{ backgroundColor: colors.gradient[1] }} />
+      <div aria-hidden data-testid="faixa-inferior" className="fixed inset-x-0 bottom-0 z-50 h-[env(safe-area-inset-bottom)] md:hidden" style={{ backgroundColor: 'var(--gradient2)' }} />
 
       {/* Tablet e desktop: menu azul no topo (igual ao do site) */}
       <nav aria-label="Principal" className="sticky top-0 z-40 hidden h-14 shadow-md md:block" style={{ backgroundColor: colors.button }}>
@@ -105,13 +106,14 @@ export default function AppShell({ children }: { children: ReactNode }) {
             © 2026 NephroSmart — RCP Creative
           </span>
           <span className="flex gap-5 opacity-80">
-            {ITENS_MENU.slice(1).map((i) => (
+            {ITENS_MENU.slice(1).filter((i) => i.href !== '/excluir-conta').map((i) => (
               <Link key={i.href} href={i.href} className="hover:underline">{i.rotulo.replace('Política de ', '')}</Link>
             ))}
             <Link href="/contato" className="hover:underline">Contato</Link>
           </span>
         </div>
       </footer>
+      <AvisoTermos />
     </div>
   );
 }

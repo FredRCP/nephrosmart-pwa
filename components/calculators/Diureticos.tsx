@@ -30,7 +30,7 @@ export default function Diureticos() {
   const limpar = () => { setDe(''); setDose(''); setErro(false); setResultado(''); setAvisos([]); };
 
   return (
-    <CalculadoraLayout titulo="Equivalência de Diuréticos" info={
+    <CalculadoraLayout reforcado titulo="Equivalência de Diuréticos" info={
       <>
         <TituloInfo>Equivalências usadas (dose oral, referência)</TituloInfo>
         <ul className="space-y-1">

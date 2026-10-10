@@ -34,7 +34,7 @@ export default function FormEntrar() {
     const { error } = await createClient().auth.signInWithPassword({ email: email.trim(), password: senha });
     setEnviando(false);
     if (error) { setErro(mensagemDeErro(error)); return; }
-    router.push('/conta');
+    router.push('/');
     router.refresh();
   }
 

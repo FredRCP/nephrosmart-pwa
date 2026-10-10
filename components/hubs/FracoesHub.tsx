@@ -5,7 +5,7 @@ import AbasHub from '@/components/ui/AbasHub';
 import FracaoExcrecao from '@/components/calculators/FracaoExcrecao';
 import { CONFIG_FE, TIPOS_FE, type TipoFE } from '@/lib/clinical/fracoes';
 
-const ABAS = TIPOS_FE.map((t) => ({ id: t, rotulo: CONFIG_FE[t].sigla }));
+const ABAS = TIPOS_FE.map((t) => ({ id: t, rotulo: CONFIG_FE[t].sigla, descricao: `${CONFIG_FE[t].nome}: calculada com a substância no sangue e na urina e a creatinina nos dois.` }));
 
 /** Hub Frações de excreção: 7 calculadoras na mesma tela; cada slug do catálogo abre a aba correspondente. */
 export default function FracoesHub({ inicial = 'sodio' }: { inicial?: TipoFE }) {

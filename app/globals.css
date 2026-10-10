@@ -52,8 +52,7 @@
 }
 
 /* Cor de fundo da página inteira = fim do degradê: evita a faixa branca sob a barra inferior do iPhone (safe area). */
-html { background-color: #f3f4f6; }
-html[data-theme='dark'] { background-color: #1e293b; }
+html, body { background-color: var(--gradient2); }
 
 html,
 body {

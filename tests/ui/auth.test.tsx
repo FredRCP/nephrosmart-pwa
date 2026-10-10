@@ -74,7 +74,7 @@ describe('Entrar', () => {
     await u.type(screen.getByPlaceholderText('E-mail'), '  ana@exemplo.com ');
     await u.type(screen.getByPlaceholderText('Senha'), 'senha-forte-1');
     await u.click(screen.getByRole('button', { name: 'Entrar' }));
-    await waitFor(() => expect(h.roteador.push).toHaveBeenCalledWith('/conta'));
+    await waitFor(() => expect(h.roteador.push).toHaveBeenCalledWith('/'));
     expect(auth.signInWithPassword).toHaveBeenCalledWith({ email: 'ana@exemplo.com', password: 'senha-forte-1' });
   });
   it('tem os links de recuperar senha e criar conta', () => {
@@ -116,7 +116,7 @@ describe('Cadastro', () => {
     await screen.findByRole('heading', { name: 'Confirme seu e-mail' });
     const arg = auth.signUp.mock.calls[0][0];
     expect(arg.email).toBe('ana@exemplo.com');
-    expect(arg.options.emailRedirectTo).toMatch(/\/auth\/callback\?next=\/conta$/);
+    expect(arg.options.emailRedirectTo).toMatch(/\/auth\/callback\?next=\/$/);
     expect(arg.options.data).toEqual({ nome: 'Ana', versao_termos: VERSAO_TERMOS, versao_privacidade: VERSAO_PRIVACIDADE });
     expect(screen.getByRole('status').textContent).toMatch(/mesmo aparelho e navegador/);
   });

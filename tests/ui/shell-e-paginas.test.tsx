@@ -47,6 +47,16 @@ describe('iPhone e desktop: barras e margens', () => {
   });
 });
 
+describe('Rodapé do desktop e fundo', () => {
+  it('rodapé não tem "Excluir Conta" (fica só no menu da engrenagem); fundo usa variáveis CSS do tema (sem piscar)', () => {
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    const rodape = screen.getByRole('contentinfo');
+    expect(within(rodape).queryByText(/Excluir Conta/)).toBeNull();
+    expect(within(rodape).getAllByRole('link').map((a) => a.textContent)).toEqual(['Sobre', 'Termos de Uso', 'Privacidade', 'Contato']);
+    expect(screen.getByTestId('faixa-inferior').getAttribute('style')).toContain('var(--gradient2)');
+  });
+});
+
 describe('Menu azul no topo (tablet/desktop)', () => {
   it('tem os 4 itens do site e marca o ativo', () => {
     estado.caminho = '/ferramentas';
@@ -176,5 +186,38 @@ describe('Páginas legais portadas do site', () => {
     expect(screen.getByRole('heading', { name: 'Exclusão de Conta' })).toBeTruthy();
     expect(screen.getByText('30 dias úteis')).toBeTruthy();
     expect(screen.getAllByText(/nefrosmartapp@gmail\.com/).length).toBeGreaterThan(0);
+  });
+});
+
+describe('Aceite obrigatório dos Termos no primeiro uso', () => {
+  it('cobre o app (diálogo modal) até aceitar; depois não volta; não cobre Termos, Privacidade e Cadastro', async () => {
+    window.localStorage.clear();
+    estado.caminho = '/ferramentas';
+    const u = userEvent.setup();
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    const aviso = await screen.findByTestId('aviso-termos');
+    const dialogo = within(aviso).getByRole('dialog');
+    expect(dialogo.getAttribute('aria-modal')).toBe('true');
+    expect(within(aviso).getByRole('link', { name: 'Termos de Uso' }).getAttribute('href')).toBe('/termodeuso');
+    expect(within(aviso).getByRole('link', { name: 'Política de Privacidade' }).getAttribute('href')).toBe('/privacidade');
+    expect(within(aviso).queryByRole('button', { name: /fechar|depois|agora não/i })).toBeNull(); // não há como dispensar sem aceitar
+    await u.click(within(aviso).getByRole('button', { name: 'Li e aceito' }));
+    expect(screen.queryByTestId('aviso-termos')).toBeNull();
+    cleanup();
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    expect(screen.queryByTestId('aviso-termos')).toBeNull();
+    for (const rota of ['/termodeuso', '/privacidade', '/cadastro']) {
+      cleanup();
+      window.localStorage.clear();
+      estado.caminho = rota;
+      renderComTema(<AppShell><p>x</p></AppShell>);
+      expect(screen.queryByTestId('aviso-termos'), rota).toBeNull();
+    }
+  });
+  it('volta a pedir se a versão dos textos mudar', async () => {
+    window.localStorage.setItem('avisoTermosVisto', 'versao-antiga');
+    estado.caminho = '/';
+    renderComTema(<AppShell><p>x</p></AppShell>);
+    expect(await screen.findByTestId('aviso-termos')).toBeTruthy();
   });
 });

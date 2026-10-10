@@ -19,3 +19,19 @@
 - Alça (base furosemida VO 40 mg): furosemida IV 20, bumetanida 1, torasemida 20, ácido etacrínico 50. CONFIRMAR torasemida (algumas fontes: 10–20 mg) e ácido etacrínico.
 - Tiazídicos: hidroclorotiazida 25 = clortalidona 12,5. CONFIRMAR (a equivalência é muito debatida).
 - Não converte entre grupos (alça ↔ tiazídico). Sensibilidade "alta" (dose).
+
+# Melhorias pós-Onda 7 — itens para confirmar
+- Fluxograma de hiponatremia: NOVO passo inicial (gravidade dos sintomas) com faixa de urgência (NaCl 3% 100–150 mL em 10–20 min, até 2x, meta +4–6; igual à aba de correção). NOVO nó "usa tiazídico?" no ramo euvolêmico. NOVO nó Nau no ramo euvolêmico (Osm urinária ≥100): Nau ≥30 → SIADH; <30 → "Baixa ingestão de solutos" (potomania). CONFIRMAR o corte de Nau 30 nesse ponto.
+- Corte de Nau no ramo hipovolêmico continua 20 mEq/L (como no app original); a diretriz europeia 2014 usa 30. DECIDIR se unificamos.
+- Som de abertura: navegadores só liberam áudio após um toque; agora toca automaticamente se permitido, senão no primeiro toque da sessão.
+
+# Atualização (Fred confirmou)
+- Corte de Nau unificado em 30 mEq/L em todo o fluxograma e no texto de hiponatremia.
+- Aviso legal: linha curta em toda ferramenta; texto completo na janela (i); linha reforçada ("Confira dose, volume e velocidade") em correção de sódio, bicarbonato, diuréticos e fluxograma de hiponatremia.
+- Cadastro/login levam à Home (antes /conta). Aviso de primeiro uso dos Termos (localStorage, volta se VERSAO_TERMOS/PRIVACIDADE mudar).
+- BUG corrigido: resultados de hipovolemia, IC, cirrose e nefrótica no fluxograma apareciam em branco.
+
+# Melhorias 3
+- Termos: agora aceite OBRIGATÓRIO no primeiro uso (tela modal, sem como dispensar). Não cobre /termodeuso, /privacidade e /cadastro. Quem cria conta já fica aceito neste aparelho. Registro local apenas (localStorage); o registro com data/versão no banco continua só no cadastro. Se quiser prova de aceite também de quem não tem conta, precisaria gravar no servidor.
+- Páginas de eletrólitos: causas antes do tratamento (hipercalemia: aviso de hemólise no topo).
+- Botão (i) adicionado em: Fluxograma de hiponatremia, Hipernatremia, IRA (guia rápido). Teste garante (i) em toda ferramenta migrada.

@@ -36,15 +36,15 @@ describe('registro dos hubs', () => {
       return nome;
     };
     expect(abaSelecionada('hiponatremia-sodio')).toBe('Hiponatremia');
-    expect(abaSelecionada('hiponatremia-fluxograma-na')).toBe('Fluxograma');
-    expect(abaSelecionada('correcao-de-hiponatremia-na')).toBe('Corrigir hipo');
+    expect(abaSelecionada('hiponatremia-fluxograma-na')).toBe('Diagnóstico passo a passo');
+    expect(abaSelecionada('correcao-de-hiponatremia-na')).toBe('Calcular correção (hipo)');
     expect(abaSelecionada('hipernatremia-sodio')).toBe('Hipernatremia');
-    expect(abaSelecionada('correcao-de-hipernatremia-na')).toBe('Corrigir hiper');
-    expect(abaSelecionada('ingestao-diaria-de-sodio')).toBe('Ingestão');
+    expect(abaSelecionada('correcao-de-hipernatremia-na')).toBe('Calcular correção (hiper)');
+    expect(abaSelecionada('ingestao-diaria-de-sodio')).toBe('Ingestão de sódio');
     expect(abaSelecionada('disturbios-acido-base')).toBe('Compensação');
-    expect(abaSelecionada('anion-gap')).toBe('Anion gap');
-    expect(abaSelecionada('gasometria-arterial')).toBe('Gasometria');
-    expect(abaSelecionada('reposicao-de-bicarbonato')).toBe('Bicarbonato');
+    expect(abaSelecionada('anion-gap')).toBe('Ânion gap');
+    expect(abaSelecionada('gasometria-arterial')).toBe('Interpretar gasometria');
+    expect(abaSelecionada('reposicao-de-bicarbonato')).toBe('Repor bicarbonato');
   });
 });
 
@@ -159,7 +159,7 @@ describe('Hub Ácido-base', () => {
     const u = userEvent.setup();
     renderComTema(<AcidoBaseHub />);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Compensação esperada (HCO₃⁻ / PCO₂)');
-    await u.click(screen.getByRole('tab', { name: 'Gasometria' }));
+    await u.click(screen.getByRole('tab', { name: 'Interpretar gasometria' }));
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Gasometria Arterial');
   });
 });
@@ -301,10 +301,131 @@ describe('Hub Sódio — ingestão', () => {
   });
 });
 
+const iniciar = async (u: ReturnType<typeof userEvent.setup>, gravidade: RegExp = /Leves ou ausentes/) => {
+  await u.click(screen.getByRole('button', { name: gravidade }));
+  await u.click(screen.getByRole('button', { name: 'Avançar' }));
+};
+const avancar = (u: ReturnType<typeof userEvent.setup>) => u.click(screen.getByRole('button', { name: 'Avançar' }));
+
 describe('Hub Sódio — fluxograma', () => {
+  it('sintomas graves: faixa de urgência com NaCl 3% fica visível durante o fluxo e no resultado', async () => {
+    const u = userEvent.setup();
+    renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u, /Graves/);
+    expect(screen.getByTestId('aviso-gravidade').textContent).toContain('NaCl 3%');
+    await digitar(u, /Ex: 128/, '110');
+    await avancar(u);
+    expect(screen.getByTestId('aviso-gravidade')).toBeTruthy();
+  });
+  it('sintomas leves: sem faixa de urgência', async () => {
+    const u = userEvent.setup();
+    renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
+    expect(screen.queryByTestId('aviso-gravidade')).toBeNull();
+  });
+  it('euvolemia: tiazídico em uso leva ao resultado próprio', async () => {
+    const u = userEvent.setup();
+    renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
+    await digitar(u, /Ex: 128/, '124'); await avancar(u);
+    await digitar(u, /Ex: 265/, '255'); await avancar(u);
+    await u.click(screen.getByRole('button', { name: /Normovolemia/ })); await avancar(u);
+    await u.click(screen.getByRole('button', { name: /Sim, usa tiazídico/ })); await avancar(u);
+    expect(screen.getByRole('heading', { level: 2 }).textContent).toBe('Hiponatremia por Tiazídico');
+  });
+  it('euvolemia sem tiazídico: Osm urinária ≥100 + Nau ≥30 → SIADH; Nau <30 → baixa ingestão de solutos; Osm urinária <100 → polidipsia', async () => {
+    const percorrer = async (osmU: string, nau: string | null) => {
+      cleanup();
+      const u = userEvent.setup();
+      renderComTema(<SodioHub inicial="fluxo" />);
+      await iniciar(u);
+      await digitar(u, /Ex: 128/, '124'); await avancar(u);
+      await digitar(u, /Ex: 265/, '255'); await avancar(u);
+      await u.click(screen.getByRole('button', { name: /Normovolemia/ })); await avancar(u);
+      await u.click(screen.getByRole('button', { name: 'Não' })); await avancar(u);
+      await u.click(screen.getByRole('button', { name: /Sim, TSH normal/ })); await avancar(u);
+      await u.click(screen.getByRole('button', { name: /Sim, cortisol normal/ })); await avancar(u);
+      await digitar(u, /Ex: 480/, osmU); await avancar(u);
+      if (nau !== null) { await digitar(u, /Ex: 45/, nau); await avancar(u); }
+      return screen.getByRole('heading', { level: 2 }).textContent;
+    };
+    expect(await percorrer('480', '45')).toBe('SIADH');
+    expect(await percorrer('480', '30')).toBe('SIADH');
+    expect(await percorrer('480', '29')).toBe('Baixa Ingestão de Solutos');
+    expect(await percorrer('80', null)).toBe('Polidipsia Primária');
+  });
+  it('TODOS os desfechos do fluxograma abrem uma tela de resultado completa (nenhum nó em branco)', async () => {
+    const { NOS } = await import('@/lib/content/hiponatremia-fluxo');
+    const resultados = NOS.filter((n) => n.type === 'result');
+    expect(resultados.length).toBe(14);
+    for (const n of resultados) {
+      expect(n.result, n.id).toBeTruthy();
+      expect(n.result!.title.length, n.id).toBeGreaterThan(3);
+      expect(n.result!.treatment.length, n.id).toBeGreaterThan(0);
+    }
+    // todo destino apontado por um nó existe
+    const ids = new Set(NOS.map((n) => n.id));
+    const destinos = ['result_pseudohipo','result_hipertonica_glicose','result_hipertonica_outro','result_hipo_extrarenal','result_hipo_renal','result_hipotireoidismo','result_insuf_adrenal','result_siadh','result_polidipsia','result_tiazidico','result_baixa_solutos','result_ic','result_cirrose','result_nefro'];
+    for (const d of destinos) expect(ids.has(d), d).toBe(true);
+  });
+  it('desfechos hipervolêmicos (IC, cirrose, nefrótica) mostram o título certo', async () => {
+    const titulos: Record<string, string> = { ic: 'Insuficiência Cardíaca', cirrose: 'Cirrose Hepática', nefro: 'Síndrome Nefrótica / DRC' };
+    for (const [valor, titulo] of Object.entries(titulos)) {
+      cleanup();
+      const u = userEvent.setup();
+      renderComTema(<SodioHub inicial="fluxo" />);
+      await iniciar(u);
+      await digitar(u, /Ex: 128/, '124'); await avancar(u);
+      await digitar(u, /Ex: 265/, '255'); await avancar(u);
+      await u.click(screen.getByRole('button', { name: /Hipervolemia/ })); await avancar(u);
+      const rotulo = { ic: /Insuficiência Cardíaca/, cirrose: /Cirrose Hepática/, nefro: /Sd. Nefrótica/ }[valor]!;
+      await u.click(screen.getByRole('button', { name: rotulo })); await avancar(u);
+      expect(screen.getByRole('heading', { level: 2 }).textContent, valor).toBe(titulo);
+    }
+  });
+  it('hipovolemia: corte de Nau em 30 (29 → extrarrenal; 30 → renal)', async () => {
+    const percorrer = async (nau: string) => {
+      cleanup();
+      const u = userEvent.setup();
+      renderComTema(<SodioHub inicial="fluxo" />);
+      await iniciar(u);
+      await digitar(u, /Ex: 128/, '124'); await avancar(u);
+      await digitar(u, /Ex: 265/, '255'); await avancar(u);
+      await u.click(screen.getByRole('button', { name: /Hipovolemia/ })); await avancar(u);
+      await digitar(u, /Ex: 15/, nau); await avancar(u);
+      return screen.getByRole('heading', { level: 2 }).textContent;
+    };
+    expect(await percorrer('29')).toBe('Perdas Extrarrenais');
+    expect(await percorrer('30')).toBe('Perdas Renais');
+  });
+  it('aviso legal: linha curta em toda ferramenta e reforço só nas de dose/velocidade', async () => {
+    const u = userEvent.setup();
+    renderComTema(<SodioHub inicial="fluxo" />);
+    expect(document.body.textContent).toContain('Apoio à decisão clínica. Não substitui o julgamento médico.');
+    expect(screen.getByTestId('aviso-reforcado').textContent).toContain('Confira dose, volume e velocidade');
+    await u.click(screen.getByRole('tab', { name: 'Hiponatremia' }));
+    cleanup();
+    renderComTema(<AcidoBaseHub inicial="anion-gap" />);
+    expect(document.body.textContent).toContain('Apoio à decisão clínica');
+    expect(screen.queryByTestId('aviso-reforcado')).toBeNull();
+    await u.click(screen.getByRole('tab', { name: 'Repor bicarbonato' }));
+    expect(screen.getByTestId('aviso-reforcado')).toBeTruthy();
+  });
+  it('resultado com correção de Na tem botão que abre a aba de cálculo', async () => {
+    const u = userEvent.setup();
+    renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
+    await digitar(u, /Ex: 128/, '124'); await avancar(u);
+    await digitar(u, /Ex: 265/, '255'); await avancar(u);
+    await u.click(screen.getByRole('button', { name: /Normovolemia/ })); await avancar(u);
+    await u.click(screen.getByRole('button', { name: /Sim, usa tiazídico/ })); await avancar(u);
+    await u.click(screen.getByRole('button', { name: /Calcular Correção de Na/ }));
+    expect(screen.getByRole('tab', { selected: true }).textContent).toBe('Calcular correção (hipo)');
+  });
   it('caminho hipotônico → hipervolêmico → cirrose/ICC', async () => {
     const u = userEvent.setup();
     renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
     await digitar(u, /Ex: 128/, '128');
     await u.click(screen.getByRole('button', { name: 'Avançar' }));
     await digitar(u, /Ex: 265/, '260');
@@ -318,6 +439,7 @@ describe('Hub Sódio — fluxograma', () => {
   it('valida sódio e pula exame; osmolalidade em branco gera aviso', async () => {
     const u = userEvent.setup();
     renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
     await digitar(u, /Ex: 128/, '140');
     await u.click(screen.getByRole('button', { name: 'Avançar' }));
     expect(screen.getByRole('alert').textContent).toContain('Na ≥135');
@@ -330,6 +452,7 @@ describe('Hub Sódio — fluxograma', () => {
   it('osmolalidade alta com hiperglicemia: resultado com Na corrigido (1,6 / 2,4) e link da osmolaridade', async () => {
     const u = userEvent.setup();
     renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
     await digitar(u, /Ex: 128/, '125');
     await u.click(screen.getByRole('button', { name: 'Avançar' }));
     expect(screen.getByRole('link', { name: 'Calcular osmolaridade' }).getAttribute('href')).toBe('/ferramentas/osmolaridade-serica');
@@ -341,11 +464,12 @@ describe('Hub Sódio — fluxograma', () => {
     expect(document.body.textContent).toContain('2,4 se glicose > 400');
     expect(screen.getByRole('link', { name: /Calcular Osmolalidade/ }).getAttribute('href')).toBe('/ferramentas/osmolaridade-serica');
     await u.click(screen.getByRole('button', { name: 'Recomeçar' }));
-    expect(screen.getByPlaceholderText(/Ex: 128/)).toBeTruthy();
+    expect(screen.getByText('Quais os sintomas do paciente?')).toBeTruthy();
   });
   it('não oferece etanol como causa de hiponatremia translocacional', async () => {
     const u = userEvent.setup();
     renderComTema(<SodioHub inicial="fluxo" />);
+    await iniciar(u);
     await digitar(u, /Ex: 128/, '125');
     await u.click(screen.getByRole('button', { name: 'Avançar' }));
     await digitar(u, /Ex: 265/, '310');

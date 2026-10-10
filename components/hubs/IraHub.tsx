@@ -9,7 +9,10 @@ import KdigoCalculator from '@/components/calculators/KdigoCalculator';
 import ira from '@/lib/content/ira';
 
 export type AbaIra = 'ira' | 'kdigo';
-const ABAS: { id: AbaIra; rotulo: string }[] = [{ id: 'ira', rotulo: 'Injúria Renal Aguda' }, { id: 'kdigo', rotulo: 'Calculadora KDIGO' }];
+const ABAS: { id: AbaIra; rotulo: string; descricao: string }[] = [
+  { id: 'ira', rotulo: 'Injúria Renal Aguda', descricao: 'Definição, causas, avaliação e manejo da injúria renal aguda.' },
+  { id: 'kdigo', rotulo: 'Estadiar (KDIGO)', descricao: 'Informe creatinina e/ou diurese e receba o estágio KDIGO 1, 2 ou 3.' },
+];
 
 /** Hub IRA: conteúdo e calculadora KDIGO; atalhos para FENa e FEUr (que são ferramentas do menu). */
 export default function IraHub({ inicial = 'ira' }: { inicial?: AbaIra }) {

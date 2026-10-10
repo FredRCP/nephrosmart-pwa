@@ -1,5 +1,6 @@
 // Reescrito na Onda 1 a partir de HipernatremiaScreen.tsx (app original), com limites unificados (DIVERGENCIAS_ONDA1.md).
 import type { ConteudoPagina } from './tipos';
+import { comOrdem } from './ordem';
 
 const hipernatremia: ConteudoPagina = {
   slug: 'hipernatremia-sodio',
@@ -35,7 +36,7 @@ const hipernatremia: ConteudoPagina = {
         ] },
         { tipo: 'lista', titulo: 'Fórmula (Adrogué–Madias)', itens: [
           'ΔNa por litro infundido = (Na da solução − Na sérico) / (ACT + 1). SG 5%: 1 L reduz ~1,7 mEq/L em ~70 kg.',
-          'Use a aba "Corrigir hiper" para o volume e a velocidade.',
+          'Use a aba "Calcular correção (hiper)" para o volume e a velocidade.',
         ] },
         { tipo: 'nota', estilo: 'atencao', texto: 'Correção acima de 0,5 mEq/L/h na hipernatremia crônica → risco de edema cerebral. Na⁺ a cada 4–6 h (2–4 h no início).' },
       ],
@@ -64,6 +65,22 @@ const hipernatremia: ConteudoPagina = {
       ],
     },
   ],
+  guiaRapido: {
+    titulo: 'Guia rápido',
+    secoes: [
+      { titulo: 'Velocidade de correção', cor: '#4caf50', destaque: true, linhas: [
+        'Crônica ou de duração desconhecida: no máximo 0,5 mEq/L/h e 10–12 mEq/L em 24 h (crianças: 8)',
+        'Aguda (< 48 h) ou sintomática: pode ser mais rápida nas primeiras horas, com monitorização',
+        'Na⁺ a cada 4–6 h (2–4 h no início)',
+      ] },
+      { titulo: 'Como repor', cor: '#2196F3', linhas: [
+        'Preferir água livre por via oral ou enteral',
+        'IV: SG 5% ou NaCl 0,45%; instabilidade hemodinâmica: cristaloide isotônico primeiro',
+        'Somar as perdas contínuas ao volume calculado',
+      ] },
+      { titulo: 'Cálculo', cor: '#9c27b0', linhas: ['Use a aba "Calcular correção (hiper)" para o volume e a velocidade'] },
+    ],
+  },
   referencias: 'Adrogué HJ, Madias NE. N Engl J Med 2000;342:1493. • Sterns RH. Disorders of plasma sodium (revisões 2015–2024). • Diretrizes e revisões recentes de hipernatremia.',
 };
-export default hipernatremia;
+export default comOrdem(hipernatremia, ['sintomas', 'causas', 'tratamento', 'monitor']); // causas antes do tratamento

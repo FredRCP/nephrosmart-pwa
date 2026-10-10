@@ -61,3 +61,36 @@ describe('Ferramentas novas (Onda 7)', () => {
     expect(resultado()).toMatch(/Furosemida VO.*80/);
   });
 });
+
+describe('Tema aplicado antes da primeira pintura', () => {
+  it('layout injeta script que lê o tema salvo; CSS usa as variáveis do tema no fundo da página', async () => {
+    const fs = await import('node:fs');
+    const layout = fs.readFileSync('app/layout.tsx', 'utf8');
+    expect(layout).toContain("localStorage.getItem('theme')");
+    expect(layout).toContain('dataset.theme=t');
+    const css = fs.readFileSync('app/globals.css', 'utf8');
+    expect(css).toMatch(/html,\s*body\s*\{\s*background-color:\s*var\(--gradient2\)/);
+  });
+});
+
+describe('Botão de informações (i) e ordem dos cards', () => {
+  it('toda ferramenta migrada mostra o botão (i)', async () => {
+    const { implementacoes } = await import('@/app/ferramentas/[slug]/implementacoes');
+    const { SLUGS_DISPONIVEIS } = await import('@/lib/tools/disponiveis');
+    for (const slug of SLUGS_DISPONIVEIS) {
+      cleanup();
+      renderComTema(implementacoes[slug]() as React.ReactElement);
+      expect(screen.getAllByLabelText('Informações').length, slug).toBeGreaterThan(0);
+    }
+  });
+  it('nas páginas de eletrólitos, "Tratamento" vem depois das causas', async () => {
+    const [a, b, c] = await Promise.all([import('@/lib/content/hipercalemia'), import('@/lib/content/hiponatremia'), import('@/lib/content/hipernatremia')]);
+    const ids = (d: { itens: { tipo: string; id?: string }[] }) => d.itens.filter((i) => i.tipo === 'secao').map((i) => i.id);
+    for (const [dados, causas, trat] of [[a.default, 'causes', 'treatment'], [b.default, 'causas', 'tratamento'], [c.default, 'causas', 'tratamento']] as const) {
+      const o = ids(dados as never);
+      expect(o.indexOf(causas), causas).toBeLessThan(o.indexOf(trat));
+    }
+    expect(ids(b.default as never)[0]).toBe('gravidade');
+    expect(ids(c.default as never)[0]).toBe('sintomas');
+  });
+});

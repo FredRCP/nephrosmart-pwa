@@ -1,5 +1,6 @@
 // Portado de HyperkalemiaScreen.tsx (app original). Texto clínico preservado; só a forma mudou.
 import type { ConteudoPagina } from './tipos';
+import { comOrdem } from './ordem';
 
 const hipercalemia: ConteudoPagina = {
   slug: 'hipercalemia-potassio',
@@ -199,4 +200,4 @@ const hipercalemia: ConteudoPagina = {
   referencias: 'KDIGO 2024 | UpToDate 2024 | ESC/ACC HF Guidelines',
 };
 
-export default hipercalemia;
+export default comOrdem(hipercalemia, ['aviso', 'ecg', 'symptoms', 'causes', 'treatment', 'monitoramento']); // causas antes do tratamento

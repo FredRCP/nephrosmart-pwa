@@ -1,6 +1,7 @@
 // Reescrito na Onda 1 a partir de HiponatremiaScreen.tsx (app original), com os limites de correção unificados
 // (ver DIVERGENCIAS_ONDA1.md). Conteúdo educacional: não substitui avaliação médica.
 import type { ConteudoPagina } from './tipos';
+import { comOrdem } from './ordem';
 
 const hiponatremia: ConteudoPagina = {
   slug: 'hiponatremia-sodio',
@@ -61,7 +62,7 @@ const hiponatremia: ConteudoPagina = {
           'ΔNa por litro infundido = (Na da solução − Na sérico) / (ACT + 1).',
           'ACT (água corporal total): criança 0,6; adulto homem 0,6 e mulher 0,5; idoso homem 0,5 e mulher 0,45.',
           'Na das soluções: NaCl 0,9% 154 | NaCl 3% 513 | Ringer lactato 130 mEq/L.',
-          'Ignora perdas ativas e o K⁺: use como estimativa e confirme com Na⁺ seriado. Use a aba "Corrigir hipo" para o cálculo automático.',
+          'Ignora perdas ativas e o K⁺: use como estimativa e confirme com Na⁺ seriado. Use a aba "Calcular correção (hipo)" para o cálculo automático.',
         ] },
         { tipo: 'nota', estilo: 'atencao', texto: 'Correção acima do limite do dia → risco de ODS (mielinólise osmótica). Monitorize o Na⁺ a cada 4–6 h (2–4 h se NaCl 3%).' },
       ],
@@ -73,7 +74,7 @@ const hiponatremia: ConteudoPagina = {
         { tipo: 'lista', titulo: '🔬 Critérios de SIADH (todos presentes)', itens: [
           'Hiponatremia hipotônica: Na < 135 + osmolalidade sérica < 275 mOsm/kg.',
           'Osmolalidade urinária inapropriadamente alta: > 100 mOsm/kg (tipicamente > 500).',
-          'Na urinário > 20–30 mEq/L com ingestão habitual de sal.',
+          'Na urinário > 30 mEq/L com ingestão habitual de sal.',
           'Euvolemia clínica (sem edema, sem hipotensão ortostática, sem sinais de depleção).',
           'Excluir hipotireoidismo, insuficiência adrenal, diuréticos e hipovolemia.',
           'Apoio: ácido úrico sérico < 4 mg/dL e FE-ureia < 35% (esta é útil com diurético).',
@@ -83,14 +84,14 @@ const hiponatremia: ConteudoPagina = {
           'Hiperglicemia: Na⁺ cai ~1,6 mEq/L a cada 100 mg/dL acima de 100 (2,4 se glicose > 400).', 'Manitol', 'Glicerol',
           'Etanol aumenta o gap osmolar, mas NÃO causa hiponatremia (é osmol inefetivo).',
         ] },
-        { tipo: 'lista', titulo: 'Hipotônica hipervolêmica (Na urinário < 20)', itens: ['Insuficiência cardíaca', 'Cirrose', 'Síndrome nefrótica', 'DRC / LRA avançada'] },
-        { tipo: 'lista', titulo: 'Hipotônica euvolêmica (Na urinário > 20)', itens: [
+        { tipo: 'lista', titulo: 'Hipotônica hipervolêmica (Na urinário < 30)', itens: ['Insuficiência cardíaca', 'Cirrose', 'Síndrome nefrótica', 'DRC / LRA avançada'] },
+        { tipo: 'lista', titulo: 'Hipotônica euvolêmica (Na urinário > 30)', itens: [
           'SIADH (causa mais comum)', 'Hipotireoidismo', 'Insuficiência adrenal', 'Gestação', 'Polidipsia primária (osmolalidade urinária < 100)',
           'Pós-operatório (dor, estresse, opioides)', 'MDMA / ecstasy', 'ISRS, carbamazepina, oxcarbazepina, AINEs, tramadol',
         ] },
         { tipo: 'lista', titulo: 'Hipotônica hipovolêmica', itens: [
-          'Renal (Na urinário > 20): diuréticos tiazídicos (mais comum), nefropatia perdedora de sal, ATR, Addison, DRC',
-          'Extrarrenal (Na urinário < 10): diarreia/vômitos, hemorragia, sudorese, queimadura, sequestro para 3º espaço',
+          'Renal (Na urinário > 30): diuréticos tiazídicos (mais comum), nefropatia perdedora de sal, ATR, Addison, DRC',
+          'Extrarrenal (Na urinário < 30): diarreia/vômitos, hemorragia, sudorese, queimadura, sequestro para 3º espaço',
         ] },
       ],
     },
@@ -138,4 +139,4 @@ const hiponatremia: ConteudoPagina = {
   referencias:
     'Spasovski G et al. Diretriz ESE/ESICM/ERA-EDTA sobre hiponatremia. Eur J Endocrinol 2014. • Sterns RH. Treatment of hyponatremia (CJASN, 2024). • Adrogué HJ, Madias NE. N Engl J Med 2000;342:1581 e 1493. • Revisões recentes de ODS e velocidade de correção.',
 };
-export default hiponatremia;
+export default comOrdem(hiponatremia, ['gravidade', 'causas', 'tratamento', 'ecg', 'monitor']); // causas antes do tratamento

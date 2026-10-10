@@ -60,7 +60,7 @@ export default function CorrecaoSodio({ direcao }: { direcao: Direcao }) {
   const glic = hipo && glicTexto ? naCorrigidoGlicose(v.naAtual, glicTexto) : null;
 
   return (
-    <CalculadoraLayout titulo={hipo ? 'Correção de Hiponatremia' : 'Correção de Hipernatremia'} info={
+    <CalculadoraLayout reforcado titulo={hipo ? 'Correção de Hiponatremia' : 'Correção de Hipernatremia'} info={
       <>
         <TituloInfo>Fórmula de Adrogué–Madias</TituloInfo>
         <BlocoMono>{'ΔNa por litro = (Na da solução − Na sérico) / (ACT + 1)\nACT = peso × fração (criança 0,6; H 0,6; M 0,5; idoso H 0,5 / M 0,45)'}</BlocoMono>
