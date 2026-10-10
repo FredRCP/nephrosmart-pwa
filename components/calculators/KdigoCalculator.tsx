@@ -38,7 +38,7 @@ export default function KdigoCalculator() {
   return (
     <CalculadoraLayout titulo="Calculadora KDIGO" info={
       <>
-        <TituloInfo>Critérios (KDIGO 2012)</TituloInfo>
+        <TituloInfo>Critérios (KDIGO 2012; mantidos no rascunho 2026)</TituloInfo>
         <BlocoMono>{'IRA: ΔCr ≥ 0,3 mg/dL em 48 h, OU Cr ≥ 1,5× a basal em 7 dias, OU diurese < 0,5 mL/kg/h por ≥ 6 h'}</BlocoMono>
         <ul className="space-y-1">
           <li>• Estágio 1: Cr 1,5–1,9× OU +0,3 mg/dL; diurese &lt; 0,5 por 6–12 h</li>
@@ -55,6 +55,7 @@ export default function KdigoCalculator() {
         <ul className="space-y-1">
           <li>• Estadia a gravidade; não diagnostica a causa. O critério pediátrico de TFG &lt; 35 mL/min/1,73 m² não está incluído.</li>
           <li>• Creatinina não reflete a TFG fora do equilíbrio (IRA em evolução).</li>
+          <li>• O rascunho KDIGO 2026 (consulta pública) acrescenta cistatina C e biomarcadores estruturais, e calcula a diurese pelo peso ideal; esta calculadora usa o peso informado.</li>
         </ul>
         <TituloInfo>Referência</TituloInfo>
         <ul className="space-y-1"><li>• KDIGO Clinical Practice Guideline for Acute Kidney Injury. Kidney Int Suppl 2012;2:1</li></ul>

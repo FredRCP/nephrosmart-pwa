@@ -99,9 +99,10 @@ describe('Hub Frações de excreção', () => {
 });
 
 describe('Hub IRA', () => {
-  it('mostra o conteúdo (KDIGO 2012) e atalhos para FENa e FEUr', () => {
+  it('mostra o conteúdo (KDIGO) e a seção de DRA e atalhos para FENa e FEUr', () => {
     renderComTema(<IraHub />);
-    expect(screen.getByText('Definição (KDIGO 2012)')).toBeTruthy();
+    expect(screen.getByText('Definição (KDIGO)')).toBeTruthy();
+    expect(screen.getByText('DRA — Doença renal aguda')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Calcular FENa' }).getAttribute('href')).toBe('/ferramentas/fracao-de-excrecao-de-sodio');
     expect(screen.getByRole('link', { name: 'Calcular FEUr' }).getAttribute('href')).toBe('/ferramentas/fracao-de-excrecao-de-ureia');
   });
@@ -157,6 +158,18 @@ describe('Função renal esperada', () => {
     await digitar(u, 'Idade (anos)', '10');
     await calcular(u);
     expect(resultado()).toContain('Clearance Pediátrico');
+  });
+});
+
+describe('Faixa de abas e ícone', () => {
+  it('abas: rolagem lateral com ponta esmaecida no celular; largas, quebrando linha e sem rolagem no desktop', () => {
+    renderComTema(<FracoesHub />);
+    const c = screen.getByRole('tablist').className;
+    expect(c).toContain('overflow-x-auto');
+    expect(c).toContain('mask-image:linear-gradient');
+    expect(c).toContain('md:flex-wrap');
+    expect(c).toContain('md:overflow-visible');
+    expect(screen.getAllByRole('tab')).toHaveLength(7);
   });
 });
 

@@ -7,7 +7,7 @@ const ira: ConteudoPagina = {
   subtitulo: 'Aumento súbito da creatinina e/ou redução da diurese',
   itens: [
     {
-      tipo: 'secao', id: 'definicao', titulo: 'Definição (KDIGO 2012)', icone: { fa: 'info-circle', cor: '#2196F3' }, cor: '#2196F3',
+      tipo: 'secao', id: 'definicao', titulo: 'Definição (KDIGO)', icone: { fa: 'info-circle', cor: '#2196F3' }, cor: '#2196F3',
       resumo: 'Critérios de creatinina e diurese', dica: 'Toque para expandir',
       blocos: [
         { tipo: 'linhas', linhas: [
@@ -18,7 +18,37 @@ const ira: ConteudoPagina = {
           'Aumento da creatinina sérica ≥ 1,5 vez o valor basal, sabido ou presumido, nos últimos 7 dias',
           'Diurese < 0,5 mL/kg/h por ≥ 6 horas',
         ] },
-        { tipo: 'nota', estilo: 'atencao', texto: 'O valor basal é a creatinina estável mais recente (ou a menor dos últimos 7 dias). Quando o aumento levou mais de 7 dias, pense em doença renal aguda/subaguda ou DRC agudizada.' },
+        { tipo: 'nota', estilo: 'atencao', texto: 'O valor basal é a creatinina estável mais recente (ou a menor dos últimos 7 dias). Quando o aumento levou mais de 7 dias, pense em DRA (doença renal aguda) ou DRC agudizada.' },
+        { tipo: 'lista', titulo: 'Rascunho KDIGO 2026 (consulta pública, ainda não é a versão final)', itens: [
+          'Mantém os critérios de creatinina e de diurese acima e o estadiamento 1–3.',
+          'Acrescenta a cistatina C ≥ 1,5× a basal em até 7 dias como critério funcional alternativo.',
+          'Acrescenta critério estrutural: elevação de biomarcador de lesão renal usado na indicação validada.',
+          'A diurese passa a ser calculada pelo peso ideal.',
+          'Define IRA transitória (≤ 48 h) e persistente (> 48 h), e recuperação completa (Cr < 1,2× a basal) ou parcial (1,2 a < 1,5×).',
+        ] },
+      ],
+    },
+    {
+      tipo: 'secao', id: 'dra', titulo: 'DRA — Doença renal aguda', icone: { fa: 'history', cor: '#009688' }, cor: '#009688',
+      resumo: 'Entre a IRA e a DRC (até 3 meses)', dica: 'Toque para expandir',
+      blocos: [
+        { tipo: 'linhas', linhas: [
+          { texto: 'A linha do tempo da função renal: IRA (até 7 dias) → DRA (até 3 meses) → DRC (mais de 3 meses).' },
+          { texto: 'DRA é a alteração de função ou estrutura renal que dura até 3 meses. A IRA é um subtipo dela: toda IRA é DRA, mas nem toda DRA é IRA.' },
+        ] },
+        { tipo: 'lista', titulo: 'Critérios de DRA (ADQI 16; mantidos no rascunho KDIGO 2026), qualquer um', itens: [
+          'IRA (pelos critérios funcionais ou estruturais)',
+          'TFG < 60 mL/min/1,73 m² (não se aplica a < 2 anos)',
+          'Queda da TFG ≥ 35% em relação à basal',
+          'Aumento da creatinina > 50% em relação à basal',
+          'Marcador de lesão renal: albuminúria, hematúria ou piúria',
+        ] },
+        { tipo: 'lista', titulo: 'Por que importa', itens: [
+          'Aumento da creatinina que levou mais de 7 dias não é IRA pelo KDIGO, mas pode ser DRA: não descartar lesão renal.',
+          'Reavaliar creatinina e albuminúria em ~3 meses para saber se houve recuperação, DRC nova ou piora de DRC prévia.',
+          'Recuperação (rascunho 2026): completa se a Cr ficar < 1,2× a basal (ou TFG > 80% da basal); parcial entre 1,2 e < 1,5× (TFG 66–80%).',
+        ] },
+        { tipo: 'nota', estilo: 'atencao', texto: 'Critérios de DRA e de recuperação vêm do rascunho de 2026, em consulta pública. Confira o texto final quando for publicado.' },
       ],
     },
     {
@@ -90,7 +120,7 @@ const ira: ConteudoPagina = {
       blocos: [
         { tipo: 'lista', itens: [
           'Identificar e tratar a causa (reposição na hipovolemia, desobstrução na pós-renal)',
-          'Otimizar volemia: cristaloide isotônico, preferencialmente balanceado, quando houver hipovolemia; evitar amido. Diurético só para sobrecarga de volume',
+          'Otimizar volemia: cristaloide (não coloide) na expansão inicial, de preferência tamponado/balanceado em vez de salina 0,9%; evitar amido. Diurético só para sobrecarga de volume',
           'Suspender ou evitar nefrotóxicos: AINEs, IECA/BRA (se hipotensão/hipovolemia), aminoglicosídeos, contraste quando possível',
           'Ajustar doses de fármacos de eliminação renal (antibióticos, anticoagulantes, digoxina etc.)',
           'Monitorar diurese, balanço hídrico, creatinina, K⁺ e gasometria',
@@ -110,7 +140,7 @@ const ira: ConteudoPagina = {
           'O: sobrecarga volêmica (edema pulmonar) refratária a diurético',
           'U: uremia sintomática (encefalopatia, pericardite, sangramento)',
         ] },
-        { tipo: 'nota', estilo: 'atencao', texto: 'Sem indicação urgente, iniciar a diálise de forma precoce não melhorou a sobrevida nos estudos recentes (STARRT-AKI, AKIKI 2): em geral, observar e reavaliar. Modalidade: hemodiálise intermitente, diálise peritoneal ou terapia contínua em instabilidade hemodinâmica.' },
+        { tipo: 'nota', estilo: 'atencao', texto: 'Sem indicação urgente, iniciar a diálise de forma precoce não melhorou a sobrevida (STARRT-AKI, AKIKI 2) e o rascunho KDIGO 2026 prefere a estratégia adiada: em geral, observar e reavaliar. Modalidade: hemodiálise intermitente, diálise peritoneal ou terapia contínua em instabilidade hemodinâmica.' },
       ],
     },
     {
@@ -121,12 +151,12 @@ const ira: ConteudoPagina = {
           'Pior prognóstico: idade avançada, comorbidades, estágio 3, necessidade de diálise',
           'A mortalidade cresce com o estágio da IRA e é maior em UTI com terapia renal substitutiva',
           'Mesmo a IRA que se recupera aumenta o risco de DRC, de eventos cardiovasculares e de nova IRA',
-          'Seguimento: reavaliar creatinina e albuminúria após a alta e aos ~3 meses (KDIGO); encaminhar ao nefrologista em estágio ≥ 2, recuperação incompleta ou proteinúria',
+          'Seguimento: avaliar o risco na alta e reavaliar creatinina e albuminúria aos ~3 meses (KDIGO); encaminhar ao nefrologista em estágio ≥ 2, recuperação incompleta ou proteinúria',
           'Prevenção secundária: controle de pressão e diabetes, evitar nefrotóxicos, orientar sobre dias de doença',
         ] },
       ],
     },
   ],
-  referencias: 'KDIGO Clinical Practice Guideline for Acute Kidney Injury. Kidney Int Suppl 2012;2:1. • STARRT-AKI Investigators. N Engl J Med 2020;383:240. • Gaudry S et al. (AKIKI 2). Lancet 2021;397:1293. • Brenner & Rector\'s The Kidney.',
+  referencias: 'KDIGO Clinical Practice Guideline for Acute Kidney Injury. Kidney Int Suppl 2012;2:1. • KDIGO 2026 AKI/AKD Guideline, rascunho para consulta pública (março de 2026). • Chawla LS et al. (ADQI 16). Nat Rev Nephrol 2017;13:241. STARRT-AKI Investigators. N Engl J Med 2020;383:240. • Gaudry S et al. (AKIKI 2). Lancet 2021;397:1293. • Brenner & Rector\'s The Kidney.',
 };
 export default ira;

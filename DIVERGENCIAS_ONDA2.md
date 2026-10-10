@@ -4,7 +4,8 @@ Decisões do Fred: incluir FECa, FEP, FEUA e FEMg já nesta onda; **retirar o TT
 
 ## Telas
 - **Hub "IRA"** (`injuria-renal-aguda-ira`): conteúdo em acordeão + Calculadora KDIGO; atalhos para FENa e FEUr.
-- **Hub "Frações de excreção"** (7 abas): FENa, FEUr, FEK, FECa, FEP, FEUA, FEMg. Cada slug do menu abre a aba certa.
+- **Hub "Frações de excreção"** (7 abas): FENa, FEUr, FEK, FECa, FEP, FEUA, FEMg. No menu aparece **uma entrada só** ("Frações de Excreção", que abre na aba FENa); os 7 endereços continuam funcionando e abrem a aba certa. Abas: no celular rolam para o lado (ponta esmaecida indica que há mais); no desktop ficam largas, em até duas linhas.
+- **Ícone**: favicon.ico novo (aba do navegador) e o rim ao lado do título no menu azul do desktop.
 - **Função renal esperada** (`funcao-renal-esperada-p-idade`): tela própria.
 - **TTKG** (`gradiente-transtubular-de-k`): sai do menu (nível "fora"); o slug continua no catálogo para não quebrar links.
 - **Sobre** (`/sobre`): nova página no menu da engrenagem e no rodapé do desktop.
@@ -36,7 +37,9 @@ Marcados **(confirmar)** os que vêm de estudos pequenos ou de convenções dife
 | FEMg | < 2% | 2–4% | > 4% | Duas convenções (> 2% Elisaf; > 4% Kroll). O app mostra a zona intermediária entre elas. Só em hipomagnesemia e TFG preservada (confirmar) |
 
 ## KDIGO — pontos para você validar
-- A diretriz de IRA do KDIGO é a de **2012**; não consegui confirmar nenhuma atualização formal "2023" citada no app original, então citei 2012.
+- A diretriz em vigor é a de **2012**. Em março de 2026 o KDIGO publicou um **rascunho** (consulta pública) de atualização, "AKI/AKD". Os critérios de creatinina, diurese e o estadiamento 1–3 **são os mesmos**; o rascunho acrescenta cistatina C ≥ 1,5× e biomarcador estrutural como critérios, calcula a diurese pelo peso ideal, define IRA transitória/persistente e recuperação completa/parcial, e traz a DRA (doença renal aguda). Citei os dois e marquei o que vem do rascunho. **Confira o texto final quando sair.** Não encontrei atualização "2023" como citava o app original.
+- **DRA** (nova seção): IRA ≤ 7 dias; DRA ≤ 3 meses; DRC > 3 meses. Critérios (ADQI 16 / rascunho 2026): IRA, TFG < 60, queda da TFG ≥ 35%, aumento da Cr > 50%, ou marcador de lesão (albuminúria, hematúria, piúria). Recuperação completa: Cr < 1,2× a basal; parcial: 1,2 a < 1,5×.
+- Manejo conforme o rascunho: cristaloide (não coloide), tamponado em vez de salina 0,9%; diálise adiada em vez de precoce quando não há indicação urgente.
 - Cr ≥ 4,0 mg/dL só entra no estágio 3 quando a IRA já foi definida por aumento agudo. O texto do KDIGO 2012 lista "aumento da Cr sérica para ≥ 4,0 mg/dL"; a exigência do aumento agudo é a leitura conservadora (evita classificar DRC estável como estágio 3).
 - Critério pediátrico (TFG < 35 mL/min/1,73 m²) está descrito no texto, mas não é calculado.
 - Prognóstico: tirei os percentuais de mortalidade do original (10–20% / 50–60%), que eu não consegui confirmar. O texto é qualitativo.
