@@ -48,11 +48,11 @@ describe('Menu de ferramentas', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
-      'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Unidades Laboratoriais',
+      'Anemia na DRC (KDIGO 2026)', 'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
       'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Frações de Excreção',
       'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
-      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Osmolaridade Sérica',
-      'Reposição de Bicarbonato',
+      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Osmolaridade Sérica',
+      'Reposição de Bicarbonato', 'SOFA-2', 'Vacinas do Adulto',
     ]);
   });
   it('busca sem acento', async () => {
@@ -69,6 +69,12 @@ describe('Menu de ferramentas', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
     expect(screen.getAllByRole('link').length).toBe(7);
+    await u.click(screen.getByRole('tab', { name: 'Diálise' }));
+    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)']);
+  });
+  it('avisa quando não há ferramentas migradas na categoria', async () => {
+    const u = userEvent.setup();
+    renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis.filter((f) => !f.categorias.includes('dialise'))} />);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
     expect(screen.getByText('Nenhuma ferramenta desta categoria foi migrada ainda.')).toBeTruthy();
   });

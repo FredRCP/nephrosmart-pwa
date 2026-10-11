@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { catalogo, ferramentasDisponiveis, filtrarFerramentas, porSlug, SLUGS_FRACOES, SLUG_HUB_FRACOES } from '@/lib/tools/catalogo';
+import { catalogo, ferramentasDisponiveis, filtrarFerramentas, porSlug, SLUGS_ALIAS, SLUGS_FRACOES, SLUG_HUB_FRACOES } from '@/lib/tools/catalogo';
 import { SLUGS_DISPONIVEIS } from '@/lib/tools/disponiveis';
 
 describe('catálogo de ferramentas', () => {
@@ -9,8 +9,8 @@ describe('catálogo de ferramentas', () => {
   it('toda ferramenta disponível existe no catálogo', () => {
     for (const s of SLUGS_DISPONIVEIS) expect(catalogo.some((f) => f.slug === s), s).toBe(true);
   });
-  it('mesmo inventário do app original: 70 no menu + 2 ocultas', () => {
-    expect(catalogo.filter((f) => !f.oculta).length).toBe(70);
+  it('inventário: 70 do app original + 1 ferramenta nova (anemia) no menu, e 2 ocultas', () => {
+    expect(catalogo.filter((f) => !f.oculta).length).toBe(71);
     expect(catalogo.filter((f) => f.oculta).length).toBe(2);
   });
   it('busca sem acento e filtro por categoria', () => {
@@ -20,7 +20,7 @@ describe('catálogo de ferramentas', () => {
     expect(filtrarFerramentas(todas, 'dialise', '').every((f) => f.categorias.includes('dialise'))).toBe(true);
   });
   it('as migradas aparecem no menu', () => {
-    const esperado = SLUGS_DISPONIVEIS.filter((s) => !SLUGS_FRACOES.includes(s) || s === SLUG_HUB_FRACOES);
+    const esperado = SLUGS_DISPONIVEIS.filter((s) => (!SLUGS_FRACOES.includes(s) || s === SLUG_HUB_FRACOES) && !SLUGS_ALIAS.includes(s));
     expect(ferramentasDisponiveis.map((f) => f.slug).sort()).toEqual([...esperado].sort());
   });
   it('as 7 frações de excreção aparecem no menu como UMA entrada; os 7 endereços seguem existindo com o mesmo título', () => {
@@ -29,5 +29,11 @@ describe('catálogo de ferramentas', () => {
     expect(noMenu[0].titulo).toBe('Frações de Excreção');
     for (const s of SLUGS_FRACOES) { expect(SLUGS_DISPONIVEIS as readonly string[]).toContain(s); expect(porSlug(s)?.titulo).toBe('Frações de Excreção'); }
     expect(catalogo.find((f) => f.slug === 'f-e-de-acido-urico')?.titulo).toBe('F.E. de Ácido Úrico'); // catálogo original intacto
+  });
+  it('vacinas-adultos abre o mesmo hub de vacinas: sem entrada própria no menu e com o mesmo título', () => {
+    expect(ferramentasDisponiveis.some((f) => f.slug === 'vacinas-adultos')).toBe(false);
+    expect(ferramentasDisponiveis.filter((f) => f.titulo === 'Vacinas do Adulto')).toHaveLength(1);
+    expect(porSlug('vacinas-adultos')?.titulo).toBe('Vacinas do Adulto');
+    expect(porSlug('vacinas-adultos')?.descricao).toBe(porSlug('vacinas-drc')?.descricao);
   });
 });

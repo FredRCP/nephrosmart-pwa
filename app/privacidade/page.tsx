@@ -172,7 +172,7 @@ export default function PrivacyPolicy() {
         <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
           10. Consentimento
         </h3>
-        <div className="text-base mb-4" style={{ color: 'var(--text)' }}>
+        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
           Ao utilizar o site ou o aplicativo NephroSmart, o usuário declara que leu e concorda com esta Política de Privacidade. {'\n'}
           O tratamento de dados pessoais é realizado com fundamento nas bases legais previstas no artigo 7º da Lei nº 13.709/2018 (LGPD), incluindo:
           <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
@@ -181,7 +181,7 @@ export default function PrivacyPolicy() {
           <li>Cumprimento de obrigação legal ou regulatória;</li>
           <li>Legítimo interesse do controlador, quando aplicável.</li>
           </ul>
-        </div>
+        </p>
 
          
 

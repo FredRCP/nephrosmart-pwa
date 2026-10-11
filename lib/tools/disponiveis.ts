@@ -9,4 +9,8 @@ export const SLUGS_DISPONIVEIS = ['imc', 'ckd-epi-2021', 'cockcroft-gault', 'ckd
   'injuria-renal-aguda-ira', 'fracao-de-excrecao-de-sodio', 'fracao-de-excrecao-de-ureia', 'fracao-de-excrecao-de-potassio', 'fracao-de-excrecao-de-calcio',
   'fracao-de-excrecao-de-fosforo', 'f-e-de-acido-urico', 'fracao-de-excrecao-de-magnesio', 'funcao-renal-esperada-p-idade',
   // Onda 7 — ferramentas novas
-  'conversor-de-unidades-laboratoriais', 'depuracao-de-creatinina-24h', 'estadiamento-da-drc-kdigo', 'equivalencia-de-diureticos'] as const;
+  'conversor-de-unidades-laboratoriais', 'depuracao-de-creatinina-24h', 'estadiamento-da-drc-kdigo', 'equivalencia-de-diureticos',
+  // Onda 8
+  'conversor-de-dose', 'kt-v-hemodialise', 'sofa', 'vacinas-drc', 'vacinas-adultos', 'intoxicacoes-exogenas',
+  // Onda 9
+  'anemia-drc-dialise'] as const;

@@ -342,10 +342,11 @@
   },
   {
     "slug": "vacinas-drc",
-    "titulo": "Vacinas - DRC",
-    "descricao": "Orientações sobre vacinação no paciente com DRC.",
+    "titulo": "Vacinas do Adulto",
+    "descricao": "Calendário de vacinação do adulto, com e sem DRC (não dialítica, diálise e pré-transplante).",
     "categorias": [
-      "drc"
+      "drc",
+      "outros"
     ],
     "tipo": "conteudo",
     "sensibilidade": "normal",
@@ -734,7 +735,7 @@
   {
     "slug": "intoxicacoes-exogenas",
     "titulo": "Intoxicações exógenas",
-    "descricao": "Orientações sobre intoxicações exógenas e indicação de terapias renais.",
+    "descricao": "Quando indicar depuração extracorpórea (hemodiálise, hemoperfusão) em cada intoxicação, conforme o EXTRIP.",
     "categorias": [
       "ira-emergencia",
       "dialise"
@@ -750,8 +751,8 @@
   },
   {
     "slug": "kt-v-hemodialise",
-    "titulo": "Kt/V (Hemodiálise)",
-    "descricao": "Calcula o KtV do paciente em hemodiálise.",
+    "titulo": "Kt/V e Taxa de UF (Hemodiálise)",
+    "descricao": "Adequação da diálise (spKt/V, URR, eKt/V) e taxa de ultrafiltração.",
     "categorias": [
       "dialise"
     ],
@@ -780,8 +781,8 @@
   },
   {
     "slug": "conversor-de-dose",
-    "titulo": "Conversor de Dose",
-    "descricao": "Converte mL/h para mcg/kg/min e vice-versa (ex.: dopamina, noradrenalina).",
+    "titulo": "Conversor de Dose (Infusão)",
+    "descricao": "Converte dose (mcg/kg/min, mg/h, UI/h etc.) em mL/h e vice-versa.",
     "categorias": [
       "ira-emergencia"
     ],
@@ -885,8 +886,8 @@
   },
   {
     "slug": "sofa",
-    "titulo": "SOFA",
-    "descricao": "Escore que avalia disfunção orgânica em paciente crítico.",
+    "titulo": "SOFA-2",
+    "descricao": "Escore SOFA-2 (JAMA 2025) de disfunção orgânica em paciente crítico.",
     "categorias": [
       "ira-emergencia"
     ],
@@ -1081,6 +1082,20 @@
     "categorias": [
       "drc",
       "ira-emergencia"
+    ],
+    "tipo": "calculadora",
+    "sensibilidade": "alta",
+    "prioridade": "P2",
+    "rotaLegada": "novo",
+    "idsLegados": []
+  },
+  {
+    "slug": "anemia-drc-dialise",
+    "titulo": "Anemia na DRC (KDIGO 2026)",
+    "descricao": "Ferro, início de AEE, Hb-alvo, subida rápida da Hb, hiporresponsividade e HIF-PHI conforme a KDIGO 2026.",
+    "categorias": [
+      "drc",
+      "dialise"
     ],
     "tipo": "calculadora",
     "sensibilidade": "alta",

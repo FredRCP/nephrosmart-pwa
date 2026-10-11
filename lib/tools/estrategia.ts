@@ -9,7 +9,7 @@ export const NIVEL: Record<string, Nivel> = {
   // Função renal e dose
   'ajuste-de-dose': 'nucleo', 'ckd-epi-2021': 'nucleo', 'ckd-epi-creat-cistatina-c': 'nucleo', 'clearance-de-creatinina-ped': 'nucleo',
   'cockcroft-gault': 'nucleo', 'funcao-renal-esperada-p-idade': 'nucleo', 'injuria-renal-aguda-ira': 'nucleo',
-  'conversor-de-unidades-laboratoriais': 'nucleo', 'depuracao-de-creatinina-24h': 'nucleo', 'estadiamento-da-drc-kdigo': 'nucleo', 'equivalencia-de-diureticos': 'nucleo',
+  'conversor-de-unidades-laboratoriais': 'nucleo', 'anemia-drc-dialise': 'nucleo', 'depuracao-de-creatinina-24h': 'nucleo', 'estadiamento-da-drc-kdigo': 'nucleo', 'equivalencia-de-diureticos': 'nucleo',
   // Ácido-base
   'disturbios-acido-base': 'nucleo', 'anion-gap': 'nucleo', 'gasometria-arterial': 'nucleo', 'osmolaridade-serica': 'nucleo',
   'reposicao-de-bicarbonato': 'nucleo',
@@ -30,7 +30,7 @@ export const NIVEL: Record<string, Nivel> = {
   'desmame-de-corticoides': 'adjacente', 'sofa': 'adjacente', 'qsofa': 'adjacente',
   // Fora por ora (medicina geral ou de alto risco de dose fora da nefrologia)
   'cid-10': 'fora', 'escala-de-coma-de-glasgow': 'fora', 'escala-de-avc-nihss': 'fora', 'escore-de-wells': 'fora', 'escore-de-tromboprofilaxia': 'fora',
-  'vacinas-adultos': 'fora', 'sequencia-rapida-de-intubacao': 'fora', 'conversor-de-dose': 'fora', 'drogas-e-infusoes': 'fora', 'classificacao-de-fraturas': 'fora',
+  'vacinas-adultos': 'adjacente', 'sequencia-rapida-de-intubacao': 'fora', 'conversor-de-dose': 'nucleo', 'drogas-e-infusoes': 'fora', 'classificacao-de-fraturas': 'fora',
 };
 
 /** Ordem sugerida de migração (as já migradas ficam de fora). Ondas curtas, com revisão clínica entre elas. */
@@ -39,9 +39,9 @@ export const ONDAS: { titulo: string; slugs: string[] }[] = [
     'hipocalemia-potassio', 'hipocalcemia-calcio', 'hipercalcemia-calcio', 'correcao-do-calcio-ca2', 'hipomagnesemia-magnesio', 'hipermagnesemia-magnesio',
     'correcao-do-magnesio-mg2', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', ] },
   { titulo: 'Onda 4 — hemodiálise, anemia e DMO', slugs: [
-    'kt-v-hemodialise', 'heparina-na-hemodialise', 'intoxicacoes-exogenas', 'reposicao-de-ferro', 'eritropoetina', 'paricalcitol' ] },
+    'heparina-na-hemodialise', 'reposicao-de-ferro', 'eritropoetina', 'paricalcitol' ] },
   { titulo: 'Onda 5 — Ajuste de Dose (premium; depende das suas respostas em DIVERGENCIAS.md)', slugs: ['ajuste-de-dose'] },
   { titulo: 'Onda 6 — adjacentes', slugs: [
-    'agua-corporal-total', 'ist', 'conversor-entre-corticoides', 'desmame-de-corticoides', 'vacinas-drc', 'nefrolitiase',
-    'rein-score', 'kdpi-epts', 'risco-de-progressao-de-drc', 'risco-cardiovascular', 'glomerulopatia-por-iga', 'drpad', 'escore-brescia-cimino-doqi', 'sofa', 'qsofa' ] },
+    'agua-corporal-total', 'ist', 'conversor-entre-corticoides', 'desmame-de-corticoides', 'nefrolitiase',
+    'rein-score', 'kdpi-epts', 'risco-de-progressao-de-drc', 'risco-cardiovascular', 'glomerulopatia-por-iga', 'drpad', 'escore-brescia-cimino-doqi', 'qsofa' ] },
 ];

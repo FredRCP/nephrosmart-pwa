@@ -16,6 +16,12 @@ import ConversorUnidades from '@/components/calculators/ConversorUnidades';
 import Clearance24h from '@/components/calculators/Clearance24h';
 import EstadiamentoDrc from '@/components/calculators/EstadiamentoDrc';
 import Diureticos from '@/components/calculators/Diureticos';
+import ConversorInfusao from '@/components/calculators/ConversorInfusao';
+import Sofa2 from '@/components/calculators/Sofa2';
+import HemodialiseHub from '@/components/hubs/HemodialiseHub';
+import VacinasHub from '@/components/hubs/VacinasHub';
+import IntoxicacoesHub from '@/components/hubs/IntoxicacoesHub';
+import AnemiaDrc from '@/components/calculators/AnemiaDrc';
 
 // slug do catálogo → tela. Ao migrar uma ferramenta, registre aqui E em lib/tools/disponiveis.ts.
 export const implementacoes: Record<string, () => ReactNode> = {
@@ -52,4 +58,13 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'depuracao-de-creatinina-24h': () => <Clearance24h />,
   'estadiamento-da-drc-kdigo': () => <EstadiamentoDrc />,
   'equivalencia-de-diureticos': () => <Diureticos />,
+  // Onda 8
+  'conversor-de-dose': () => <ConversorInfusao />,
+  'kt-v-hemodialise': () => <HemodialiseHub inicial="ktv" />,
+  sofa: () => <Sofa2 />,
+  'vacinas-drc': () => <VacinasHub inicial="drc" />,
+  'vacinas-adultos': () => <VacinasHub inicial="adultos" />,
+  'intoxicacoes-exogenas': () => <IntoxicacoesHub />,
+  // Onda 9
+  'anemia-drc-dialise': () => <AnemiaDrc />,
 };

@@ -10,12 +10,19 @@ export const SLUGS_FRACOES = ['fracao-de-excrecao-de-sodio', 'fracao-de-excrecao
   'fracao-de-excrecao-de-fosforo', 'f-e-de-acido-urico', 'fracao-de-excrecao-de-magnesio'];
 const TITULO_HUB = 'Frações de Excreção';
 const DESCRICAO_HUB = 'Fração de excreção de sódio, ureia, potássio, cálcio, fósforo, ácido úrico e magnésio (FENa, FEUr, FEK, FECa, FEP, FEUA, FEMg).';
-const comoHub = (f: Ferramenta): Ferramenta => (SLUGS_FRACOES.includes(f.slug) ? { ...f, titulo: TITULO_HUB, descricao: DESCRICAO_HUB } : f);
+/** Ferramentas que abrem a tela de outra (mesmo hub): não têm entrada própria no menu e herdam título e descrição da principal. */
+export const ALIAS_HUB: Record<string, string> = { 'vacinas-adultos': 'vacinas-drc' };
+export const SLUGS_ALIAS = Object.keys(ALIAS_HUB);
+const comoHub = (f: Ferramenta): Ferramenta => {
+  if (SLUGS_FRACOES.includes(f.slug)) return { ...f, titulo: TITULO_HUB, descricao: DESCRICAO_HUB };
+  const principal = ALIAS_HUB[f.slug] && dados.find((x) => x.slug === ALIAS_HUB[f.slug]);
+  return principal ? { ...f, titulo: principal.titulo, descricao: principal.descricao } : f;
+};
 
 const disponiveis = new Set<string>(SLUGS_DISPONIVEIS);
 
 export const ferramentasDisponiveis = catalogo
-  .filter((f) => disponiveis.has(f.slug) && !f.oculta && (!SLUGS_FRACOES.includes(f.slug) || f.slug === SLUG_HUB_FRACOES))
+  .filter((f) => disponiveis.has(f.slug) && !f.oculta && (!SLUGS_FRACOES.includes(f.slug) || f.slug === SLUG_HUB_FRACOES) && !SLUGS_ALIAS.includes(f.slug))
   .map(comoHub);
 
 export const porSlug = (slug: string): Ferramenta | undefined => {
