@@ -69,7 +69,7 @@ const LISTA: Vacina[] = [
       'É de vírus vivo atenuado: contraindicada na imunossupressão grave. Na moderada, a decisão é clínica (SBIm Pacientes Especiais).',
       'Na seção de DRC, a SBIm manda seguir o calendário por faixa etária; a DRC e a diálise, sozinhas, não aparecem como contraindicação.',
     ],
-    disponibilidade: 'Qdenga: rede privada (SBIm 2026-27). Butantan-DV: SUS só em estratégia por município, iniciada em jan/2026 para 15 a 59 anos (Nota Técnica 5/2026 do PNI); a ampliação pode ter mudado, confira o informe vigente.',
+    disponibilidade: 'Qdenga: rede privada (SBIm 2026-27); no SUS, estratégia para 10 a 14 anos em localidades prioritárias (FAQ do Ministério da Saúde). Butantan-DV: licenciada para 12 a 59 anos; no SUS, recomendada para 15 a 59 anos, em estratégia por município iniciada em jan/2026 (Nota Técnica 5/2026 do PNI). A lista de municípios muda: confira o informe vigente.',
     atencao: 'Prazo da vacina antes do transplante e conduta em DRC avançada/diálise: sem fonte conferida, em pesquisa com a equipe.',
   },
   {

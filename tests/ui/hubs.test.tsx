@@ -511,9 +511,19 @@ describe('Menu: um item por hub de eletrólito', () => {
   it('Ca, P e Mg aparecem uma vez cada; os demais endereços abrem o hub', async () => {
     const { ferramentasDisponiveis, porSlug } = await import('@/lib/tools/catalogo');
     const titulos = ferramentasDisponiveis.map((f) => f.titulo);
-    for (const t of ['Cálcio (Hipo/Hipercalcemia e Correção)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Magnésio (Hipo/Hipermagnesemia)', 'Potássio (Hipo/Hipercalemia)']) expect(titulos.filter((x) => x === t)).toHaveLength(1);
+    for (const t of ['Cálcio (Hipo/Hipercalcemia e Correção)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Magnésio (Hipo/Hipermagnesemia)', 'Potássio (Hipo/Hipercalemia)', 'Sódio (Hipo/Hipernatremia e Calculadoras)']) expect(titulos.filter((x) => x === t)).toHaveLength(1);
     expect(titulos.some((t) => /^Hip(er|o)(calcemia|calemia|fosfatemia|magnesemia)/.test(t))).toBe(false);
     expect(porSlug('hipercalcemia-calcio')?.titulo).toBe('Cálcio (Hipo/Hipercalcemia e Correção)');
     expect(implementacoes['hipercalcemia-calcio']).toBeTypeOf('function');
+  });
+});
+
+describe('Sódio: uma entrada no menu, seis endereços', () => {
+  it('slugs antigos de sódio herdam o título do hub e continuam registrados', async () => {
+    const { porSlug } = await import('@/lib/tools/catalogo');
+    for (const s of ['hiponatremia-sodio', 'hipernatremia-sodio', 'hiponatremia-fluxograma-na', 'correcao-de-hiponatremia-na', 'correcao-de-hipernatremia-na', 'ingestao-diaria-de-sodio']) {
+      expect(porSlug(s)?.titulo).toBe('Sódio (Hipo/Hipernatremia e Calculadoras)');
+      expect(implementacoes[s]).toBeTypeOf('function');
+    }
   });
 });

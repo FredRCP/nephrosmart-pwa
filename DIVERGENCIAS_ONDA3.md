@@ -25,3 +25,7 @@ Não portado: **Calculadora de correção do magnésio** (fórmula sem validaç�
 ## Terceira parte (12/10/2026): hub de Potássio
 - Hipercalemia e Hipocalemia viraram um hub ("Potássio (Hipo/Hipercalemia)"). Decisão do Fred: **hub inteiro gratuito** (os dois endereços estão em FERRAMENTAS_GRATUITAS). Cálcio, fósforo e magnésio seguem premium.
 - Agora há um hub por eletrólito: Sódio, Potássio, Cálcio, Fósforo, Magnésio.
+
+## Quarta parte (12/10/2026): Sódio também em um hub só no menu
+- As 6 ferramentas de sódio (hipo, hiper, fluxograma, 2 correções, ingestão) aparecem como UMA entrada, "Sódio (Hipo/Hipernatremia e Calculadoras)", igual aos demais eletrólitos. Os seis endereços continuam abrindo a aba correspondente. Para desfazer, basta tirar os 5 slugs de sódio de ALIAS_HUB em lib/tools/catalogo.ts.
+- Dengue (vacinas): acrescentada a oferta do SUS para a Qdenga (10–14 anos, localidades prioritárias) e a faixa licenciada da Butantan-DV (12–59 anos).

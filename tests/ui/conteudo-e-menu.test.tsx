@@ -49,9 +49,9 @@ describe('Menu de ferramentas', () => {
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
       'Anemia na DRC (KDIGO 2026)', 'Ânion Gap', 'Cálcio (Hipo/Hipercalcemia e Correção)', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
-      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
-      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
-      'Reposição de Bicarbonato', 'SOFA-2', 'Vacinas do Adulto',
+      'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
+      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'IMC', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
+      'Reposição de Bicarbonato', 'Sódio (Hipo/Hipernatremia e Calculadoras)', 'SOFA-2', 'Vacinas do Adulto',
     ]);
   });
   it('busca sem acento', async () => {
@@ -67,7 +67,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
-    expect(screen.getAllByRole('link').length).toBe(10);
+    expect(screen.getAllByRole('link').length).toBe(6);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
     expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)']);
   });

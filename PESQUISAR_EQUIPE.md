@@ -80,3 +80,8 @@ Uma planilha ou texto por bloco (A a G): item, resposta curta, trecho citado, fo
 6. **Hipermagnesemia:** doses de cálcio repetidas; ponto de corte para diálise.
 7. **Correção do magnésio pela albumina:** existe fórmula validada? (a calculadora do app original não foi portada).
 8. **Correção do cálcio** pela albumina: validade em DRC/diálise vs usar sempre cálcio iônico.
+9. **Hipocalemia:** dose oral diária e fracionamento (KCl 6%, comprimidos disponíveis no Brasil); velocidade máxima por acesso central (10 vs 20 vs 40 mEq/h) e concentração máxima; dose diária máxima; ajuste em DRC/diálise.
+
+## Retorno da Chatiane sobre vacinas (12/10/2026)
+Confirmado com fonte: Butantan-DV licenciada para 12–59 anos, SUS 15–59 (FAQ Ministério da Saúde, 06/04/2026); Qdenga no SUS: 10–14 anos em localidades prioritárias (FAQ, 2024); existem a Nota Técnica 45/2026 (VPC20 na RIE) e a 91/2026 (Comirnaty LP.8.1); SBIm 2026-27 remete o transplante renal à p. 30 do PDF de pacientes especiais.
+**Seguem sem fonte** (Chatiane respondeu "NÃO ENCONTREI"): esquema COVID adulto/DRC/diálise; dengue em DRC avançada/pré-transplante; intervalo de vivas antes do transplante (30 dias / 3 semanas); hepatite B (anti-HBs < 10 após repetir esquema; IGHAHB em não respondedor; registro Anvisa de Heplisav-B e Recombivax); intervalo do zóster recombinante em imunossuprimidos; febre amarela (dose única PNI vs duas SBIm); HPV no CRIE (9–45 anos, 0-2-6); quadro da VPC20 (NT 45/2026). Sugestão: abrir os PDFs (NT 45/2026, p. 30 da SBIm, Manual dos CRIE 6ª ed.) e extrair os quadros à mão.

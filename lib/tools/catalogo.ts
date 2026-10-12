@@ -15,11 +15,15 @@ export const ALIAS_HUB: Record<string, string> = {
   'vacinas-adultos': 'vacinas-drc',
   // Cálcio, fósforo e magnésio: uma entrada por hub (hipo e hiper dentro).
   'hipercalcemia-calcio': 'hipocalcemia-calcio', 'correcao-do-calcio-ca2': 'hipocalcemia-calcio',
+  // Sódio: as 6 ferramentas viram uma entrada só.
+  'hipernatremia-sodio': 'hiponatremia-sodio', 'hiponatremia-fluxograma-na': 'hiponatremia-sodio', 'correcao-de-hiponatremia-na': 'hiponatremia-sodio',
+  'correcao-de-hipernatremia-na': 'hiponatremia-sodio', 'ingestao-diaria-de-sodio': 'hiponatremia-sodio',
   'hipocalemia-potassio': 'hipercalemia-potassio',
   'hiperfosfatemia-fosforo': 'hipofosfatemia-fosforo', 'hipermagnesemia-magnesio': 'hipomagnesemia-magnesio',
 };
 /** Título e descrição próprios dos hubs de eletrólitos (a busca por "hipercalcemia", "correção do cálcio" etc. continua achando a entrada). */
 const TEXTO_HUB: Record<string, { titulo: string; descricao: string }> = {
+  'hiponatremia-sodio': { titulo: 'Sódio (Hipo/Hipernatremia e Calculadoras)', descricao: 'Hiponatremia, hipernatremia, fluxograma diagnóstico, correção do sódio e ingestão diária de sódio.' },
   'hipercalemia-potassio': { titulo: 'Potássio (Hipo/Hipercalemia)', descricao: 'Orientações sobre hipocalemia e hipercalemia.' },
   'hipocalcemia-calcio': { titulo: 'Cálcio (Hipo/Hipercalcemia e Correção)', descricao: 'Hipocalcemia, hipercalcemia e correção do cálcio pela albumina.' },
   'hipofosfatemia-fosforo': { titulo: 'Fósforo (Hipo/Hiperfosfatemia)', descricao: 'Orientações sobre hipofosfatemia e hiperfosfatemia.' },
