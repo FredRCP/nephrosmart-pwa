@@ -12,7 +12,7 @@ vi.mock('next/link', () => ({
   default: ({ href, children, ...p }: { href: string; children: React.ReactNode }) => <a href={href} {...p}>{children}</a>,
 }));
 
-beforeEach(() => window.localStorage.clear());
+beforeEach(() => { window.localStorage.clear(); window.sessionStorage.clear(); });
 afterEach(cleanup);
 
 describe('Conteúdo em acordeão (Hipercalemia)', () => {
@@ -70,6 +70,17 @@ describe('Menu de ferramentas', () => {
     expect(screen.getAllByRole('link').length).toBe(6);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
     expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)']);
+  });
+  it('ao voltar de uma ferramenta, o menu reabre na mesma categoria e com a mesma busca', async () => {
+    const u = userEvent.setup();
+    const primeira = renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
+    await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
+    await u.type(screen.getByLabelText('Buscar ferramenta'), 'magn');
+    primeira.unmount(); // equivale a abrir a ferramenta e apertar Voltar
+    renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
+    expect(await screen.findByRole('tab', { name: 'Eletrólitos', selected: true })).toBeTruthy();
+    expect((screen.getByLabelText('Buscar ferramenta') as HTMLInputElement).value).toBe('magn');
+    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toContain('Magnésio (Hipo/Hipermagnesemia)');
   });
   it('avisa quando não há ferramentas migradas na categoria', async () => {
     const u = userEvent.setup();

@@ -12,6 +12,8 @@ import { gravarLocal, lerJson } from '@/lib/storage';
 import Icone from '@/components/ui/Icone';
 
 const CHAVE_FAVORITOS = 'favoritos';
+/** Categoria e busca ficam na sessão: ao voltar de uma ferramenta, o usuário reencontra a mesma aba. */
+const CHAVE_FILTRO = 'filtroFerramentas';
 
 export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferramenta[] }) {
   const { colors } = useTheme();
@@ -19,8 +21,21 @@ export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferrame
   const [busca, setBusca] = useState('');
   const [filtro, setFiltro] = useState<FiltroId>('todos');
   const [favoritos, setFavoritos] = useState<string[]>([]);
+  const [restaurado, setRestaurado] = useState(false);
 
   useEffect(() => { setFavoritos(lerJson<string[]>(CHAVE_FAVORITOS, [])); }, []);
+  useEffect(() => {
+    try {
+      const salvo = JSON.parse(window.sessionStorage.getItem(CHAVE_FILTRO) ?? 'null') as { filtro?: string; busca?: string } | null;
+      if (salvo && FILTROS.some((f) => f.id === salvo.filtro)) setFiltro(salvo.filtro as FiltroId);
+      if (typeof salvo?.busca === 'string') setBusca(salvo.busca);
+    } catch { /* sessionStorage indisponível: segue com o padrão */ }
+    setRestaurado(true);
+  }, []);
+  useEffect(() => {
+    if (!restaurado) return;
+    try { window.sessionStorage.setItem(CHAVE_FILTRO, JSON.stringify({ filtro, busca })); } catch { /* ignora */ }
+  }, [filtro, busca, restaurado]);
 
   const alternarFavorito = (slug: string) => {
     const novo = favoritos.includes(slug) ? favoritos.filter((f) => f !== slug) : [...favoritos, slug];
