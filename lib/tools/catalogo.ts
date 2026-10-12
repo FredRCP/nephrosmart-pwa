@@ -11,10 +11,26 @@ export const SLUGS_FRACOES = ['fracao-de-excrecao-de-sodio', 'fracao-de-excrecao
 const TITULO_HUB = 'Frações de Excreção';
 const DESCRICAO_HUB = 'Fração de excreção de sódio, ureia, potássio, cálcio, fósforo, ácido úrico e magnésio (FENa, FEUr, FEK, FECa, FEP, FEUA, FEMg).';
 /** Ferramentas que abrem a tela de outra (mesmo hub): não têm entrada própria no menu e herdam título e descrição da principal. */
-export const ALIAS_HUB: Record<string, string> = { 'vacinas-adultos': 'vacinas-drc' };
+export const ALIAS_HUB: Record<string, string> = {
+  'vacinas-adultos': 'vacinas-drc',
+  // Cálcio, fósforo e magnésio: uma entrada por hub (hipo e hiper dentro).
+  'hipercalcemia-calcio': 'hipocalcemia-calcio', 'correcao-do-calcio-ca2': 'hipocalcemia-calcio',
+  'hipocalemia-potassio': 'hipercalemia-potassio',
+  'hiperfosfatemia-fosforo': 'hipofosfatemia-fosforo', 'hipermagnesemia-magnesio': 'hipomagnesemia-magnesio',
+};
+/** Título e descrição próprios dos hubs de eletrólitos (a busca por "hipercalcemia", "correção do cálcio" etc. continua achando a entrada). */
+const TEXTO_HUB: Record<string, { titulo: string; descricao: string }> = {
+  'hipercalemia-potassio': { titulo: 'Potássio (Hipo/Hipercalemia)', descricao: 'Orientações sobre hipocalemia e hipercalemia.' },
+  'hipocalcemia-calcio': { titulo: 'Cálcio (Hipo/Hipercalcemia e Correção)', descricao: 'Hipocalcemia, hipercalcemia e correção do cálcio pela albumina.' },
+  'hipofosfatemia-fosforo': { titulo: 'Fósforo (Hipo/Hiperfosfatemia)', descricao: 'Orientações sobre hipofosfatemia e hiperfosfatemia.' },
+  'hipomagnesemia-magnesio': { titulo: 'Magnésio (Hipo/Hipermagnesemia)', descricao: 'Orientações sobre hipomagnesemia e hipermagnesemia.' },
+};
 export const SLUGS_ALIAS = Object.keys(ALIAS_HUB);
 const comoHub = (f: Ferramenta): Ferramenta => {
   if (SLUGS_FRACOES.includes(f.slug)) return { ...f, titulo: TITULO_HUB, descricao: DESCRICAO_HUB };
+  const slugPrincipal = ALIAS_HUB[f.slug] ?? f.slug;
+  const texto = TEXTO_HUB[slugPrincipal];
+  if (texto) return { ...f, ...texto };
   const principal = ALIAS_HUB[f.slug] && dados.find((x) => x.slug === ALIAS_HUB[f.slug]);
   return principal ? { ...f, titulo: principal.titulo, descricao: principal.descricao } : f;
 };

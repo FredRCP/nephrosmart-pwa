@@ -12,5 +12,7 @@ export const SLUGS_DISPONIVEIS = ['imc', 'ckd-epi-2021', 'cockcroft-gault', 'ckd
   'conversor-de-unidades-laboratoriais', 'depuracao-de-creatinina-24h', 'estadiamento-da-drc-kdigo', 'equivalencia-de-diureticos',
   // Onda 8
   'conversor-de-dose', 'kt-v-hemodialise', 'sofa', 'vacinas-drc', 'vacinas-adultos', 'intoxicacoes-exogenas',
+  // Onda 3 — eletrólitos
+  'hipocalcemia-calcio', 'hipercalcemia-calcio', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', 'hipomagnesemia-magnesio', 'hipermagnesemia-magnesio',
   // Onda 9
   'anemia-drc-dialise'] as const;

@@ -52,7 +52,8 @@ export default function VacinasHub({ inicial = 'adultos' }: { inicial?: ModoVaci
               cor={v.vivo ? colors.warning : colors.button} selo={v.vivo ? 'Viva' : undefined}
               aberto={!!abertas[v.id]} onAlternar={() => alternar(v.id)}>
               <ListaPontos itens={linhas} />
-              {v.disponibilidade && <p className="mt-3"><span className="font-bold">Disponibilidade: </span>{v.disponibilidade}</p>}
+              {v.comerciais && <p className="mt-3"><span className="font-bold">Nomes comerciais (exemplos): </span>{v.comerciais}</p>}
+              {v.disponibilidade && <p className="mt-2"><span className="font-bold">Disponibilidade: </span>{v.disponibilidade}</p>}
               {v.atencao && <p className="mt-2 font-semibold" style={{ color: colors.warning }}>⚠️ {v.atencao}</p>}
               {drc && v.confianca === 'baixa' && <p className="mt-2 text-sm italic opacity-80">Confiança da fonte: baixa. Confirme antes de orientar.</p>}
             </CartaoAcordeao>
@@ -68,11 +69,13 @@ export default function VacinasHub({ inicial = 'adultos' }: { inicial?: ModoVaci
           <li>• SBIm: Calendário de Vacinação do Adulto 2026-27 e Calendário de Pacientes Especiais 2026-27.</li>
           <li>• Guia SBIm/ABTO de vacinação em transplante 2025-26.</li>
           <li>• Manual dos Centros de Referência para Imunobiológicos Especiais (CRIE), edição 2023-24.</li>
-          <li>• CDC, Adult Immunization Schedule 2026.</li>
+          <li>• Ministério da Saúde: Nota Técnica 5/2026 (vacina dengue do Butantan).</li>
+          <li>• ABTO: Recomendações de vacinação em transplante (out/2025).</li>
         </ul>
         <TituloInfo>Limites</TituloInfo>
         <ul className="space-y-1">
           <li>• Calendários mudam. Não foram conferidos nesta versão o manual CRIE vigente e o calendário do PNI no gov.br.</li>
+          <li>• As vacinas aparecem em ordem alfabética. Os nomes comerciais são exemplos e a oferta varia.</li>
           <li>• A SBIm e o PNI divergem em alguns pontos (febre amarela, não respondedores de hepatite B, vacinas pneumocócicas no SUS).</li>
           <li>• Isto é apoio à consulta; a decisão é do médico.</li>
         </ul>

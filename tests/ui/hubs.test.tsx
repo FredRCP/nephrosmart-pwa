@@ -480,3 +480,40 @@ describe('Hub Sódio — fluxograma', () => {
     expect(g.getAllByRole('button').length).toBe(2);
   });
 });
+
+describe('Onda 3 — eletrólitos (Ca, P, Mg)', () => {
+  const casos: [string, string, string][] = [
+    ['hipocalcemia-calcio', 'Hipocalcemia', 'Hipercalcemia'], ['hipercalcemia-calcio', 'Hipercalcemia', 'Hipocalcemia'],
+    ['hipofosfatemia-fosforo', 'Hipofosfatemia', 'Hiperfosfatemia'], ['hiperfosfatemia-fosforo', 'Hiperfosfatemia', 'Hipofosfatemia'],
+    ['hipomagnesemia-magnesio', 'Hipomagnesemia', 'Hipermagnesemia'], ['hipermagnesemia-magnesio', 'Hipermagnesemia', 'Hipomagnesemia'],
+    ['hipocalemia-potassio', 'Hipocalemia', 'Hipercalemia'], ['hipercalemia-potassio', 'Hipercalemia', 'Hipocalemia'],
+    ['correcao-do-calcio-ca2', 'Correção do cálcio', 'Hipocalcemia'],
+  ];
+  it.each(casos)('%s abre na aba %s e permite trocar para %s', async (slug, aba, outra) => {
+    const u = userEvent.setup();
+    renderComTema(implementacoes[slug]() as React.ReactElement);
+    expect(screen.getByRole('tab', { name: aba }).getAttribute('aria-selected')).toBe('true');
+    await u.click(screen.getByRole('tab', { name: outra }));
+    expect(screen.getByRole('tab', { name: outra }).getAttribute('aria-selected')).toBe('true');
+  });
+  it('conteúdo clínico revisado: sem doses não validadas e com avisos', async () => {
+    const [fos, mg, ca] = await Promise.all([import('@/lib/content/hipofosfatemia'), import('@/lib/content/hipomagnesemia'), import('@/lib/content/hipocalcemia')]);
+    const txt = (d: unknown) => JSON.stringify(d);
+    expect(txt(fos.default)).not.toMatch(/0,08|45 mmol|15 mEq/);
+    expect(txt(mg.default)).not.toMatch(/Treonato|0,5-1 g\/h|0,5–1 g\/h/);
+    expect(txt(mg.default)).toContain('Hiper-reflexia');
+    expect(txt(ca.default)).toContain('93 mg');
+    expect(txt(ca.default)).toContain('aguardam validação');
+  });
+});
+
+describe('Menu: um item por hub de eletrólito', () => {
+  it('Ca, P e Mg aparecem uma vez cada; os demais endereços abrem o hub', async () => {
+    const { ferramentasDisponiveis, porSlug } = await import('@/lib/tools/catalogo');
+    const titulos = ferramentasDisponiveis.map((f) => f.titulo);
+    for (const t of ['Cálcio (Hipo/Hipercalcemia e Correção)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Magnésio (Hipo/Hipermagnesemia)', 'Potássio (Hipo/Hipercalemia)']) expect(titulos.filter((x) => x === t)).toHaveLength(1);
+    expect(titulos.some((t) => /^Hip(er|o)(calcemia|calemia|fosfatemia|magnesemia)/.test(t))).toBe(false);
+    expect(porSlug('hipercalcemia-calcio')?.titulo).toBe('Cálcio (Hipo/Hipercalcemia e Correção)');
+    expect(implementacoes['hipercalcemia-calcio']).toBeTypeOf('function');
+  });
+});

@@ -48,10 +48,9 @@ describe('Menu de ferramentas', () => {
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
-      'Anemia na DRC (KDIGO 2026)', 'Ânion Gap', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
-      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Frações de Excreção',
-      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipercalemia (Potássio)',
-      'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Osmolaridade Sérica',
+      'Anemia na DRC (KDIGO 2026)', 'Ânion Gap', 'Cálcio (Hipo/Hipercalcemia e Correção)', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
+      'Correção de Hipernatremia (Na⁺)', 'Correção de Hiponatremia (Na⁺)', 'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
+      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'Hipernatremia (Sódio)', 'Hiponatremia (Sódio)', 'Hiponatremia Fluxograma (Na⁺)', 'IMC', 'Ingestão Diária de Sódio', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
       'Reposição de Bicarbonato', 'SOFA-2', 'Vacinas do Adulto',
     ]);
   });
@@ -59,7 +58,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.type(screen.getByLabelText('Buscar ferramenta'), 'potassio');
-    expect(screen.getAllByRole('link').length).toBe(2); // Hipercalemia (Potássio) e Frações de Excreção (descrição cita potássio)
+    expect(screen.getAllByRole('link').length).toBe(2); // Potássio (hub) e Frações (a descrição cita potássio) de Excreção (descrição cita potássio)
     await u.clear(screen.getByLabelText('Buscar ferramenta'));
     await u.type(screen.getByLabelText('Buscar ferramenta'), 'zzz');
     expect(screen.getByText('Nenhum resultado encontrado.')).toBeTruthy();
@@ -68,7 +67,7 @@ describe('Menu de ferramentas', () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
-    expect(screen.getAllByRole('link').length).toBe(7);
+    expect(screen.getAllByRole('link').length).toBe(10);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
     expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)']);
   });

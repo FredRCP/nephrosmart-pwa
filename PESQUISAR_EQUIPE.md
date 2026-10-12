@@ -7,9 +7,9 @@ Fontes primárias a priorizar: SBIm (calendários 2026-27), Ministério da Saúd
 ## A. Vacinas (revisão de 11/10/2026)
 Respostas da equipe conferidas contra a SBIm Pacientes Especiais 2026-27 (seção DRC, pp. 12-13) e a ABTO (out/2025). Entraram no app: VSR, COVID-19 (só remissão ao PNI), repetição do esquema de hepatite B, prazos das vivas pré-transplante (ABTO), disponibilidade da VPC20 e do esquema de varicela no CRIE, divergência do intervalo do zóster. Continua em pesquisa, com a pergunta exata:
 1. COVID-19: esquema atual do PNI (número de doses, intervalo, ≥ 60 anos, DRC, diálise, transplante, imunocomprometidos). A SBIm só remete ao PNI. Fonte: informe técnico vigente do PNI/Ministério da Saúde.
-2. Dengue (Qdenga e Butantan-DV): faixa etária registrada na Anvisa, esquema, oferta do PNI, e conduta na DRC/diálise e no pré-transplante. A SBIm só diz "seguir o calendário por faixa etária" e lista a dengue entre as vivas contraindicadas na imunossupressão grave. A equipe não trouxe trecho de fonte.
-3. VSR: indicação por idade no adulto SEM comorbidade (calendário SBIm do adulto), registro Anvisa de cada vacina (Arexvy, Abrysvo, mResvia) e faixas etárias. O app já traz a regra da DRC (≥ 50 anos recomendada; 18 a 49 a critério médico).
-4. Meningocócicas ACWY/B: a equipe afirmou indicação específica em DRC avançada e diálise, mas a seção de DRC da SBIm só diz "seguir o calendário por faixa etária". Pedir o trecho que sustente a indicação (ou confirmar que não existe) e a posição do CRIE.
+2. Dengue: entrou no app com Qdenga (SBIm adulto: 2 doses 0-3 meses, até 60 anos) e Butantan-DV (dose única; Anvisa 12 a 59 anos; SUS só por município). Falta: oferta atual do PNI (a nota técnica de maio/2026 de BH sugere ampliação), conduta em DRC avançada/diálise e prazo antes do transplante. Pedir trecho do PNI/SBIm/ABTO.
+3. VSR: já no app conforme SBIm adulto e DRC. Falta: registro Anvisa de cada vacina (Arexvy, Abrysvo, mResvia) e faixas etárias oficiais.
+4. Meningocócicas ACWY e B: entraram com o texto do calendário SBIm do adulto (dose única; Bexsero 2 doses, licenciada até 50 anos). A equipe afirmou indicação específica em DRC avançada e diálise, mas a SBIm (DRC) só manda seguir a faixa etária. Pedir o trecho que sustente indicações de risco (asplenia, complemento, transplante) e a posição do CRIE.
 5. Poliomielite inativada (VIP): idem. A SBIm remete ao calendário infantil; a equipe afirmou indicação de reforço no adulto com DRC sem trecho. Pedir o trecho.
 6. Transplante renal (quadro completo, SBIm p. 28 e guia SBIm/ABTO): vacinas antes e depois, início após o transplante, quanto tempo após suspender a imunossupressão. O app só traz o prazo das vivas.
 7. Vivas pré-transplante: a ABTO (out/2025) diz 30 dias (regra geral e tríplice viral) e 3 semanas (varicela e febre amarela). A equipe disse "4 semanas". Confirmar a AST 2019 e o CRIE e decidir qual prazo mostrar.
@@ -69,3 +69,14 @@ Perguntas para a equipe: quais exames mensais são exigidos pela RDC 11/2014 e p
 
 ## Como devolver as respostas
 Uma planilha ou texto por bloco (A a G): item, resposta curta, trecho citado, fonte (edição e página/link), nível de certeza (alta/média/baixa). Só os itens "alta" voltam para o app.
+
+
+## H. Eletrólitos (Onda 3) — pesquisar com fontes
+1. **Hipercalcemia em DRC:** escolha e dose de bisfosfonato (zoledronato/pamidronato) por TFG; denosumabe em DRC; dose da calcitonina; velocidade da hidratação; dialisato de cálcio (0 a 1,25 mmol/L) e monitorização.
+2. **Hipocalcemia:** esquema e velocidade de infusão contínua de gluconato de cálcio (mg de cálcio elementar/kg/h).
+3. **Hiperfosfatemia:** doses iniciais e máximas de sevelâmer, lantânio, carbonato/acetato de cálcio, sucroférrico, tenapanor; ingesta alvo de fósforo; remoção por sessão de HD; apresentações vendidas no Brasil.
+4. **Hipofosfatemia:** dose IV (mmol/kg ou mmol/dia), diluição e tempo; conversões mmol↔mEq↔mg para fosfato de sódio e potássio; protocolo de realimentação (tiamina, calorias iniciais); reposição na diálise contínua.
+5. **Hipomagnesemia:** dose IV inicial (1–2 g vs 5 g do NHS), manutenção IV, ajuste em DRC/diálise; doses orais por sal e apresentações no Brasil.
+6. **Hipermagnesemia:** doses de cálcio repetidas; ponto de corte para diálise.
+7. **Correção do magnésio pela albumina:** existe fórmula validada? (a calculadora do app original não foi portada).
+8. **Correção do cálcio** pela albumina: validade em DRC/diálise vs usar sempre cálcio iônico.

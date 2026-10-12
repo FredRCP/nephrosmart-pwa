@@ -36,8 +36,7 @@ export const NIVEL: Record<string, Nivel> = {
 /** Ordem sugerida de migração (as já migradas ficam de fora). Ondas curtas, com revisão clínica entre elas. */
 export const ONDAS: { titulo: string; slugs: string[] }[] = [
   { titulo: 'Onda 3 — potássio, cálcio, magnésio e fósforo', slugs: [
-    'hipocalemia-potassio', 'hipocalcemia-calcio', 'hipercalcemia-calcio', 'correcao-do-calcio-ca2', 'hipomagnesemia-magnesio', 'hipermagnesemia-magnesio',
-    'correcao-do-magnesio-mg2', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', ] },
+    'hipocalemia-potassio', 'correcao-do-calcio-ca2', 'correcao-do-magnesio-mg2', ] },
   { titulo: 'Onda 4 — hemodiálise, anemia e DMO', slugs: [
     'heparina-na-hemodialise', 'reposicao-de-ferro', 'eritropoetina', 'paricalcitol' ] },
   { titulo: 'Onda 5 — Ajuste de Dose (premium; depende das suas respostas em DIVERGENCIAS.md)', slugs: ['ajuste-de-dose'] },

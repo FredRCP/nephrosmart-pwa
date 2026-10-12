@@ -5,7 +5,6 @@ import CockcroftGaultCalculator from '@/components/calculators/CockcroftGaultCal
 import CKDEPICistatinaCalculator from '@/components/calculators/CKDEPICistatinaCalculator';
 import PediatricoCalculator from '@/components/calculators/PediatricoCalculator';
 import ConteudoPagina from '@/components/archetypes/ConteudoPagina';
-import hipercalemia from '@/lib/content/hipercalemia';
 import SodioHub from '@/components/hubs/SodioHub';
 import AcidoBaseHub from '@/components/hubs/AcidoBaseHub';
 import IraHub from '@/components/hubs/IraHub';
@@ -21,6 +20,7 @@ import Sofa2 from '@/components/calculators/Sofa2';
 import HemodialiseHub from '@/components/hubs/HemodialiseHub';
 import VacinasHub from '@/components/hubs/VacinasHub';
 import IntoxicacoesHub from '@/components/hubs/IntoxicacoesHub';
+import EletrolitoHub from '@/components/hubs/EletrolitoHub';
 import AnemiaDrc from '@/components/calculators/AnemiaDrc';
 
 // slug do catálogo → tela. Ao migrar uma ferramenta, registre aqui E em lib/tools/disponiveis.ts.
@@ -30,7 +30,7 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'cockcroft-gault': () => <CockcroftGaultCalculator />,
   'ckd-epi-creat-cistatina-c': () => <CKDEPICistatinaCalculator />,
   'clearance-de-creatinina-ped': () => <PediatricoCalculator />,
-  'hipercalemia-potassio': () => <ConteudoPagina dados={hipercalemia} />,
+  'hipercalemia-potassio': () => <EletrolitoHub eletrolito="potassio" inicial="hiper" />,
   // Onda 1 — hubs: vários slugs do catálogo abrem a mesma tela, cada um na sua aba.
   'hiponatremia-sodio': () => <SodioHub inicial="hipo" />,
   'hiponatremia-fluxograma-na': () => <SodioHub inicial="fluxo" />,
@@ -65,6 +65,15 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'vacinas-drc': () => <VacinasHub inicial="drc" />,
   'vacinas-adultos': () => <VacinasHub inicial="adultos" />,
   'intoxicacoes-exogenas': () => <IntoxicacoesHub />,
+  // Onda 3 — eletrólitos (hubs de Ca, P e Mg)
+  'hipocalcemia-calcio': () => <EletrolitoHub eletrolito="calcio" inicial="hipo" />,
+  'hipercalcemia-calcio': () => <EletrolitoHub eletrolito="calcio" inicial="hiper" />,
+  'hipofosfatemia-fosforo': () => <EletrolitoHub eletrolito="fosforo" inicial="hipo" />,
+  'hiperfosfatemia-fosforo': () => <EletrolitoHub eletrolito="fosforo" inicial="hiper" />,
+  'hipomagnesemia-magnesio': () => <EletrolitoHub eletrolito="magnesio" inicial="hipo" />,
+  'hipermagnesemia-magnesio': () => <EletrolitoHub eletrolito="magnesio" inicial="hiper" />,
+  'correcao-do-calcio-ca2': () => <EletrolitoHub eletrolito="calcio" inicial="correcao" />,
+  'hipocalemia-potassio': () => <EletrolitoHub eletrolito="potassio" inicial="hipo" />,
   // Onda 9
   'anemia-drc-dialise': () => <AnemiaDrc />,
 };

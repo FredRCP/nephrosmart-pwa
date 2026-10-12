@@ -167,7 +167,7 @@ describe('Vacinas do adulto', () => {
     expect(screen.getByText('Nenhuma vacina encontrada.')).toBeTruthy();
   });
   it('vivas são marcadas e o dado é consistente', () => {
-    expect(VACINAS.filter((v) => v.vivo).map((v) => v.id).sort()).toEqual(['febreAmarela', 'triplice', 'varicela']);
+    expect(VACINAS.filter((v) => v.vivo).map((v) => v.id).sort()).toEqual(['dengue', 'febreAmarela', 'triplice', 'varicela']);
     expect(new Set(VACINAS.map((v) => v.id)).size).toBe(VACINAS.length);
     for (const v of VACINAS) { expect(v.geral.length, v.id).toBeGreaterThan(0); expect(v.drc.length, v.id).toBeGreaterThan(0); }
     expect(buscarVacinas(VACINAS, 'ZÓSTER')).toHaveLength(1);
@@ -179,7 +179,7 @@ describe('Vacinas do adulto', () => {
   });
   it('não repete erros do app antigo e não traz itens ainda em pesquisa', () => {
     const texto = JSON.stringify(VACINAS).toLowerCase();
-    for (const t of ['hib', 'raiva', 'bcg', 'dengue', 'meningoc', 'polio', 'poliomielite']) expect(texto, t).not.toContain(t);
+    for (const t of ['hib', 'raiva', 'bcg', 'rotavirus']) expect(texto, t).not.toContain(t);
     expect(VACINAS.find((v) => v.id === 'hpv')!.geral.join(' ')).toContain('3 doses');
     expect(VACINAS.find((v) => v.id === 'hepatiteB')!.drc.join(' ')).toContain('DOBRO do volume');
   });
@@ -192,7 +192,7 @@ describe('Vacinas do adulto', () => {
     const t = vsr.drc.join(' ');
     expect(t).toContain('A partir dos 50 anos');
     expect(t).toContain('De 18 a 49 anos: uso a critério médico');
-    expect(vsr.disponibilidade).toContain('Não consta no SUS');
+    expect(vsr.disponibilidade).toContain('SUS só para gestantes');
     const covid = VACINAS.find((v) => v.id === 'covid')!;
     expect(covid.drc.join(' ')).toContain('não traz esquema específico');
     expect(covid.atencao).toContain('em pesquisa');
@@ -205,7 +205,35 @@ describe('Vacinas do adulto', () => {
     expect(d('febreAmarela')).toContain('3 semanas');
     expect(VACINAS.find((v) => v.id === 'varicela')!.disponibilidade).toContain('intervalo de 3 meses');
     expect(VACINAS.find((v) => v.id === 'zoster')!.atencao).toContain('3 meses');
-    expect(VACINAS.find((v) => v.id === 'pneumococo')!.disponibilidade).toContain('SBIm 2026-27');
+    expect(VACINAS.find((v) => v.id === 'pneumococo')!.disponibilidade).toContain('Confira a oferta local');
+  });
+  it('lista em ordem alfabética e traz dengue e meningocócicas', () => {
+    const nomes = VACINAS.map((v) => v.nome);
+    const ordenado = [...nomes].sort((x, y) => x.localeCompare(y, 'pt-BR', { sensitivity: 'base' }));
+    expect(nomes).toEqual(ordenado);
+    expect(nomes[0]).toBe('COVID-19');
+    for (const id of ['dengue', 'menACWY', 'menB', 'covid', 'vsr']) expect(VACINAS.some((v) => v.id === id), id).toBe(true);
+    const d = VACINAS.find((v) => v.id === 'dengue')!;
+    expect(d.vivo).toBe(true);
+    expect(d.geral.join(' ')).toContain('2 doses com intervalo de 3 meses');
+    expect(d.geral.join(' ')).toContain('até 60 anos');
+    expect(d.geral.join(' ')).toContain('12 a 59 anos');
+    expect(d.drc.join(' ')).toContain('imunossupressão grave');
+    expect(VACINAS.find((v) => v.id === 'menB')!.geral.join(' ')).toContain('licenciada até os 50 anos'.replace('licenciada', 'Licenciada'));
+    expect(VACINAS.find((v) => v.id === 'menACWY')!.geral.join(' ')).toContain('meningocócica C conjugada');
+    expect(VACINAS.every((v) => (v.comerciais ?? '').length > 0)).toBe(true);
+  });
+  it('a tela mostra nomes comerciais e a ordem alfabética dos cartões', async () => {
+    const u = userEvent.setup();
+    renderComTema(<VacinasHub inicial="adultos" />);
+    const botoes = screen.getAllByRole('button').map((b) => b.textContent ?? '');
+    const pos = (t: string) => botoes.findIndex((x) => x.includes(t));
+    expect(pos('COVID-19')).toBeLessThan(pos('Dengue'));
+    expect(pos('Dengue')).toBeLessThan(pos('Febre amarela'));
+    expect(pos('Meningocócica ACWY')).toBeLessThan(pos('Meningocócica B'));
+    expect(pos('Meningocócica B')).toBeLessThan(pos('Pneumocócica'));
+    await u.click(screen.getByRole('button', { name: /Dengue/ }));
+    expect(document.body.textContent).toContain('Nomes comerciais (exemplos): Qdenga (Takeda)');
   });
   it('o painel de regras da DRC menciona dengue e o prazo da ABTO', async () => {
     const u = userEvent.setup();

@@ -33,3 +33,11 @@ Observação: a KDIGO não pede os exames de anemia todo mês; a tela diz que a 
 - Vivas pré-transplante: a própria ABTO diz 30 dias na regra geral e 3 semanas para varicela e febre amarela; a equipe disse 4 semanas. O app mostra o que a ABTO escreve.
 **Afirmações da equipe que NÃO entraram (sem sustentação no texto conferido):** "dose de desafio" na hepatite B (a SBIm manda repetir o esquema de 4 doses); indicação específica de meningocócica, VIP e hepatite A na DRC (a SBIm diz seguir o calendário por faixa etária); "intervalo mínimo de 2 meses" do zóster; "anti-HBs < 10 UI/L" (unidade errada, é mUI/mL).
 **Limite:** os trechos foram lidos por leitura automática dos PDFs (o shell não alcança o site da SBIm). Vale você abrir a SBIm pp. 12-13 e conferir as linhas de zóster, VSR e hepatite B.
+
+## Vacinas, 2ª revisão de 11/10/2026 (pedido: faltavam vacinas, ordem alfabética, mais detalhe)
+- Entraram: dengue (viva), meningocócica ACWY, meningocócica B. A lista agora está em ordem alfabética (COVID-19 ... VSR). Cada cartão ganhou "Nomes comerciais (exemplos)" e esquemas mais completos, lidos do Calendário SBIm do Adulto 2026-27 (zóster após ter tido a doença, influenza com segunda dose, tríplice com intervalo, febre amarela em nutrizes, HPV4 do SUS, hepatites combinadas, VSR em gestantes).
+- Continuam de fora, de propósito: Hib, raiva, BCG e rotavírus (não são vacinas de rotina do adulto; o app antigo as listava) e poliomielite isolada (a SBIm do adulto só cita a dTpa-VIP para viajantes).
+- Nomes comerciais: só Qdenga, Bexsero, Arexvy e Abrysvo aparecem no texto da SBIm lido; os demais vieram do app antigo e do meu conhecimento. Confira se algum não existe no Brasil.
+- Nova divergência: VPC20. O calendário adulto da SBIm diz "UBS só para acamados, hospitalizados e institucionalizados; CRIE para comorbidades", mas a tabela de DRC da SBIm marca "UBS e CRIE". O app mostra as duas frases e manda conferir a oferta local.
+- Dengue: o texto da Butantan-DV vem da Nota Técnica 5/2026 (estratégia em 3 municípios em jan/2026); pode ter sido ampliada depois.
+
