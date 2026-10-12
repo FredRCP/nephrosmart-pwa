@@ -1,8 +1,9 @@
 // Vacinas do adulto — com e sem DRC (Onda 8). Substitui as duas telas do app original (calendário geral e DRC).
 // Conteúdo reescrito a partir de: SBIm Calendário do Adulto 2026-27, SBIm Pacientes Especiais 2026-27 (pp. 12-13),
 // Guia SBIm/ABTO de transplante 2025-26, Manual dos CRIE 2023-24, CDC Adult Schedule 2026.
-// Itens com certeza incompleta foram RETIRADOS (ver PESQUISAR_EQUIPE.md). NÃO verificados nesta revisão (conferir antes de decidir): Manual CRIE vigente, calendário do PNI adulto no gov.br,
-// texto da KDIGO 2024 e da AST 2019. Itens de baixa confiança estão marcados em `confianca`.
+// Itens com certeza incompleta foram RETIRADOS (ver PESQUISAR_EQUIPE.md). Revisão de outubro/2026: seção DRC da SBIm (pp. 12-13) e
+// recomendações da ABTO (out/2025) conferidas no texto. NÃO verificados: Manual CRIE vigente, calendário do PNI adulto no gov.br,
+// texto da KDIGO 2024 e da AST 2019. Itens de confiança menor estão marcados em `confianca`.
 export type Confianca = 'alta' | 'media' | 'baixa';
 export type GrupoDrc = 'todos' | 'naoDialitica' | 'dialise';
 
@@ -34,7 +35,8 @@ export const ROTULO_GRUPO: Record<GrupoDrc, string> = {
 
 export const PRINCIPIOS_DRC: string[] = [
   'Vacinas inativadas, recombinantes e de subunidade: podem ser dadas em qualquer estágio da DRC, em diálise e em imunossupressão. Quanto mais cedo na doença, melhor a resposta.',
-  'Vacinas de vírus vivo (tríplice viral, varicela e febre amarela): a DRC e a diálise, sozinhas, NÃO são contraindicação (SBIm). São contraindicadas na imunossupressão e após o transplante enquanto houver imunossupressão.',
+  'Vacinas de vírus vivo (tríplice viral, varicela, febre amarela e dengue): a DRC e a diálise, sozinhas, NÃO são contraindicação (SBIm). Na imunossupressão grave são contraindicadas; na moderada, a decisão é clínica e depende do risco epidemiológico (SBIm). Após o transplante, enquanto houver imunossupressão, não use.',
+  'Vivas antes do transplante, em quem ainda não está imunossuprimido: a ABTO (2025) pede 30 dias entre a tríplice viral e o transplante e 3 semanas para varicela e febre amarela. Confirme o prazo com o centro transplantador.',
   'Resposta humoral é menor na DRC avançada e na diálise: dosar anticorpos quando existir marcador (hepatite B) e não adiar a vacinação à espera de “melhorar a resposta”.',
 ];
 
@@ -65,6 +67,7 @@ export const VACINAS: Vacina[] = [
       'Esquema incompleto de VPC13/15 ou VPP23: completar com VPC20 (2 meses após a última VPC13/15, ou 1 ano após a VPP23).',
       'Esquema completo (VPC13 + VPP23): uma dose de VPC20 a critério do médico.',
     ],
+    disponibilidade: 'SBIm 2026-27: disponível nas UBS e nos CRIE para quem não foi vacinado antes. A ABTO (out/2025) ainda a descrevia só na rede privada: confira a oferta local.',
   },
   {
     id: 'hepatiteB', nome: 'Hepatite B', busca: 'hepatite b hbv anti-hbs engerix recombivax heplisav', confianca: 'media',
@@ -73,6 +76,7 @@ export const VACINAS: Vacina[] = [
     drc: [
       'Pré-dialítica e hemodiálise: esquema de 4 doses (0, 1, 2 e 6 meses) com o DOBRO do volume (40 mcg); disponível nos CRIE.',
       'Dosar o anti-HBs 1 a 2 meses após a última dose. Imune se ≥ 10 mUI/mL.',
+      'Se o anti-HBs vier negativo (< 10 mUI/mL), repetir o esquema de 4 doses uma única vez (SBIm 2026-27).',
     ],
     porGrupo: {
       naoDialitica: ['Vacinar cedo: a resposta cai com a progressão da doença. Mesmo esquema de 4 doses.'],
@@ -87,7 +91,29 @@ export const VACINAS: Vacina[] = [
     drc: [
       'SBIm: considerar a partir dos 18 anos na DRC. Não é fornecida na UBS/CRIE.',
     ],
-    disponibilidade: 'Rede privada.',
+    disponibilidade: 'Rede privada (não consta no SUS, segundo a SBIm 2026-27).',
+    atencao: 'O intervalo entre as doses diverge: SBIm (DRC) 0 e 2 meses; ABTO (transplante, out/2025) 3 meses entre as doses.',
+  },
+  {
+    id: 'covid', nome: 'COVID-19', busca: 'covid coronavirus sars-cov-2', confianca: 'media',
+    resumoGeral: 'Seguir o esquema vigente do PNI.', resumoDrc: 'A SBIm não traz esquema próprio para DRC: seguir o PNI.',
+    geral: ['Esquema e número de doses mudam com o tempo: seguir o informe vigente do PNI/Ministério da Saúde.'],
+    drc: ['A seção de DRC da SBIm 2026-27 não traz esquema específico e remete aos grupos contemplados pelo PNI vigente.'],
+    disponibilidade: 'SUS (UBS e CRIE), segundo a SBIm 2026-27.',
+    atencao: 'Esquema detalhado (doses e intervalos por grupo) em pesquisa com a equipe.',
+  },
+  {
+    id: 'vsr', nome: 'VSR (vírus sincicial respiratório)', busca: 'vsr sincicial respiratorio arexvy abrysvo', confianca: 'media',
+    resumoGeral: 'Dose única intramuscular.', resumoDrc: 'Nefropatia: recomendada a partir dos 50 anos; 18 a 49 a critério médico.',
+    geral: [
+      'Dose única, intramuscular. Há duas vacinas licenciadas a partir dos 18 anos.',
+      'A indicação por idade no adulto sem comorbidade está em conferência com a equipe.',
+    ],
+    drc: [
+      'A partir dos 50 anos: recomendada na nefropatia, pelo risco de evolução grave ou descompensação. Prioridade para frágeis, acamados e residentes em instituições de longa permanência.',
+      'De 18 a 49 anos: uso a critério médico.',
+    ],
+    disponibilidade: 'Não consta no SUS (UBS/CRIE), segundo a SBIm 2026-27: rede privada.',
   },
   {
     id: 'dtpa', nome: 'dT / dTpa (tétano, difteria e coqueluche)', busca: 'tetano difteria coqueluche dtpa dt', confianca: 'alta',
@@ -126,6 +152,7 @@ export const VACINAS: Vacina[] = [
     drc: [
       'DRC e diálise sem imunossupressão: não é contraindicação.',
       'Contraindicada em imunossuprimidos.',
+      'Candidato a transplante ainda sem imunossupressão: a ABTO (2025) pede 30 dias entre a vacina e o transplante.',
     ],
     disponibilidade: 'SUS.',
   },
@@ -133,8 +160,11 @@ export const VACINAS: Vacina[] = [
     id: 'varicela', nome: 'Varicela', vivo: true, busca: 'varicela catapora', confianca: 'media',
     resumoGeral: '2 doses (1 a 2 meses).', resumoDrc: 'Viva: permitida na DRC sem imunossupressão.',
     geral: ['2 doses com intervalo de 1 a 2 meses. Rede privada.'],
-    drc: ['DRC e diálise sem imunossupressão: não é contraindicação. Contraindicada em imunossuprimidos.'],
-    disponibilidade: 'Rede privada; CRIE para indicações específicas.',
+    drc: [
+      'DRC e diálise sem imunossupressão: não é contraindicação. Contraindicada em imunossuprimidos.',
+      'Candidato a transplante ainda sem imunossupressão: a ABTO (2025) pede 3 semanas entre a vacina e o transplante.',
+    ],
+    disponibilidade: 'Rede privada. CRIE: 2 doses com intervalo de 3 meses (SBIm 2026-27).',
   },
   {
     id: 'febreAmarela', nome: 'Febre amarela', vivo: true, busca: 'febre amarela', confianca: 'media',
@@ -143,7 +173,10 @@ export const VACINAS: Vacina[] = [
       'SBIm: 2 doses (a 2ª, 10 anos após a 1ª). PNI: dose única se a primeira foi dada a partir dos 5 anos.',
       'O “reforço vitalício em áreas de risco” não consta nas fontes consultadas.',
     ],
-    drc: ['DRC e diálise sem imunossupressão: não é contraindicação. Contraindicada em imunossuprimidos.'],
+    drc: [
+      'DRC e diálise sem imunossupressão: não é contraindicação. Contraindicada em imunossuprimidos.',
+      'Candidato a transplante ainda sem imunossupressão: a ABTO (2025) pede 3 semanas entre a vacina e o transplante.',
+    ],
     disponibilidade: 'SUS.',
     atencao: 'As fontes divergem (SBIm × PNI) sobre uma ou duas doses.',
   },

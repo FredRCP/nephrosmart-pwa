@@ -179,9 +179,40 @@ describe('Vacinas do adulto', () => {
   });
   it('não repete erros do app antigo e não traz itens ainda em pesquisa', () => {
     const texto = JSON.stringify(VACINAS).toLowerCase();
-    for (const t of ['hib', 'raiva', 'bcg', 'dengue', 'covid', 'meningoc', 'sincicial']) expect(texto, t).not.toContain(t);
+    for (const t of ['hib', 'raiva', 'bcg', 'dengue', 'meningoc', 'polio', 'poliomielite']) expect(texto, t).not.toContain(t);
     expect(VACINAS.find((v) => v.id === 'hpv')!.geral.join(' ')).toContain('3 doses');
     expect(VACINAS.find((v) => v.id === 'hepatiteB')!.drc.join(' ')).toContain('DOBRO do volume');
+  });
+  it('hepatite B: sorologia negativa repete o esquema de 4 doses uma única vez (SBIm 2026-27)', () => {
+    const l = linhasDrc(VACINAS.find((v) => v.id === 'hepatiteB')!, 'naoDialitica').join(' ');
+    expect(l).toContain('repetir o esquema de 4 doses uma única vez');
+  });
+  it('VSR e COVID-19 seguem a seção de DRC da SBIm, sem inventar esquema', () => {
+    const vsr = VACINAS.find((v) => v.id === 'vsr')!;
+    const t = vsr.drc.join(' ');
+    expect(t).toContain('A partir dos 50 anos');
+    expect(t).toContain('De 18 a 49 anos: uso a critério médico');
+    expect(vsr.disponibilidade).toContain('Não consta no SUS');
+    const covid = VACINAS.find((v) => v.id === 'covid')!;
+    expect(covid.drc.join(' ')).toContain('não traz esquema específico');
+    expect(covid.atencao).toContain('em pesquisa');
+    expect(buscarVacinas(VACINAS, 'sincicial')).toHaveLength(1);
+  });
+  it('vivas: prazos pré-transplante da ABTO e zóster com intervalo divergente sinalizado', () => {
+    const d = (id: string) => VACINAS.find((v) => v.id === id)!.drc.join(' ');
+    expect(d('triplice')).toContain('30 dias');
+    expect(d('varicela')).toContain('3 semanas');
+    expect(d('febreAmarela')).toContain('3 semanas');
+    expect(VACINAS.find((v) => v.id === 'varicela')!.disponibilidade).toContain('intervalo de 3 meses');
+    expect(VACINAS.find((v) => v.id === 'zoster')!.atencao).toContain('3 meses');
+    expect(VACINAS.find((v) => v.id === 'pneumococo')!.disponibilidade).toContain('SBIm 2026-27');
+  });
+  it('o painel de regras da DRC menciona dengue e o prazo da ABTO', async () => {
+    const u = userEvent.setup();
+    renderComTema(<VacinasHub inicial="drc" />);
+    await u.click(screen.getByRole('button', { name: /Regras gerais na DRC/ }));
+    expect(document.body.textContent).toContain('dengue');
+    expect(document.body.textContent).toContain('30 dias entre a tríplice viral');
   });
 });
 
