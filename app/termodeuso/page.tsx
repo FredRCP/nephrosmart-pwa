@@ -23,19 +23,19 @@ export default function TermsOfUse() {
         </h2>
 
         <p className="text-sm italic mb-6 text-center" style={{ color: 'var(--modalText)' }}>
-          Última atualização: 11 de Março de 2026
+          Última atualização: 12 de Outubro de 2026
         </p>
 
         <p className="text-base mb-6 leading-relaxed" style={{ color: 'var(--text)' }}>
-          Bem-vindo ao <strong>NephroSmart</strong>. Este documento estabelece as condições para o uso do nosso aplicativo e site{' '}    
+          Bem-vindo ao <strong>NephroSmart</strong>. Este documento estabelece as condições para o uso do nosso aplicativo web (PWA, instalável pelo navegador) e site{' '}    
           <a
-            href="https://nefrosmartapp.com.br"
+            href="https://nephrosmart.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="underline font-medium"
             style={{ color: 'var(--text)' }}
           >
-             nefrosmartapp.com.br
+             nephrosmart.vercel.app
           </a>,
           Ao usar o NephroSmart, você concorda com os seguintes termos e condições. Leia atentamente antes de prosseguir.{' '}
         </p>
@@ -72,7 +72,7 @@ export default function TermsOfUse() {
           <p className="text-base mb-4 leading-relaxed" style={{ color: 'var(--text)' }}>
           - O uso do NephroSmart é permitido apenas a maiores de 18 anos (ou idade legal em sua jurisdição) que sejam médicos ou profissionais de saúde legalmente habilitados.
           <br />
-          - Para acessar todas as funcionalidades, é necessário criar uma conta usando o Firebase Authentication (via e-mail ou outro provedor compatível).
+          - Para acessar todas as funcionalidades, é necessário criar uma conta com e-mail e senha.
           <br />
           - O usuário é responsável por manter a confidencialidade de suas credenciais de acesso e por todas as atividades realizadas em sua conta.
           <br />
@@ -86,15 +86,15 @@ export default function TermsOfUse() {
           4. Privacidade e Dados do Usuário
         </h3>
         <p className="text-base mb-4 leading-relaxed" style={{ color: 'var(--text)' }}>
-          - O NephroSmart utiliza autenticação via Firebase para gerenciar contas de usuário (e-mail e senha). Não coletamos ou armazenamos dados sensíveis de pacientes.
+          - O NephroSmart usa autenticação própria de conta (e-mail e senha, via Supabase). Não coletamos ou armazenamos dados de pacientes: os valores digitados nas calculadoras são processados no seu aparelho.
           <br />
-          - O aplicativo poderá utilizar ferramentas de análise de uso (analytics), incluindo serviços integrados ao Firebase, para coletar dados técnicos e estatísticos como telas acessadas, tempo de uso, interações com funcionalidades, modelo do dispositivo, sistema operacional e versão do aplicativo. Esses dados são utilizados exclusivamente para melhoria contínua do desempenho, estabilidade e experiência do usuário, não sendo utilizados para publicidade ou marketing comportamental.
+          - Podemos registrar dados técnicos e anônimos de uso (ferramenta acessada, tipo de plataforma e versão do aplicativo) apenas para melhorar o desempenho e a estabilidade. Não usamos o Google Firebase nem o Google Analytics, e esses dados não são usados para publicidade ou marketing comportamental.
           <br />
           - O tratamento de dados é realizado conforme detalhado na Política de Privacidade, que integra estes Termos de Uso para todos os fins.        
           <br />
           - Para mais detalhes, consulte nossa{' '}
           <a
-            href="https://nefrosmartapp.com.br/privacidade"
+            href="https://nephrosmart.vercel.app/privacidade"
             target="_blank"
             rel="noopener noreferrer"
             className="underline font-medium"
@@ -152,7 +152,7 @@ export default function TermsOfUse() {
           <br />
           - Notificaremos você sobre alterações significativas por meio do aplicativo ou do site.
           <br />
-          - A versão mais recente dos Termos de Uso estará sempre disponível em nefrosmartapp.com.br, e o uso contínuo do aplicativo após a atualização constitui aceitação das novas condições. 
+          - A versão mais recente dos Termos de Uso estará sempre disponível em nephrosmart.vercel.app, e o uso contínuo do aplicativo após a atualização constitui aceitação das novas condições. 
           </p>
 
             
@@ -183,7 +183,7 @@ export default function TermsOfUse() {
         </h3>
         <p className="text-base mb-8 leading-relaxed" style={{ color: 'var(--text)' }}>
         - O NephroSmart é um aplicativo independente desenvolvido e disponibilizado sob a marca NephroSmart.
-        <br />- O aplicativo é desenvolvido e operado por Frederico Rodrigues da Cunha Pereira, desenvolvedor independente registrado na plataforma Google Play Console.
+        <br />- O aplicativo é desenvolvido e operado por Frederico Rodrigues da Cunha Pereira, desenvolvedor independente.
         <br />- Para contato, dúvidas, comunicações legais ou relato de inconsistências, utilize:
         nefrosmartapp@gmail.com
         <br /> © 2026 NephroSmart. Todos os direitos reservados.
@@ -201,9 +201,9 @@ export default function TermsOfUse() {
           14. Assinaturas e Pagamentos (quando aplicável)
         </h3>
         <p className="text-base mb-4 leading-relaxed" style={{ color: 'var(--text)' }}>
-        - Algumas funcionalidades poderão ser disponibilizadas mediante assinatura paga, com renovação automática conforme as regras da plataforma de distribuição (Google Play).
-          <br />- O cancelamento poderá ser realizado a qualquer momento pelo usuário diretamente na plataforma de pagamento utilizada.
-          <br />- Eventuais políticas de reembolso seguirão as regras da Google Play ou da legislação aplicável.
+        - Algumas funcionalidades poderão ser oferecidas mediante assinatura paga. Valores, forma de pagamento, renovação e cancelamento serão informados de forma clara no momento da contratação.
+          <br />- O usuário poderá cancelar a assinatura a qualquer momento, conforme as condições informadas na contratação.
+          <br />- Eventuais reembolsos seguirão a legislação aplicável, em especial o Código de Defesa do Consumidor.
          </p>
 
         <h3 className="text-xl font-semibold mt-8 mb-3" style={{ color: 'var(--resultTitle)' }}>

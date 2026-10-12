@@ -83,6 +83,13 @@ describe('Botão de informações (i) e ordem dos cards', () => {
       expect(screen.getAllByLabelText('Informações').length, slug).toBeGreaterThan(0);
     }
   });
+  it('o botão (i) respeita a faixa inferior do celular (safe-area) e fica acima do rodapé do desktop', async () => {
+    const { implementacoes } = await import('@/app/ferramentas/[slug]/implementacoes');
+    renderComTema(implementacoes['imc']() as React.ReactElement);
+    const cls = screen.getByLabelText('Informações').className;
+    expect(cls).toContain('env(safe-area-inset-bottom)');
+    expect(cls).toContain('md:bottom-24');
+  });
   it('nas páginas de eletrólitos, "Tratamento" vem depois das causas', async () => {
     const [a, b, c] = await Promise.all([import('@/lib/content/hipercalemia'), import('@/lib/content/hiponatremia'), import('@/lib/content/hipernatremia')]);
     const ids = (d: { itens: { tipo: string; id?: string }[] }) => d.itens.filter((i) => i.tipo === 'secao').map((i) => i.id);

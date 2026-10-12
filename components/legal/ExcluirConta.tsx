@@ -139,7 +139,7 @@ export default function ExcluirConta() {
           <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-300">
             {[
               'Seus dados de autenticação (e-mail e senha)',
-              'Seu perfil de usuário no Firebase',
+              'Seu perfil de usuário e os registros de aceite dos termos',
               'Preferências e configurações salvas no app',
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-2">

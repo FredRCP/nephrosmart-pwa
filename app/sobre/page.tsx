@@ -3,7 +3,7 @@ import pkg from '../../package.json';
 export const metadata = { title: 'Sobre' };
 
 const EMAIL = 'nefrosmartapp@gmail.com';
-const SITE = 'https://nefrosmartapp.com.br';
+const SITE = 'https://nephrosmart.vercel.app';
 
 const cartao = 'rounded-2xl p-5 text-center';
 const estilo = { backgroundColor: 'var(--inputBg)', border: '1px solid var(--inputBorder)', color: 'var(--modalText)' } as const;
@@ -29,12 +29,13 @@ export default function SobrePage() {
 
       <section className={cartao} style={estilo}>
         <h2 className="mb-1 text-base font-semibold" style={{ color: 'var(--text)' }}>Desenvolvido por</h2>
-        <p className="text-base leading-6">RCP Creative · Desenvolvedor independente</p>
+        <p className="text-base leading-6">Desenvolvido e operado por Frederico Rodrigues da Cunha Pereira<br />RCP Creative · Desenvolvedor independente</p>
       </section>
 
       <section className={cartao} style={estilo}>
         <h2 className="mb-1 text-base font-semibold" style={{ color: 'var(--text)' }}>Contato</h2>
         <a href={`mailto:${EMAIL}`} className="block text-base font-semibold underline" style={{ color: 'var(--button)' }}>✉️ {EMAIL}</a>
+        <a href={SITE} className="mt-2 block text-base font-semibold underline" style={{ color: 'var(--button)' }}>🌐 nephrosmart.vercel.app</a>
       </section>
 
       <img src="/images/rcp-creative.png" alt="RCP Creative" width={60} height={60} className="mx-auto size-14 rounded-2xl" />

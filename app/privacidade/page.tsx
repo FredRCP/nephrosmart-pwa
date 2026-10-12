@@ -1,196 +1,120 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 export const metadata = { title: 'Política de Privacidade' };
 
+const SITE = 'https://nephrosmart.vercel.app';
+const EMAIL = 'nefrosmartapp@gmail.com';
+
+const H = ({ children }: { children: ReactNode }) => (
+  <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>{children}</h3>
+);
+const P = ({ children }: { children: ReactNode }) => (
+  <p className="text-base mb-4" style={{ color: 'var(--text)' }}>{children}</p>
+);
+const UL = ({ children }: { children: ReactNode }) => (
+  <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>{children}</ul>
+);
+const Site = () => (
+  <a href={SITE} target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'var(--text)' }}>nephrosmart.vercel.app</a>
+);
+
 export default function PrivacyPolicy() {
   return (
-    <div
-      className="flex justify-center p-2"
-      style={{ background: 'linear-gradient(to bottom, var(--gradient1), var(--gradient2))' }}
-    >
-      <div
-        className="w-full max-w-4xl p-8 rounded-lg shadow-lg mx-auto"
-        style={{
-          background: 'var(--resultBg)',
-          borderColor: 'var(--resultBorder)',
-        }}
-      >
-        <h2
-          className="text-2xl font-semibold mb-6 text-center"
-          style={{ color: 'var(--text)' }}
-        >
-          Política de Privacidade
-        </h2>
-        <p className="text-sm italic mb-4" style={{ color: 'var(--modalText)' }}>
-          Última atualização: 12 de Março de 2026
-        </p>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Bem-vindo à Política de Privacidade do <strong>NephroSmart</strong>. Esta política explica como coletamos, usamos, armazenamos e protegemos os dados fornecidos por você ao usar nosso aplicativo e site{' '} 
-          <a
-            href="https://nefrosmartapp.com.br"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-            style={{ color: 'var(--text)' }}
-          >
-            nefrosmartapp.com.br
-          </a>. 
-          Nosso objetivo é ser transparente sobre nossas práticas de dados e garantir a conformidade com a Lei Geral de Proteção de Dados (LGPD) no Brasil e outras regulamentações aplicáveis.
-          </p>
+    <div className="flex justify-center p-2" style={{ background: 'linear-gradient(to bottom, var(--gradient1), var(--gradient2))' }}>
+      <div className="w-full max-w-4xl p-8 rounded-lg shadow-lg mx-auto" style={{ background: 'var(--resultBg)', borderColor: 'var(--resultBorder)' }}>
+        <h2 className="text-2xl font-semibold mb-6 text-center" style={{ color: 'var(--text)' }}>Política de Privacidade</h2>
+        <p className="text-sm italic mb-4" style={{ color: 'var(--modalText)' }}>Última atualização: 12 de Outubro de 2026</p>
+        <P>
+          Esta política explica como o <strong>NephroSmart</strong> coleta, usa, armazena e protege dados pessoais. O NephroSmart é um aplicativo web instalável (PWA), disponível em <Site />, e não é distribuído em lojas de aplicativos.
+          Nosso objetivo é ser transparente e cumprir a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).
+        </P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          1. Dados Coletados
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          O NephroSmart coleta apenas o mínimo de informações necessárias para oferecer uma experiência funcional:
-        </p>
-        <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
-          <li><strong>Dados de login</strong>: Quando você cria uma conta ou faz login no NephroSmart (aplicativo ou site), coletamos seu endereço de e-mail ou outro identificador fornecido pelo Firebase Authentication, um serviço seguro do Google. O Firebase é um serviço da Google LLC que atua como operador de dados, seguindo padrões internacionais de segurança e conformidade (incluindo GDPR e LGPD).
-          O Firebase é um serviço da Google LLC que atua como operador de dados, seguindo padrões internacionais de segurança e conformidade (incluindo GDPR e LGPD).</li>
-          <li><strong>Dados de uso e analytics</strong>: O NephroSmart utiliza ferramentas de análise (analytics), como serviços fornecidos pelo Google Firebase, para coletar dados anônimos de uso do aplicativo. Esses dados podem incluir informações como telas acessadas, tempo de uso, interações com funcionalidades, modelo do dispositivo, sistema operacional, versão do aplicativo e identificadores pseudonimizados ou anônimos do dispositivo. Esses dados não permitem a identificação direta do usuário e são utilizados exclusivamente para fins estatísticos e de melhoria contínua da experiência.</li>
-          <li><strong>Dados sensíveis de saúde</strong>: O NephroSmart não coleta nem armazena dados sensíveis de saúde que permitam identificar o usuário.
-            As informações inseridas para cálculos (como valores laboratoriais) são processadas localmente, sem qualquer vínculo com a identidade do usuário.
-           O usuário é exclusivamente responsável pelos dados inseridos no aplicativo, devendo assegurar que não sejam incluídas informações que permitam identificar pacientes ou terceiros.
-           O NephroSmart não possui acesso aos dados inseridos localmente no dispositivo do usuário.
+        <H>1. Dados coletados</H>
+        <P>Coletamos apenas o mínimo necessário para o funcionamento do serviço:</P>
+        <UL>
+          <li><strong>Dados da conta</strong>: e-mail, senha (guardada de forma protegida pelo provedor de autenticação, nunca em texto aberto), nome (opcional) e o plano de acesso. A autenticação é feita pelo Supabase.</li>
+          <li><strong>Aceite dos termos</strong>: ao criar a conta, registramos a versão dos Termos de Uso e da Política de Privacidade aceitas e a data e hora do aceite.</li>
+          <li><strong>Dados de uso técnicos e anônimos</strong>: podemos registrar eventos como a ferramenta acessada, o tipo de plataforma (navegador, celular ou computador), a versão do aplicativo e um identificador aleatório da instalação. Esses registros não contêm e-mail, nome nem dados clínicos e servem apenas para medir o uso e corrigir falhas.</li>
+          <li><strong>Dados de saúde</strong>: o NephroSmart não coleta nem armazena dados de pacientes. Os valores digitados nas calculadoras são processados no seu próprio navegador ou aparelho e não são enviados aos nossos servidores. O usuário é responsável por não inserir informações que identifiquem pacientes ou terceiros.</li>
+          <li><strong>Armazenamento no seu aparelho</strong>: o aplicativo guarda localmente preferências (tema claro/escuro, ferramentas favoritas, confirmação de leitura dos termos) e arquivos para uso offline (cache do aplicativo). Você pode apagá-los nas configurações do navegador.</li>
+        </UL>
+        <P>Não utilizamos o Google Firebase nem o Google Analytics.</P>
 
-          </li>
-          <li><strong>Cookies e tecnologias semelhantes (nephrosmartapp.com.br)</strong>: O site nefrosmartapp.com.br pode utilizar cookies técnicos essenciais e tecnologias de análise estatística para manter o estado de login e melhorar a experiência do usuário. Esses cookies não coletam informações pessoais.</li>
-        </ul>
+        <H>2. Uso dos dados</H>
+        <P>Os dados são usados exclusivamente para:</P>
+        <UL>
+          <li>Criar e autenticar sua conta e liberar as funcionalidades do seu plano.</li>
+          <li>Comprovar o aceite dos Termos de Uso e desta Política.</li>
+          <li>Responder a mensagens e solicitações enviadas ao nosso e-mail de contato.</li>
+          <li>Medir o uso e melhorar a estabilidade e as funcionalidades, de forma anônima.</li>
+        </UL>
+        <P>Não vendemos dados, não os usamos para publicidade ou marketing e não fazemos perfilhamento nem decisões automatizadas sobre os usuários.</P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          2. Uso dos dados
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Os dados coletados são usados exclusivamente para:
-        </p>
-        <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
-          <li>Autenticar sua conta no aplicativo e no site, permitindo o acesso às funcionalidades do NephroSmart.</li>
-          <li>Armazenar temporariamente os valores de exames inseridos para cálculos como por exemplo de ajustes de dose, sem vinculá-los a você ou a terceiros.</li>
-          <li>Analisar métricas de uso, desempenho e navegação por meio de ferramentas de analytics, com a finalidade exclusiva de aprimorar funcionalidades, corrigir falhas e melhorar a experiência do usuário.     </li>
-          <li>Não utilizamos seus dados para fins publicitários, comerciais ou de envio de comunicações promocionais.</li>
-          <li>O NephroSmart não realiza perfilhamento automatizado de usuários, decisões automatizadas com impacto jurídico, nem tratamento de dados para fins de marketing comportamental.
-          </li>
-        </ul>
+        <H>3. Compartilhamento</H>
+        <P>Não compartilhamos seus dados com terceiros, exceto com os provedores que operam a infraestrutura do serviço, sob nossas instruções:</P>
+        <UL>
+          <li><strong>Supabase</strong>: autenticação e banco de dados (conta, plano, aceite dos termos e registros de uso).</li>
+          <li><strong>Vercel</strong>: hospedagem do site e do aplicativo, que pode registrar dados técnicos de acesso (como endereço IP) para segurança e funcionamento.</li>
+          <li>Autoridades públicas, quando exigido por lei ou ordem judicial.</li>
+        </UL>
+        <P>Esses provedores podem processar dados em servidores fora do Brasil. A transferência internacional ocorre conforme os mecanismos previstos na LGPD, incluindo garantias contratuais adequadas.</P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          3. Compartilhamento de dados
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Não compartilhamos seus dados com terceiros, exceto:
-        </p>
-        <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
-          <li>Com o Google Firebase, para fins de autenticação, armazenamento seguro e análise estatística de uso (analytics).</li>
-          <li>Quando exigido por lei ou para cumprir obrigações legais, como em resposta a ordens judiciais.</li>
-          <li>O NephroSmart pode compartilhar dados apenas com operadores de dados devidamente contratados (como o Firebase), que atuam exclusivamente sob nossas instruções e em conformidade com esta Política e a LGPD.</li>
-          <li>Os dados podem ser processados em servidores localizados fora do Brasil. A transferência internacional de dados ocorre com observância dos mecanismos legais previstos na LGPD, incluindo garantias contratuais apropriadas e conformidade com padrões internacionais de proteção de dados.</li>
-        </ul>
+        <H>4. Armazenamento e segurança</H>
+        <UL>
+          <li>Os dados trafegam por conexão criptografada (HTTPS) e a senha é protegida pelo provedor de autenticação.</li>
+          <li>O acesso aos dados da conta é restrito por regras de segurança do banco de dados: cada usuário acessa apenas os próprios dados.</li>
+          <li>Os dados da conta são mantidos enquanto ela estiver ativa. Se você pedir a exclusão, os dados serão removidos em até 30 dias, ressalvadas obrigações legais.</li>
+          <li>Os valores inseridos nas calculadoras ficam apenas no seu aparelho.</li>
+        </UL>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          4. Armazenamento e segurança
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-           Usamos o Firebase para proteger seus dados com criptografia e práticas de segurança padrão.
-        </p>
-        
-        <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
-          <li> <strong>Login</strong>: Os dados de autenticação (como e-mail) são gerenciados pelo Firebase Authentication, que utiliza criptografia robusta para proteger suas informações.</li>
-          <li><strong>Valores de exames</strong>: Valores inseridos para cálculos são armazenados exclusivamente no dispositivo do usuário, não sendo enviados ou armazenados em servidores externos.</li>
-          <li>Adotamos medidas de segurança técnicas e organizacionais para proteger seus dados contra acesso não autorizado, perda ou uso indevido.</li> 
-          <li>Os dados de login são mantidos enquanto sua conta estiver ativa. Caso a conta seja excluída, as informações são removidas do sistema em até 30 dias.</li> 
-          <li> Caso o usuário não acesse o aplicativo por mais de 12 meses, os dados de login poderão ser removidos de forma automática, garantindo a segurança e minimização de armazenamento.</li>
-        </ul>
+        <H>4.1 Incidentes de segurança</H>
+        <P>
+          Nenhum sistema é completamente isento de riscos. Em caso de incidente que possa acarretar risco ou dano relevante aos titulares, adotaremos as medidas exigidas pela legislação, incluindo a comunicação à Autoridade Nacional de Proteção de Dados e aos titulares, quando necessário.
+        </P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          4.1 Incidentes de Segurança
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-           Embora sejam adotadas medidas técnicas e organizacionais adequadas para proteção dos dados, nenhum sistema é completamente isento de riscos.
-          <br /> Em caso de incidente de segurança que possa acarretar risco ou dano relevante aos titulares de dados, serão adotadas as medidas exigidas pela legislação aplicável, incluindo eventual comunicação às autoridades competentes, quando necessário.
-        </p>
-      
-
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          5. Seus direitos
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          De acordo com a LGPD, você tem direitos sobre seus dados, incluindo:
-        </p>
-        <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
-          <li>Confirmar a existência de tratamento de dados.</li>
-          <li>Acessar, corrigir ou excluir seus dados de login.</li>
+        <H>5. Seus direitos</H>
+        <P>De acordo com a LGPD, você pode:</P>
+        <UL>
+          <li>Confirmar se tratamos seus dados e acessá-los.</li>
+          <li>Corrigir dados incompletos ou desatualizados.</li>
           <li>Solicitar anonimização, bloqueio ou eliminação de dados desnecessários.</li>
-          <li>Revogar consentimento, quando aplicável.</li>
-          <li>Solicitar informações sobre como seus dados são tratados.</li>
-        </ul>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Para exercer seus direitos, entre em contato conosco pelo e-mail nefrosmartapp@gmail.com.
-        </p>
+          <li>Solicitar a exclusão da conta e dos dados, na página <Link href="/excluir-conta" className="underline">Excluir conta</Link>.</li>
+          <li>Revogar o consentimento e pedir informações sobre o tratamento.</li>
+        </UL>
+        <P>Para exercer seus direitos, escreva para {EMAIL}.</P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          6. Cookies no site
-        </h3>
-          <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-                  O site <a
-          href="https://nefrosmartapp.com.br"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-          style={{ color: 'var(--text)' }}>
-          nefrosmartapp.com.br</a> pode utilizar cookies técnicos essenciais e tecnologias de análise estatística para manter a sessão ativa e compreender padrões gerais de navegação. Esses cookies não são utilizados para publicidade comportamental e não identificam diretamente o usuário.</p>
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          7. Alterações nesta política
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-         
-          A versão mais atualizada desta Política estará sempre disponível em <a
-            href="https://nefrosmartapp.com.br/privacidade"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-            style={{ color: 'var(--text)' }}
-          >
-            nefrosmartapp.com.br/privacidade
-          </a> e dentro do aplicativo NephroSmart, acessível no menu “Política de Privacidade”. O uso contínuo do aplicativo após a atualização constitui aceitação das novas condições. {'\n\n'}  
-        </p>
+        <H>6. Cookies e armazenamento do navegador</H>
+        <P>
+          O site usa cookies e armazenamento local técnicos, necessários para manter a sessão de login, lembrar o tema e as preferências e permitir o uso offline. Não usamos cookies de publicidade nem de rastreamento entre sites.
+        </P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          8. Controlador dos Dados
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-        O NephroSmart é um aplicativo independente desenvolvido e operado por Frederico Rodrigues da Cunha Pereira, registrado na plataforma Google Play Console como desenvolvedor independente.
-          <br />O desenvolvedor atua como Controlador de Dados Pessoais, nos termos da Lei nº 13.709/2018 (Lei Geral de Proteção de Dados – LGPD), sendo responsável por determinar as finalidades e os meios de tratamento dos dados pessoais coletados.
-          <br />Para quaisquer assuntos relacionados à proteção de dados, o usuário pode entrar em contato pelo e-mail:
-          nefrosmartapp@gmail.com.</p>
+        <H>7. Alterações nesta política</H>
+        <P>
+          A versão atual está sempre disponível em <a href={`${SITE}/privacidade`} target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'var(--text)' }}>nephrosmart.vercel.app/privacidade</a> e no menu do aplicativo. Quando houver mudança relevante, pediremos um novo aceite. O uso continuado após a atualização indica concordância com as novas condições.
+        </P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          9. Contato
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Para dúvidas, solicitações ou exercício de direitos relacionados à privacidade e proteção de dados, ou sugestões, o usuário pode entrar em contato pelo e-mail: nefrosmartapp@gmail.com. {'\n\n'} 
-        </p>
+        <H>8. Controlador dos dados</H>
+        <P>
+          O NephroSmart é desenvolvido e operado por Frederico Rodrigues da Cunha Pereira, desenvolvedor independente, que atua como Controlador de Dados Pessoais nos termos da LGPD. Contato para assuntos de proteção de dados: {EMAIL}.
+        </P>
 
-        <h3 className="text-lg font-semibold mt-6 mb-2" style={{ color: 'var(--resultTitle)' }}>
-          10. Consentimento
-        </h3>
-        <p className="text-base mb-4" style={{ color: 'var(--text)' }}>
-          Ao utilizar o site ou o aplicativo NephroSmart, o usuário declara que leu e concorda com esta Política de Privacidade. {'\n'}
-          O tratamento de dados pessoais é realizado com fundamento nas bases legais previstas no artigo 7º da Lei nº 13.709/2018 (LGPD), incluindo:
-          <ul className="list-disc pl-6 mb-4 text-base" style={{ color: 'var(--text)' }}>
+        <H>9. Contato</H>
+        <P>Para dúvidas, solicitações, exercício de direitos ou sugestões: {EMAIL}.</P>
+
+        <H>10. Consentimento e bases legais</H>
+        <P>
+          Ao criar uma conta, o usuário declara que leu e concorda com esta Política. O tratamento se apoia nas bases legais do art. 7º da LGPD, em especial:
+        </P>
+        <UL>
           <li>Consentimento do titular;</li>
-          <li>Execução de contrato;</li>
+          <li>Execução de contrato (acesso à conta e ao plano);</li>
           <li>Cumprimento de obrigação legal ou regulatória;</li>
-          <li>Legítimo interesse do controlador, quando aplicável.</li>
-          </ul>
-        </p>
-
-         
+          <li>Legítimo interesse, para segurança e medição anônima de uso.</li>
+        </UL>
 
         <div className="flex justify-center mt-8 pb-16">
-          <Link
-            href="/"
-            className="px-4 py-2 rounded text-base text-center"
-            style={{ background: 'var(--buttonPrimary)', color: 'var(--buttonText)' }}
-          >
+          <Link href="/" className="px-4 py-2 rounded text-base text-center" style={{ background: 'var(--buttonPrimary)', color: 'var(--buttonText)' }}>
             Voltar à Página Inicial
           </Link>
         </div>
@@ -198,4 +122,3 @@ export default function PrivacyPolicy() {
     </div>
   );
 }
-

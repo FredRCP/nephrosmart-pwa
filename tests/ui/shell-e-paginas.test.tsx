@@ -157,12 +157,25 @@ describe('Páginas legais portadas do site', () => {
   it('Política de Privacidade', () => {
     renderComTema(<PrivacidadePage />);
     expect(screen.getByRole('heading', { name: 'Política de Privacidade' })).toBeTruthy();
-    expect(screen.getByText('Última atualização: 12 de Março de 2026')).toBeTruthy();
+    expect(screen.getByText('Última atualização: 12 de Outubro de 2026')).toBeTruthy();
   });
   it('Termos de Uso', () => {
     renderComTema(<TermosPage />);
-    expect(screen.getByText('Última atualização: 11 de Março de 2026')).toBeTruthy();
+    expect(screen.getByText('Última atualização: 12 de Outubro de 2026')).toBeTruthy();
     expect(screen.getAllByText(/exclusivamente a médicos e profissionais de saúde legalmente habilitados/).length).toBeGreaterThan(0);
+  });
+  it('textos legais: sem Firebase/Google Play/domínio antigo e com o endereço atual do site', () => {
+    for (const Pagina of [PrivacidadePage, TermosPage]) {
+      const { container, unmount } = renderComTema(<Pagina />);
+      const txt = container.textContent ?? '';
+      expect(txt).not.toMatch(/Google Play|Play Console|nefrosmartapp\.com/i);
+      expect(txt).toContain('nephrosmart.vercel.app');
+      expect(container.querySelector('a[href*="nefrosmartapp.com"]')).toBeNull();
+      unmount();
+    }
+    const { container } = renderComTema(<PrivacidadePage />);
+    expect(container.textContent).toContain('Não utilizamos o Google Firebase');
+    expect(container.textContent).not.toMatch(/fornecido pelo Firebase|Firebase Authentication/);
   });
   it('só o e-mail oficial (nefrosmartapp@gmail.com) aparece nas páginas legais', () => {
     for (const Pagina of [PrivacidadePage, TermosPage, ContatoPage]) {
