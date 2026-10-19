@@ -41,15 +41,17 @@ export default function GasometriaCalculator() {
           <li>• Identifica o distúrbio primário (pH, PCO₂, HCO₃⁻) e avalia a compensação esperada.</li>
           <li>• Calcula o anion gap (corrigido para albumina, se informada) e o delta-delta.</li>
           <li>• Albumina em branco: o AG NÃO é corrigido e o aplicativo avisa.</li>
-          <li>• Lactato é opcional.</li>
+          <li>• Lactato é opcional (&gt; 2 mmol/L = elevado; Sepsis-3).</li>
+          <li>• pH, PCO₂ e HCO₃⁻ normais não excluem distúrbio misto: o app sempre calcula o AG.</li>
         </ul>
         <TituloInfo>Delta-delta (Δ AG / Δ HCO₃)</TituloInfo>
         <ul className="space-y-1">
-          <li>• &lt; 0,4: acidose hiperclorêmica pura (AG normal)</li><li>• 0,4–1: acidose de AG + hiperclorêmica</li>
-          <li>• 1–2: acidose de AG simples</li><li>• &gt; 2: acidose de AG + alcalose metabólica associada</li>
+          <li>• &lt; 0,4: acidose hiperclorêmica pura (AG normal)</li><li>• 0,4–0,8: acidose de AG + hiperclorêmica</li>
+          <li>• 0,8–2: acidose de AG simples</li><li>• &gt; 2: acidose de AG + alcalose metabólica associada</li>
+          <li>• Usa AG normal = 12 e HCO₃⁻ normal = 24. É aproximado: menos confiável na acidose láctica (razão típica ~1,6) e na DRC (Rastegar, JASN 2007).</li>
         </ul>
         <TituloInfo>Referências</TituloInfo>
-        <ul className="space-y-1"><li>• Berend K et al. N Engl J Med 2014;371:1434</li><li>• Kraut JA, Madias NE. Nat Rev Nephrol 2010;6:274</li></ul>
+        <ul className="space-y-1"><li>• Berend K et al. N Engl J Med 2014;371:1434</li><li>• Adrogué HJ, Madias NE. J Am Soc Nephrol 2010;21:920</li><li>• Rastegar A. J Am Soc Nephrol 2007;18:2429</li></ul>
       </>
     }>
       {f('ph', 'pH (ex.: 7,35)')}{f('pco2', 'PCO₂ (mmHg)')}{f('hco3', 'HCO₃⁻ (mEq/L)')}{f('na', 'Sódio (mEq/L)')}{f('cl', 'Cloreto (mEq/L)')}
@@ -66,6 +68,7 @@ export default function GasometriaCalculator() {
           <p>{r.parametros}</p>
           <p>{r.ag}</p>
           <p>{r.deltaGap} — {r.deltaGapInterp}</p>
+          {r.deltaAviso && <p className="text-sm italic opacity-80">{r.deltaAviso}</p>}
           {r.compEsperada && <p className="whitespace-pre-line">{r.compEsperada}</p>}
           {r.compReal && <p>{r.compReal} {r.compStatus}</p>}
           {r.lactato && <p>{r.lactato}</p>}

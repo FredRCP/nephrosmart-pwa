@@ -62,12 +62,14 @@ export default function BicarbonatoCalculator() {
         <BlocoMono>{'Padrão: déficit = (HCO₃ desejado − atual) × peso × 0,4 (0,5 se grave)\nBase excess: déficit = |BE| × peso × 0,3 (0,5 se grave)\nEmpírica: 1, 1,5 ou 2 mEq/kg\nDose = 50% do déficit, em 3 tomadas a cada 8 h'}</BlocoMono>
         <TituloInfo>Quando repor</TituloInfo>
         <ul className="space-y-1">
-          <li>• BICAR-ICU (Jaber, Lancet 2018): benefício em pH &lt; 7,20 com LRA grave (KDIGO 2–3). Sem benefício claro se pH ≥ 7,20.</li>
-          <li>• Acidose láctica: não é rotina; trate a causa. CAD: só se pH &lt; 6,9.</li>
-          <li>• DRC com HCO₃ persistentemente &lt; 22 mEq/L: bicarbonato oral (KDIGO 2024), não a via IV.</li>
+          <li>• BICAR-ICU (Jaber, Lancet 2018): benefício só no subgrupo com pH ≤ 7,20 e LRA grave (KDIGO 2–3).</li>
+          <li>• BICARICU-2 (Jung, JAMA 2025): nessa população, sem redução de mortalidade em 90 dias (62,1% vs 61,7%); menos diálise (35% vs 50%). Evidência fraca/condicional.</li>
+          <li>• Acidose láctica: não é rotina; trate a causa (Surviving Sepsis 2021: não usar se pH ≥ 7,15). CAD: só se pH &lt; 7,0 (consenso ADA/EASD 2024).</li>
+          <li>• DRC: o KDIGO 2024 sugere considerar bicarbonato oral para evitar acidose com repercussão, por exemplo HCO₃ sérico &lt; 18 mmol/L em adultos (ponto de prática). Não é a via IV desta calculadora.</li>
+          <li>• O espaço de distribuição do bicarbonato varia com a gravidade (cerca de 0,5 × peso com HCO₃ &gt; 10, bem maior com HCO₃ ≤ 5): é uma estimativa.</li>
         </ul>
         <TituloInfo>Cuidados</TituloInfo>
-        <ul className="space-y-1"><li>• Sobrecarga de Na⁺/volume, hipocalcemia ionizada, hipocalemia e alcalose de rebote. Gasometria de controle.</li></ul>
+        <ul className="space-y-1"><li>• Sobrecarga de Na⁺/volume, hipocalcemia ionizada, hipocalemia e alcalose de rebote. Gasometria de controle.</li><li>• A solução 8,4% (1 mEq/mL) é hipertônica; as concentrações menores são obtidas por diluição.</li></ul>
       </>
     }>
       <Escolha rotulo="Método" valor={modo} onChange={setModo} opcoes={[{ valor: 'padrao', texto: 'HCO₃ atual/desejado' }, { valor: 'be', texto: 'Base excess' }, { valor: 'empirica', texto: 'Empírica (mEq/kg)' }]} />
@@ -80,7 +82,7 @@ export default function BicarbonatoCalculator() {
           <input type="checkbox" checked={grave} onChange={(e) => setGrave(e.target.checked)} className="size-5" />Acidose grave (usa espaço de distribuição 0,5)
         </label>
       )}
-      <Escolha rotulo="Concentração" valor={conc} onChange={setConc} opcoes={[{ valor: '1', texto: '8,4% (1 mEq/mL)' }, { valor: '0.5', texto: '4,2% (0,5)' }, { valor: '0.1', texto: 'Diluída (0,1)' }]} />
+      <Escolha rotulo="Concentração" valor={conc} onChange={setConc} opcoes={[{ valor: '1', texto: '8,4% (1 mEq/mL)' }, { valor: '0.5', texto: '4,2% (diluída, 0,5)' }, { valor: '0.1', texto: 'Diluída (0,1)' }]} />
       <div className="mt-4 flex gap-3">
         <BotaoPrimario onClick={calcular}>Calcular</BotaoPrimario>
         <BotaoSecundario onClick={recarregar} aria-label="Recarregar última dose">

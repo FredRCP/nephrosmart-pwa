@@ -43,10 +43,12 @@ export default function CompensacaoAcidoBase() {
           <li>• Valor medido dentro do esperado: compensação adequada.</li>
           <li>• Fora do esperado: há um segundo distúrbio associado (o app indica qual).</li>
           <li>• Tolerância: ±2 (metabólicos e respiratórios agudos); ±4 nos respiratórios crônicos.</li>
-          <li>• Na alcalose metabólica a compensação é limitada (PCO₂ raramente passa de 55–60 mmHg).</li>
+          <li>• Na alcalose metabólica a compensação é limitada (PCO₂ raramente passa de 55–60 mmHg) e é a resposta mais difícil de prever. Outra forma publicada, 40 + 0,7 × (HCO₃ − 24), dá cerca de 2 mmHg a mais.</li>
+          <li>• Acidose respiratória crônica: a inclinação publicada vai de 0,35 (Adrogué e Madias) a ~0,45 mEq/L por mmHg (NEJM 2014; González 2018); por isso a tolerância é maior (±4).</li>
+          <li>• Limites aproximados: HCO₃⁻ raramente passa de ~30 na acidose respiratória aguda e de ~45 na crônica. São aproximações de estudos antigos: valor dentro do esperado é "compatível com" distúrbio simples, não prova.</li>
         </ul>
         <TituloInfo>Referências</TituloInfo>
-        <ul className="space-y-1"><li>• Rose BD, Post TW — Clinical Physiology of Acid-Base and Electrolyte Disorders</li><li>• Berend K et al. N Engl J Med 2014;371:1434</li></ul>
+        <ul className="space-y-1"><li>• Rose BD, Post TW — Clinical Physiology of Acid-Base and Electrolyte Disorders</li><li>• Berend K et al. N Engl J Med 2014;371:1434</li><li>• Adrogué HJ, Madias NE. J Am Soc Nephrol 2010;21:920</li></ul>
       </>
     }>
       <Escolha rotulo="Qual o distúrbio primário?" valor={disturbio} onChange={setDisturbio} opcoes={[

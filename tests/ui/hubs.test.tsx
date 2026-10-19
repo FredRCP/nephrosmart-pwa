@@ -86,7 +86,7 @@ describe('Hub Ácido-base', () => {
     await digitar(u, 'Bicarbonato (mEq/L)', '14');
     await calcular(u);
     expect(resultado()).toBe('Anion Gap: 26.0 mEq/L');
-    expect(screen.getByRole('alert').textContent).toContain('varia conforme o método do laboratório');
+    expect(screen.getByRole('alert').textContent).toContain('varia conforme o método');
     await u.click(screen.getByLabelText('Corrigir para albumina'));
     await calcular(u);
     expect(screen.getByPlaceholderText('Albumina (g/dL)').getAttribute('aria-invalid')).toBe('true');

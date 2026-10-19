@@ -78,7 +78,9 @@ export function calcularCompensacao(e: { disturbio: Disturbio; fase: Fase; hco3:
 }
 
 // ───────────── Anion gap ─────────────
-export interface AnionGapEntrada { na: string; cl: string; hco3: string; k?: string; albumina?: string; comK: boolean; corrigir: boolean }
+/** Faixa de referência do AG por método: com eletrodos íon-seletivos ela é mais baixa que a clássica 8–12 (Berend, NEJM 2014; Sadjadi 2013). O usuário pode informar a do seu laboratório. */
+export const REFERENCIA_AG = { semK: [6, 12], comK: [10, 16] } as const;
+export interface AnionGapEntrada { na: string; cl: string; hco3: string; k?: string; albumina?: string; comK: boolean; corrigir: boolean; refMin?: string; refMax?: string }
 export interface AnionGapResultado {
   ok: true; ag: number; agCorrigido: number | null; valor: number; faixa: string; classe: 'baixo' | 'normal' | 'alto'; texto: string; avisos: string[];
 }
@@ -99,17 +101,21 @@ export function calcularAnionGap(e: AnionGapEntrada): AnionGapResultado | AnionG
   if (!dentro(hc, { min: 1, max: 60 })) ruim('hco3', 'um bicarbonato válido');
   if (e.comK && !dentro(k, { min: 1, max: 12 })) ruim('k', 'um potássio válido');
   if (e.corrigir && !dentro(alb, { min: 0.5, max: 7 })) ruim('albumina', 'uma albumina válida (g/dL)');
+  const temRef = (e.refMin ?? '').trim() !== '' || (e.refMax ?? '').trim() !== '';
+  const rMin = num(e.refMin ?? ''), rMax = num(e.refMax ?? '');
+  if (temRef && !(dentro(rMin, { min: -5, max: 30 }) && dentro(rMax, { min: -5, max: 30 }) && rMin < rMax)) ruim('ref', 'uma faixa de referência do laboratório válida (mínimo menor que o máximo)');
   if (campos.length) return { ok: false, campos, mensagem: `Por favor, insira ${juntarLista(nomes)}.` };
 
   const ag = e.comK ? na + k - (cl + hc) : na - (cl + hc);
   const agCorrigido = e.corrigir ? ag + (4.0 - alb) * 2.5 : null;
   const valor = agCorrigido ?? ag;
-  const [lo, hi] = e.comK ? [12, 16] : [8, 12];
+  const [lo, hi] = temRef ? [rMin, rMax] : e.comK ? REFERENCIA_AG.comK : REFERENCIA_AG.semK;
   const classe = valor < lo ? 'baixo' : valor > hi ? 'alto' : 'normal';
   const rotulo = `Anion Gap${e.comK ? ' (com K⁺)' : ''}${e.corrigir ? ', corrigido' : ''}`;
   const texto = `${rotulo}: ${valor.toFixed(1)} mEq/L` + (e.corrigir ? `\nAlbumina: ${alb.toFixed(1)} g/dL (AG medido: ${ag.toFixed(1)})` : '');
-  const avisos = [`Referência usada: ${lo}–${hi} mEq/L${e.comK ? ' (com K⁺)' : ''}. A faixa normal varia conforme o método do laboratório: confirme com a referência do seu serviço.`];
+  const avisos = [`Referência usada: ${lo}–${hi} mEq/L${e.comK ? ' (com K⁺)' : ''}${temRef ? ' (informada por você)' : ''}. ${temRef ? '' : 'Com eletrodos íon-seletivos a faixa é mais baixa que a clássica 8–12 e varia conforme o método: confirme com a referência do seu laboratório. '}`.trim()];
   if (valor > 20) avisos.push('AG > 20 mEq/L: quase sempre patológico (acidose por ânions não medidos).');
+  if (classe === 'alto') avisos.push('Na DRC, o fosfato elevado pode aumentar o AG sem acidose orgânica; não há correção validada para isso.');
   if (!e.corrigir) avisos.push('Sem correção para albumina: na hipoalbuminemia o AG real fica subestimado (+2,5 mEq/L a cada 1 g/dL abaixo de 4).');
   return { ok: true, ag, agCorrigido, valor, faixa: `${lo}–${hi}`, classe, texto, avisos };
 }
@@ -117,7 +123,7 @@ export function calcularAnionGap(e: AnionGapEntrada): AnionGapResultado | AnionG
 // ───────────── Gasometria completa ─────────────
 export interface GasoEntrada { ph: string; pco2: string; hco3: string; na: string; cl: string; albumina: string; lactato: string }
 export interface GasoResultado {
-  ok: true; parametros: string; ag: string; avisoAlbumina?: string; agAlerta?: string; deltaGap: string; deltaGapInterp: string;
+  ok: true; parametros: string; ag: string; avisoAlbumina?: string; agAlerta?: string; deltaGap: string; deltaGapInterp: string; deltaAviso?: string;
   disturbio: string; compEsperada: string; compReal: string; compStatus: string; lactato?: string; conclusao: string;
 }
 export interface GasoErro { ok: false; campos: string[]; mensagem: string }
@@ -151,7 +157,7 @@ export function calcularGasometria(e: GasoEntrada): GasoResultado | GasoErro {
   let deltaGapInterp: string;
   if (gapGap === null) deltaGapInterp = 'Delta-delta indeterminado (HCO₃ próximo ao normal)';
   else if (gapGap < 0.4) deltaGapInterp = 'Acidose metabólica hiperclorêmica (com gap normal) pura';
-  else if (gapGap < 1.0) deltaGapInterp = 'Distúrbio misto: acidose com AG + acidose hiperclorêmica';
+  else if (gapGap < 0.8) deltaGapInterp = 'Distúrbio misto: acidose com AG + acidose hiperclorêmica';
   else if (gapGap <= 2.0) deltaGapInterp = 'Acidose metabólica com AG elevado simples';
   else deltaGapInterp = 'Distúrbio misto: acidose com AG + alcalose metabólica';
 
@@ -214,7 +220,8 @@ export function calcularGasometria(e: GasoEntrada): GasoResultado | GasoErro {
   }
 
   let conclusao = '';
-  if (agCorr > 16) conclusao = 'AG elevado → considerar: cetoacidose (diabética, alcoólica, jejum), acidose láctica, insuficiência renal (uremia), intoxicações (salicilatos, metanol, etilenoglicol, metformina), acidose D-lática.';
+  const gasoNormal = disturbio.startsWith('✅');
+  if (agCorr > 16) conclusao = (gasoNormal ? 'pH, PCO₂ e HCO₃ normais NÃO excluem distúrbio: o AG elevado pode indicar acidose de AG + alcalose metabólica (distúrbio misto oculto). ' : '') + 'AG elevado → considerar: cetoacidose (diabética, alcoólica, jejum), acidose láctica, insuficiência renal (uremia), intoxicações (salicilatos, metanol, etilenoglicol, metformina), acidose D-lática.';
   else if (agCorr < 6) conclusao = 'AG baixo → considerar: hipoalbuminemia não corrigida, hipercalcemia/hipermagnesemia, mieloma múltiplo, erro laboratorial.';
 
   const deltaQualifica = agCorr > 12 && gapGap !== null;
@@ -230,7 +237,8 @@ export function calcularGasometria(e: GasoEntrada): GasoResultado | GasoErro {
     ag: temAlb ? `Ânion Gap: ${ag.toFixed(1)}  →  corrigido (albumina): ${agCorr.toFixed(1)}` : `Ânion Gap: ${ag.toFixed(1)} (sem correção)`,
     avisoAlbumina, agAlerta,
     deltaGap: gapGap !== null ? `Delta-Delta (Gap-Gap): ${gapGap.toFixed(2)}` : 'Delta-Delta: indeterminado',
-    deltaGapInterp, disturbio: [...new Set(partes)].filter(Boolean).join(' + '),
+    deltaGapInterp, deltaAviso: gapGap !== null ? 'Delta-delta é orientativo: menos confiável na acidose láctica (a razão típica é ~1,6) e na DRC. Use com o contexto clínico.' : undefined,
+    disturbio: [...new Set(partes)].filter(Boolean).join(' + '),
     compEsperada, compReal, compStatus, lactato, conclusao,
   };
 }
@@ -274,14 +282,15 @@ export interface BicResultado { ok: true; doseMeq: number; volumeMl: number; por
 export interface BicErro { ok: false; campos: string[]; mensagem: string }
 
 export const TEXTO_CONC: Record<ConcentracaoBic, string> = {
-  '1': '8,4% (1 mEq/mL)', '0.5': '4,2% (0,5 mEq/mL)', '0.1': 'solução diluída (0,1 mEq/mL)',
+  '1': '8,4% (1 mEq/mL)', '0.5': '4,2% (0,5 mEq/mL, por diluição)', '0.1': 'solução diluída (0,1 mEq/mL)',
 };
 export const corDoseBic = (d: number) => (d <= 100 ? '#22c55e' : d <= 200 ? '#facc15' : '#ef4444');
 
 export const AVISOS_BICARBONATO = [
-  'Evidência (BICAR-ICU): o benefício do bicarbonato foi visto em pH < 7,20 com lesão renal aguda grave (KDIGO 2–3), com menor necessidade de diálise e menos mortalidade nesse subgrupo. Com pH ≥ 7,20 não há benefício claro.',
-  'Na acidose láctica o bicarbonato NÃO é rotina: trate a causa (perfusão, sepse, etc.). Na cetoacidose diabética só se pH < 6,9.',
-  'Confirmar com nova gasometria após a reposição. Cuidado com sobrecarga de sódio/volume, hipernatremia, hipocalcemia ionizada e hipocalemia.',
+  'Evidência: no BICAR-ICU (Lancet 2018) o benefício apareceu só no subgrupo com pH ≤ 7,20 e lesão renal aguda grave (KDIGO 2–3). O BICARICU-2 (JAMA 2025) testou isso e NÃO reduziu a mortalidade em 90 dias (62,1% vs 61,7%); houve menos diálise (35% vs 50%). Com pH > 7,20 não há benefício claro.',
+  'Na acidose láctica o bicarbonato NÃO é rotina: trate a causa (perfusão, sepse, etc.); a Surviving Sepsis 2021 sugere não usar com pH ≥ 7,15. Na cetoacidose diabética só se pH < 7,0 (consenso ADA/EASD 2024).',
+  'O espaço de distribuição do bicarbonato aumenta quanto mais grave a acidose, então o cálculo é uma estimativa. Corrija parcialmente (meta pH ~7,20, não normalizar) e reavalie com nova gasometria.',
+  'Cuidado com sobrecarga de sódio/volume, hipernatremia, hipocalcemia ionizada, hipocalemia e alcalose de rebote. Infunda diluído e lentamente; a solução 8,4% é hipertônica.',
 ];
 
 export function calcularBicarbonato(e: BicEntrada): BicResultado | BicErro {

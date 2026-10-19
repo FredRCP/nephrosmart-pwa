@@ -31,16 +31,20 @@ export default function CorrecaoCalcio() {
   const limparSaida = () => { setRes(null); setMsg(''); };
 
   return (
-    <CalculadoraLayout titulo="Correção do Cálcio" info={
+    <CalculadoraLayout titulo="Cálcio e albumina (Payne)" info={
       <>
-        <TituloInfo>Cálcio total corrigido pela albumina</TituloInfo>
+        <TituloInfo>O que esta tela faz</TituloInfo>
         <ul className="space-y-1">
-          <li>• Fórmula (Payne): Ca corrigido = Ca total + 0,8 × (4,0 − albumina). Sem ajuste se a albumina for ≥ 4,0 g/dL.</li>
-          <li>• Cerca de 40–45% do cálcio total circula ligado à albumina; com albumina baixa, o cálcio total subestima o cálcio livre.</li>
+          <li>• Mostra o cálcio total medido e uma estimativa pela fórmula de Payne: Ca + 0,8 × (4,0 − albumina). Sem ajuste se a albumina for ≥ 4,0 g/dL.</li>
           <li>• Referência: 8,5–10,2 mg/dL (varia conforme o laboratório).</li>
-          <li>• A fórmula é aproximada. Em DRC, diálise, acidose grave, UTI, citrato (diálise, transfusão) ou albumina &lt; 2,0 g/dL, meça o cálcio iônico.</li>
-          <li>• Não calcula o cálcio iônico. Interprete com PTH, vitamina D, fósforo e magnésio.</li>
-          <li>• Nada é gravado: o cálculo é feito na hora.</li>
+        </ul>
+        <TituloInfo>Por que a fórmula foi rebaixada</TituloInfo>
+        <ul className="space-y-1">
+          <li>• Em 22.658 adultos, o cálcio total sem correção concordou mais com o cálcio iônico (74,5%) do que o Payne (63%) (Desgagnés, JAMA Netw Open 2024).</li>
+          <li>• Em DRC estágio 5 e diálise, o cálcio ajustado classifica mal o estado do cálcio (Law, Nephrology 2021).</li>
+          <li>• Posição conjunta IOF/IFCC/EFLM (2026): os laboratórios não devem mais reportar cálcio corrigido pela albumina. Em DRC, diálise, doença crítica, acidose, citrato e hipoalbuminemia grave, o exame é o cálcio iônico.</li>
+          <li>• Se o total e a estimativa caírem em faixas diferentes, o app avisa e a cor do resultado fica amarela.</li>
+          <li>• Não calcula o cálcio iônico. Interprete com PTH, vitamina D, fósforo e magnésio. Nada é gravado: o cálculo é feito na hora.</li>
         </ul>
       </>
     }>
@@ -51,7 +55,7 @@ export default function CorrecaoCalcio() {
         <BotaoSecundario onClick={limpar} aria-label="Limpar campos"><Icone nome="trash-alt" tamanho={20} cor={colors.buttonText} /></BotaoSecundario>
       </div>
       {msg && <CartaoResultado texto={msg} cor={colors.inputError} />}
-      {res && (<><AvisosCalculadora avisos={res.avisos} /><CartaoResultado texto={res.texto} cor={COR[res.faixa]} /></>)}
+      {res && (<><AvisosCalculadora avisos={res.avisos} /><CartaoResultado texto={res.texto} cor={res.discordante ? '#f59e0b' : COR[res.faixa]} /></>)}
     </CalculadoraLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calcularAnionGap, calcularBicarbonato, calcularCompensacao, calcularGasometria, calcularOsmolaridade, corDoseBic } from '@/lib/clinical/acidobase';
+import { AVISOS_BICARBONATO, calcularAnionGap, calcularBicarbonato, calcularCompensacao, calcularGasometria, calcularOsmolaridade, corDoseBic } from '@/lib/clinical/acidobase';
 
 const comp = (disturbio: any, fase: any, hco3: string, pco2: string) => calcularCompensacao({ disturbio, fase, hco3, pco2 }) as any;
 
@@ -45,24 +45,39 @@ describe('anion gap', () => {
   it('calcula, classifica e aceita vírgula', () => {
     expect(ag({})).toMatchObject({ ok: true, ag: 26, valor: 26, classe: 'alto' });
     expect(ag({ hco3: '28' }).classe).toBe('normal');
-    expect(ag({ hco3: '31', na: '138' }).classe).toBe('baixo');
+    expect(ag({ hco3: '35', na: '138' }).classe).toBe('baixo');
     expect(ag({ na: '140,5', hco3: '14' }).ag).toBeCloseTo(26.5);
   });
-  it('limites 8–12: 8 e 12 são normais', () => {
-    expect(ag({ hco3: '32' }).classe).toBe('normal'); // AG 8
+  it('limites 6–12 (eletrodo íon-seletivo): 6 e 12 são normais', () => {
+    expect(ag({ hco3: '34' }).classe).toBe('normal'); // AG 6
     expect(ag({ hco3: '28' }).valor).toBe(12);
     expect(ag({ hco3: '28' }).classe).toBe('normal');
     expect(ag({ hco3: '27' }).classe).toBe('alto'); // 13
-    expect(ag({ hco3: '33' }).classe).toBe('baixo'); // 7
+    expect(ag({ hco3: '35' }).classe).toBe('baixo'); // 5
+    expect(ag({ hco3: '32' }).classe).toBe('normal'); // 8 também é normal
+  });
+  it('faixa do laboratório substitui a padrão e é validada', () => {
+    const r = ag({ hco3: '30', refMin: '8', refMax: '12' }); // AG 10
+    expect(r).toMatchObject({ faixa: '8–12', classe: 'normal' });
+    expect(r.avisos[0]).toContain('informada por você');
+    expect(ag({ hco3: '34', refMin: '8', refMax: '12' }).classe).toBe('baixo'); // AG 6 < 8
+    expect(ag({ refMin: '8', refMax: '' }).ok).toBe(false);
+    expect(ag({ refMin: '12', refMax: '8' }).campos).toEqual(['ref']);
+    expect(ag({ refMin: 'a', refMax: '12' }).campos).toEqual(['ref']);
+  });
+  it('AG alto avisa sobre fosfato na DRC; faixa padrão informa o método', () => {
+    expect(ag({}).avisos.join(' ')).toContain('fosfato');
+    expect(ag({ hco3: '28' }).avisos.join(' ')).not.toContain('fosfato');
+    expect(ag({}).avisos[0]).toContain('íon-seletivos');
   });
   it('potássio e albumina', () => {
-    expect(ag({ comK: true, k: '4' })).toMatchObject({ ag: 30, faixa: '12–16' });
+    expect(ag({ comK: true, k: '4' })).toMatchObject({ ag: 30, faixa: '10–16' });
     expect(ag({ corrigir: true, albumina: '2' })).toMatchObject({ ag: 26, agCorrigido: 31, valor: 31 });
     expect(ag({ corrigir: true, albumina: '4' }).agCorrigido).toBe(26);
   });
   it('avisos: faixa varia por laboratório; AG>20; sem correção', () => {
     const r = ag({});
-    expect(r.avisos.join(' ')).toContain('varia conforme o método do laboratório');
+    expect(r.avisos.join(' ')).toContain('varia conforme o método');
     expect(r.avisos.join(' ')).toContain('AG > 20');
     expect(r.avisos.join(' ')).toContain('Sem correção');
     expect(ag({ corrigir: true, albumina: '4', hco3: '28' }).avisos.join(' ')).not.toContain('Sem correção');
@@ -201,13 +216,15 @@ describe('gasometria — fronteiras (mutação)', () => {
     expect(g({ albumina: '', cl: '110' }).agAlerta).toBeUndefined(); // AG 16
     expect(g({ albumina: '', cl: '104' }).agAlerta).toContain('AG 22.0 > 20'); // sem "corrigido" no texto
   });
-  it('faixas do delta-delta: 0,4 / 1,0 / 2,0 / 2,1', () => {
+  it('faixas do delta-delta: 0,4 / 0,8 / 2,0 / 2,1', () => {
     // ΔHCO₃ = 10 (HCO₃ 14); AG = 140 − cl − 14
     const interp = (cl: string) => g({ cl }).deltaGapInterp;
     expect(interp('111')).toContain('hiperclorêmica (com gap normal) pura'); // AG 15 → 0,3
     expect(interp('110')).toContain('acidose com AG + acidose hiperclorêmica'); // AG 16 → 0,4
     expect(interp('109')).toContain('acidose com AG + acidose hiperclorêmica'); // 0,5
-    expect(interp('105')).toContain('acidose com AG + acidose hiperclorêmica'); // AG 21 → 0,9
+    expect(interp('107')).toContain('acidose com AG + acidose hiperclorêmica'); // AG 19 → 0,7
+    expect(interp('106')).toContain('AG elevado simples'); // AG 20 → 0,8
+    expect(interp('105')).toContain('AG elevado simples'); // AG 21 → 0,9
     expect(interp('104')).toContain('AG elevado simples'); // AG 22 → 1,0
     expect(interp('94')).toContain('AG elevado simples'); // AG 32 → 2,0
     expect(interp('93')).toContain('alcalose metabólica'); // AG 33 → 2,1
@@ -248,5 +265,26 @@ describe('osmolaridade — fronteiras (mutação)', () => {
     expect(o({ na: '159', glicose: '18', ureia: '6' }).osm).toBe(320);
     expect(o({ na: '159', glicose: '18', ureia: '6' }).avisos).toEqual([]);
     expect(o({ na: '159', glicose: '18', ureia: '9' }).avisos.length).toBe(1); // 320,5
+  });
+});
+
+describe('Revisão 2026: avisos clínicos', () => {
+  const g = (o: any = {}) => calcularGasometria({ ph: '7.40', pco2: '40', hco3: '24', na: '140', cl: '104', albumina: '4', lactato: '', ...o }) as any;
+  it('gasometria normal com AG muito elevado alerta distúrbio misto oculto', () => {
+    const r = g({ cl: '96' }); // AG 20 → corrigido 20
+    expect(r.disturbio).toContain('normal');
+    expect(g({ cl: '90' }).conclusao).toContain('NÃO excluem'); // AG 26
+    expect(g({}).conclusao).not.toContain('NÃO excluem'); // AG 12
+  });
+  it('delta-delta traz aviso de limitação; indeterminado não traz', () => {
+    expect(g({ ph: '7.20', hco3: '14', cl: '104' }).deltaAviso).toContain('acidose láctica');
+    expect(g({}).deltaAviso).toBeUndefined();
+  });
+  it('avisos do bicarbonato citam BICARICU-2, SSC e CAD pH < 7,0', () => {
+    const t = AVISOS_BICARBONATO.join(' ');
+    expect(t).toContain('BICARICU-2');
+    expect(t).toContain('pH ≥ 7,15');
+    expect(t).toContain('pH < 7,0');
+    expect(t).not.toContain('6,9');
   });
 });
