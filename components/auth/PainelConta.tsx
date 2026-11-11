@@ -99,9 +99,9 @@ export default function PainelConta() {
             </>
           )}
 
-          <div className="mt-4 flex"><BotaoSecundario type="button" onClick={sair}>Sair da conta</BotaoSecundario></div>
+          <div className="mt-4 flex justify-center"><BotaoSecundario type="button" onClick={sair}>Sair da conta</BotaoSecundario></div>
 
-          <section className="mt-8 rounded-xl p-4" style={{ border: `1px solid ${colors.inputError}` }} aria-labelledby="titulo-excluir">
+          <section className="mt-8 rounded-xl p-4 text-center" style={{ border: `1px solid ${colors.inputError}` }} aria-labelledby="titulo-excluir">
             <h2 id="titulo-excluir" className="font-bold" style={{ color: colors.inputError }}>Excluir minha conta</h2>
             <p className="mt-1 text-sm" style={{ color: colors.text }}>
               Apaga a conta, o perfil e o registro de aceite dos termos. <strong>Não pode ser desfeito.</strong>{' '}
@@ -114,7 +114,7 @@ export default function PainelConta() {
               className="w-full rounded-xl px-4 py-3 font-semibold text-white disabled:opacity-40" style={{ backgroundColor: colors.inputError }}>
               {excluindo ? 'Excluindo…' : 'Excluir definitivamente'}
             </button>
-            <p className="mt-3 text-xs" style={{ color: colors.text, opacity: 0.7 }}>
+            <p className="mt-3 text-center text-xs" style={{ color: colors.text, opacity: 0.7 }}>
               Mais informações em <Link href="/excluir-conta" className="underline">Excluir Conta</Link>.
             </p>
           </section>

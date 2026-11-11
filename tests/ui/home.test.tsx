@@ -20,6 +20,7 @@ describe('Home', () => {
     expect(screen.getByText(/Uso exclusivo para profissionais de saúde/)).toBeTruthy();
     expect(screen.getByText('Disponível em breve para assinantes')).toBeTruthy();
     expect(screen.getByText(/Principais fontes: KDIGO 2024/)).toBeTruthy();
+    expect(screen.queryByText(/anemia/i)).toBeNull(); // anemia está oculta: não aparece nas fontes
     const alturas = screen.getAllByRole('link', { name: /Função Renal|Ajuste de Dose|Ferramentas Clínicas/ }).filter((a) => a.className.includes('h-16'));
     expect(alturas).toHaveLength(3); // os três botões têm a mesma altura
     expect(screen.getByRole('link', { name: 'Termo de Uso' }).getAttribute('href')).toBe('/termodeuso');

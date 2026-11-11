@@ -150,3 +150,14 @@ describe('CKD-EPI Creatinina + Cistatina C (interface)', () => {
     expect(screen.getByRole('status').textContent).toBe('Último GFR salvo: 95.3 mL/min (valor absoluto, desindexado)');
   });
 });
+
+describe('Botões em grade (Calcular + Último/Limpar)', () => {
+  it.each([['Cockcroft-Gault', CockcroftGaultCalculator], ['CKD-EPI Cr + Cistatina', CKDEPICistatinaCalculator]] as const)('%s: Calcular ocupa a metade; os outros dois dividem a outra metade', (_n, Comp) => {
+    renderComTema(<Comp />);
+    const grade = screen.getByRole('button', { name: 'Calcular' }).parentElement!;
+    const par = screen.getByRole('button', { name: 'Limpar campos' }).parentElement!;
+    expect(grade.className).toContain('grid-cols-2');
+    expect(par.className).toContain('grid-cols-2');
+    expect(par.parentElement).toBe(grade);
+  });
+});

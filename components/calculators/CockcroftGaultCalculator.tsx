@@ -112,13 +112,16 @@ export default function CockcroftGaultCalculator() {
       <SeletorSexo valor={sexo} erro={erros.sexo} tentativa={tentativa}
         onChange={(s) => { setSexo(s); setErros((e) => ({ ...e, sexo: false })); }} />
 
-      <div className="mt-4 flex gap-3">
+      {/* Mesma grade dos botões de sexo: Calcular = largura do Masculino; Último e Limpar dividem a do Feminino */}
+      <div className="mt-4 grid grid-cols-2 gap-3">
         <BotaoPrimario onClick={calcular}>Calcular</BotaoPrimario>
-        <BotaoSecundario onClick={recarregar} aria-label="Recarregar último resultado">
-          <span className="relative"><Icone nome="history" tamanho={20} cor={colors.buttonText} />
-            {temSalvo && <span className="absolute -right-2 -top-2 size-2 rounded-full bg-green-500" />}</span>
-        </BotaoSecundario>
-        <BotaoSecundario onClick={limpar} aria-label="Limpar campos"><Icone nome="trash-alt" tamanho={20} cor={colors.buttonText} /></BotaoSecundario>
+        <div className="grid grid-cols-2 gap-3">
+          <BotaoSecundario onClick={recarregar} aria-label="Recarregar último resultado" title="Último cálculo">
+            <span className="relative"><Icone nome="history" tamanho={20} cor={colors.buttonText} />
+              {temSalvo && <span className="absolute -right-2 -top-2 size-2 rounded-full bg-green-500" />}</span>
+          </BotaoSecundario>
+          <BotaoSecundario onClick={limpar} aria-label="Limpar campos" title="Limpar campos"><Icone nome="trash-alt" tamanho={20} cor={colors.buttonText} /></BotaoSecundario>
+        </div>
       </div>
 
       <AvisosCalculadora avisos={avisos} />
