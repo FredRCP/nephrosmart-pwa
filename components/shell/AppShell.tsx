@@ -43,7 +43,7 @@ const ativoEm = (pathname: string, href: string) => (href === '/' ? pathname ===
 export default function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
   const sessao = useSessao();
   const ehHome = pathname === '/';
 
@@ -52,7 +52,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={`flex min-h-dvh flex-col ${ehHome ? 'pt-[env(safe-area-inset-top)] md:pt-0' : ''}`} style={{ background: 'linear-gradient(to bottom, var(--gradient1), var(--gradient2))' }}>
       {/* iPhone (PWA em tela cheia): faixa escura sob a hora/bateria, em todas as telas */}
-      <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: ehHome && theme === 'dark' ? colors.gradient[0] : COR_CABECALHO_CELULAR }} />
+      <div aria-hidden className="fixed inset-x-0 top-0 z-50 h-[env(safe-area-inset-top)] md:hidden" style={{ backgroundColor: COR_CABECALHO_CELULAR }} />
 
       {/* iPhone: faixa inferior (sob o indicador de início) na cor final do fundo do app */}
       <div aria-hidden data-testid="faixa-inferior" className="fixed inset-x-0 bottom-0 z-50 h-[env(safe-area-inset-bottom)] md:hidden" style={{ backgroundColor: 'var(--gradient2)' }} />

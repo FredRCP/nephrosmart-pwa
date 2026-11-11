@@ -173,6 +173,14 @@ describe('CKD-EPI 2021 (interface)', () => {
     await u.click(screen.getByRole('button', { name: 'Calcular' }));
     expect(screen.getByRole('status').textContent).not.toContain('absoluta');
   });
+  it('Calcular tem a largura do Masculino; Último e Limpar dividem a largura do Feminino', () => {
+    renderComTema(<CKDEPICalculator />);
+    const grade = screen.getByRole('button', { name: 'Calcular' }).parentElement!;
+    expect(grade.className).toContain('grid-cols-2');
+    const par = screen.getByRole('button', { name: 'Limpar campos' }).parentElement!;
+    expect(par.className).toContain('grid-cols-2');
+    expect(par.parentElement).toBe(grade);
+  });
   it('botões: Calcular só com texto; Último e Limpar só com ícone', () => {
     renderComTema(<CKDEPICalculator />);
     expect(screen.getByRole('button', { name: 'Calcular' }).textContent).toBe('Calcular');

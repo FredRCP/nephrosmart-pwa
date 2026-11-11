@@ -39,11 +39,11 @@ describe('iPhone e desktop: barras e margens', () => {
     expect(linha.className).toContain('justify-between');
     expect(linha.className).not.toContain('max-w');
   });
-  it('na Home, a saudação sai do contêiner central e vai para a esquerda no desktop', () => {
+  it('na Home, a saudação fica centralizada, junto do logo, também no desktop', () => {
     renderComTema(<Home />);
-    const saud = screen.getByTestId('saudacao').parentElement!.parentElement!;
-    expect(saud.className).toContain('md:fixed');
-    expect(saud.className).toContain('md:left-8');
+    const bloco = screen.getByTestId('saudacao').parentElement!;
+    expect(bloco.className).toContain('text-center');
+    expect(bloco.parentElement!.className).not.toContain('md:fixed');
   });
 });
 

@@ -18,6 +18,10 @@ describe('Home', () => {
     expect(modulos.getByRole('link', { name: /Ajuste de Dose/ }).getAttribute('href')).toBe('/ajuste-de-dose');
     expect(modulos.getByRole('link', { name: 'Ferramentas Clínicas' }).getAttribute('href')).toBe('/ferramentas');
     expect(screen.getByText(/Uso exclusivo para profissionais de saúde/)).toBeTruthy();
+    expect(screen.getByText('Disponível em breve para assinantes')).toBeTruthy();
+    expect(screen.getByText(/Principais fontes: KDIGO 2024/)).toBeTruthy();
+    const alturas = screen.getAllByRole('link', { name: /Função Renal|Ajuste de Dose|Ferramentas Clínicas/ }).filter((a) => a.className.includes('h-16'));
+    expect(alturas).toHaveLength(3); // os três botões têm a mesma altura
     expect(screen.getByRole('link', { name: 'Termo de Uso' }).getAttribute('href')).toBe('/termodeuso');
   });
   it('a abertura não esconde o conteúdo do leitor de tela e começa em modo de espera', () => {

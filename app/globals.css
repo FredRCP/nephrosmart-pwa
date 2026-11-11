@@ -52,7 +52,7 @@
 }
 
 /* Cor de fundo da página inteira = fim do degradê: evita a faixa branca sob a barra inferior do iPhone (safe area). */
-html, body { background-color: var(--gradient2); }
+html, body { background-color: var(--gradient2); min-height: 100lvh; }
 
 html,
 body {

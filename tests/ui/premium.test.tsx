@@ -140,8 +140,8 @@ describe('ferramentas restritas (em validação)', () => {
 });
 
 describe('lista de restritas', () => {
-  it('inclui diuréticos, IRA, intoxicações e as duas entradas de vacinas', async () => {
+  it('inclui diuréticos, IRA, intoxicações, anemia e as duas entradas de vacinas', async () => {
     const { SLUGS_RESTRITOS } = await import('@/lib/access/restritas');
-    expect([...SLUGS_RESTRITOS].sort()).toEqual(['equivalencia-de-diureticos', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas', 'vacinas-adultos', 'vacinas-drc']);
+    expect([...SLUGS_RESTRITOS].sort()).toEqual(['anemia-drc-dialise', 'equivalencia-de-diureticos', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas', 'vacinas-adultos', 'vacinas-drc']);
   });
 });

@@ -70,7 +70,7 @@ export default function Home() {
     return () => { clearTimeout(t); fim(); };
   }, [animar]);
 
-  const botao = 'block w-full rounded-xl px-6 py-3.5 text-center text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98]';
+  const botao = 'flex h-16 w-full items-center justify-center rounded-xl px-6 text-center text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98]';
   const estadoIntro = fase !== 'pronto' ? 'espera' : animar ? 'anima' : 'parado';
   const atraso = (s: number) => ({ ['--atraso' as string]: `${s}s` });
 
@@ -86,18 +86,19 @@ export default function Home() {
       )}
 
       {/* Saudação com o nome de quem está logado; a engrenagem aqui só no celular (no desktop fica no menu azul) */}
-      <div className="intro-item flex w-full items-start justify-between gap-3 md:fixed md:left-8 md:top-[4.75rem] md:w-auto" style={atraso(1)}>
-        <div>
-          <p className="text-xl font-bold" style={{ color: colors.text }} data-testid="saudacao">
+      {/* Celular: faixa escura contínua com a barra de status (saudação e engrenagem dentro dela); desktop: saudação centralizada */}
+      <div className="intro-item relative -mx-4 -mt-6 w-[calc(100%+2rem)] px-4 pb-4 pt-4 md:mx-0 md:mt-0 md:w-full md:p-0 max-md:bg-[#1f2937]" style={atraso(1)}>
+        <div className="text-left md:text-center">
+          <p className="text-xl font-bold text-white md:[color:var(--text)]" data-testid="saudacao">
             {ola}, {sessao.email ? primeiroNome(sessao.nome, sessao.email) : 'Usuário'}
           </p>
           {sessao.email && (
-            <p className="text-xs" style={{ color: colors.text, opacity: 0.7 }} data-testid="situacao-login">
+            <p className="text-sm text-white/85 md:text-[var(--text)] md:opacity-85" data-testid="situacao-login">
               Conectado · {sessao.ativo ? `Plano ${PLANS[sessao.plano].label}` : 'conta suspensa'}
             </p>
           )}
         </div>
-        <div className="md:hidden"><MenuConfiguracoes variante="home" /></div>
+        <div className="absolute right-4 top-3 md:hidden"><MenuConfiguracoes variante="home" /></div>
       </div>
 
       <div className="my-8 text-center">
@@ -105,19 +106,23 @@ export default function Home() {
         <h1 className={`intro-item intro-logo mx-auto w-fit rounded-3xl ${theme === 'dark' ? 'bg-white/95 px-6 py-3' : ''}`}>
           <img src="/images/ns1a.webp" alt="NephroSmart" width={300} height={250} className="mx-auto h-auto w-56 md:w-64" />
         </h1>
-        <p className="intro-item mx-auto mt-4 w-fit rounded-full px-4 py-0.5 text-xs font-bold tracking-widest opacity-70"
+        <p className="intro-item mx-auto mt-4 w-fit rounded-full px-4 py-0.5 text-sm font-bold tracking-widest opacity-85"
           style={{ color: colors.text, border: `1px solid ${colors.inputBorder}`, ...atraso(1) }}>VERSÃO BETA</p>
       </div>
 
       <nav aria-label="Módulos" className="flex w-full flex-col gap-3">
         <Link href="/funcao-renal" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(1) }}>Função Renal</Link>
         <Link href="/ajuste-de-dose" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(1.6) }}>
-          <span className="opacity-60">Ajuste de Dose <span className="ml-2 align-middle text-xs font-semibold">em breve</span></span>
+          <span className="flex flex-col items-center leading-tight">
+            <span className="opacity-80">Ajuste de Dose</span>
+            <span className="mt-0.5 text-[13px] font-semibold opacity-90">Disponível em breve para assinantes</span>
+          </span>
         </Link>
         <Link href="/ferramentas" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(2.2) }}>Ferramentas Clínicas</Link>
       </nav>
 
-      <p className="intro-item mt-8 text-center text-xs leading-5" style={{ color: colors.text, opacity: 0.6, ...atraso(2.8) }}>
+      <p className="intro-item mt-8 text-center text-sm leading-5" style={{ color: colors.text, opacity: 0.85, ...atraso(2.8) }}>
+        Principais fontes: KDIGO 2024 (DRC) · KDIGO 2026 (anemia) · CKD-EPI 2021 (Inker, NEJM) · SBN<br />
         Uso exclusivo para profissionais de saúde · <Link href="/termodeuso" className="underline">Termo de Uso</Link>
       </p>
     </div>
