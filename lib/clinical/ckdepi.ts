@@ -37,7 +37,8 @@ export function corTfg(gfr: number): string {
   return '#dc2626';
 }
 
-export function classificarDRC(eGFR: number, acrValue: number): string {
+/** Estágio G (pela TFG). */
+export function estagioG(eGFR: number): string {
   let g: string;
   if (eGFR >= 90) g = 'G1';
   else if (eGFR >= 60) g = 'G2';
@@ -45,6 +46,11 @@ export function classificarDRC(eGFR: number, acrValue: number): string {
   else if (eGFR >= 30) g = 'G3b';
   else if (eGFR >= 15) g = 'G4';
   else g = 'G5';
+  return g;
+}
+
+export function classificarDRC(eGFR: number, acrValue: number): string {
+  const g = estagioG(eGFR);
   let a: string;
   if (acrValue < 30) a = 'A1';
   else if (acrValue <= 300) a = 'A2';
@@ -143,7 +149,10 @@ export function calcularCkdEpi(e: EntradaCkdEpi): ResultadoCkdEpi {
     };
   }
 
-  const erroAcr = e.drc && (!e.acr || isNaN(acrValue) || acrValue <= 0);
+  // A albuminúria é OPCIONAL: vazia não é erro. Só marca o campo se foi digitado algo que não é um valor válido.
+  const informouAcr = e.drc && e.acr.trim() !== '';
+  const acrValida = !isNaN(acrValue) && acrValue > 0;
+  const erroAcr = informouAcr && !acrValida;
 
   const gfrIndexado = tfgCkdEpi2021(cr, age, e.sexo as Sexo);
 
@@ -151,16 +160,19 @@ export function calcularCkdEpi(e: EntradaCkdEpi): ResultadoCkdEpi {
   let textoAbsoluto: string;
   if (informouAntropometria) {
     gfrAbsoluto = tfgAbsoluta(gfrIndexado, alturaNum, pesoNum);
-    textoAbsoluto = `\n\nValor absoluto (desindexado):\n${gfrAbsoluto.toFixed(1)} mL/min\n(recomendado para ajuste de dose)`;
+    textoAbsoluto = `\n\nTFG absoluta (desindexada):\n${gfrAbsoluto.toFixed(1)} mL/min\n(para ajustar dose de medicamentos)`;
   } else {
-    textoAbsoluto = '\n\n💡 Toque na seção "Valor desindexado" acima\npara inserir altura e peso (recomendado)';
+    textoAbsoluto = '';
   }
 
-  let texto = `TFG estimada:\n${gfrIndexado.toFixed(1)} mL/min/1.73m²${textoAbsoluto}`;
+  let texto = `TFG estimada (CKD-EPI 2021):\n${gfrIndexado.toFixed(1)} mL/min/1.73m²\n(para classificar a DRC)${textoAbsoluto}`;
   let classificacao: string | undefined;
-  if (e.drc && !isNaN(acrValue)) {
+  if (e.drc && informouAcr && acrValida) {
     classificacao = classificarDRC(gfrIndexado, acrValue);
     texto += `\n\nClassificação DRC: ${classificacao}`;
+  } else if (e.drc) {
+    classificacao = estagioG(gfrIndexado);
+    texto += `\n\nEstágio da DRC pela TFG: ${classificacao}\n(informe a albuminúria para classificar também o A)`;
   }
 
   // Avisos (não bloqueiam)

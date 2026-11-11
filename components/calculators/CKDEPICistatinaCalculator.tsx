@@ -42,7 +42,7 @@ export default function CKDEPICistatinaCalculator() {
       setCor(colors.inputError);
       return;
     }
-    setErros(SEM_ERROS);
+    setErros({ ...SEM_ERROS, acr: r.erroAcr });
     setResultado(r.texto);
     setCor(r.cor);
     setAvisos(r.avisos);
@@ -86,7 +86,7 @@ G3a: 45–59
 G3b: 30–44
 G4: 15–29
 G5: <15`}</BlocoMono>
-          <p>A1-A3 com base na relação albumina/creatinina urinária (ACR), se fornecida:</p>
+          <p>A1-A3 com base na relação albumina/creatinina urinária (ACR), opcional (sem ela o resultado aparece só com o estágio G):</p>
           <BlocoMono>{`A1: <30 mg/g
 A2: 30–300 mg/g
 A3: >300 mg/g`}</BlocoMono>
@@ -99,7 +99,7 @@ A3: >300 mg/g`}</BlocoMono>
           <TituloInfo>Limitações</TituloInfo>
           <ul className="space-y-1">
             <li>• Cistatina C não está disponível em todos os laboratórios (custo mais elevado)</li>
-            <li>• Ainda indexada para 1.73 m² → desindexar para ajuste de dose (ver CKD-EPI creatinina)</li>
+            <li>• Ainda indexada para 1.73 m² → para ajuste de dose, use a TFG desindexada (ver "Ajuste de dose" no CKD-EPI creatinina)</li>
             <li>• Precisão pode ser afetada em inflamação aguda, uso de corticosteroides ou disfunção tireoidiana</li>
           </ul>
           <TituloInfo>Referências principais</TituloInfo>
@@ -126,10 +126,10 @@ A3: >300 mg/g`}</BlocoMono>
 
       <label className="mb-3 flex cursor-pointer items-center gap-2" style={{ color: colors.text }}>
         <input type="checkbox" checked={drc} onChange={(e) => setDrc(e.target.checked)} className="size-5" />
-        <span>Paciente com DRC</span>
+        <span>Paciente com DRC (albuminúria)</span>
       </label>
       {drc && (
-        <Campo icone="flask" placeholder="Relação Albumina/Creatinina (mg/g)" inputMode="decimal" valor={acr} erro={erros.acr} tentativa={tentativa}
+        <Campo icone="flask" placeholder="Relação Albumina/Creatinina (mg/g) — opcional" inputMode="decimal" valor={acr} erro={erros.acr} tentativa={tentativa}
           onChange={(v) => { setAcr(normalizarNumero(v)); setErros((e) => ({ ...e, acr: false })); }} />
       )}
 

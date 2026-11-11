@@ -1,7 +1,7 @@
 import {
   faCalendarDays, faChevronLeft, faChevronRight, faCircleInfo, faClockRotateLeft, faFlask, faGear, faHeartPulse,
   faHouse, faMagnifyingGlass, faMars, faMoon, faPills, faRulerVertical, faSquare, faSquareCheck, faStar, faSun,
-  faTrashCan, faTriangleExclamation, faChild, faMicroscope, faEnvelope, faLock, faUser, faUserInjured, faVenus, faVial, faWeightScale, faBars,
+  faTrashCan, faChevronDown, faEraser, faCalculator, faTriangleExclamation, faChild, faMicroscope, faEnvelope, faLock, faUser, faUserInjured, faVenus, faVial, faWeightScale, faBars,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,9 @@ export const ICONES: Record<string, IconDefinition> = {
   'info-circle': faCircleInfo,
   'ruler-vertical': faRulerVertical,
   'trash-alt': faTrashCan,
+  'chevron-down': faChevronDown,
+  eraser: faEraser,
+  calculator: faCalculator,
   'user-injured': faUserInjured,
   heartbeat: faHeartPulse,
   history: faClockRotateLeft,

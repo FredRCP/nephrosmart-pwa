@@ -34,28 +34,28 @@ export default function CKDEPICalculator() {
   const [sexo, setSexo] = useState<'' | Sexo>('');
   const [altura, setAltura] = useState('');
   const [peso, setPeso] = useState('');
-  const [drc, setDrc] = useState(false);
+  const [painel, setPainel] = useState<null | 'dose' | 'drc'>(null); // só um painel opcional aberto por vez
   const [acr, setAcr] = useState('');
-  const [desindexadoAberto, setDesindexadoAberto] = useState(false);
 
   const [erros, setErros] = useState(SEM_ERROS);
   const [tentativa, setTentativa] = useState(0);
   const [resultado, setResultado] = useState('');
   const [cor, setCor] = useState('#22c55e');
   const [avisos, setAvisos] = useState<string[]>([]);
-  const [envioAjuste, setEnvioAjuste] = useState<{ tipo: TipoTfg; valor: string } | null>(null);
   const [temSalvo, setTemSalvo] = useState(false);
 
   useEffect(() => { setTemSalvo(!!lerLocal('ultimoGFR_completo')); }, []);
 
-  const limparSaida = () => { setAvisos([]); setEnvioAjuste(null); };
+  const limparSaida = () => { setAvisos([]); };
+  const drc = painel === 'drc';
+  const doseAberto = painel === 'dose';
 
   const calcular = () => {
-    const r = calcularCkdEpi({ creatinina, idade, sexo, altura, peso, drc, acr });
+    const r = calcularCkdEpi({ creatinina, idade, sexo, altura: doseAberto ? altura : '', peso: doseAberto ? peso : '', drc, acr });
     setTentativa((t) => t + 1);
     if (!r.ok) {
       setErros({ creatinina: r.erroCreatinina, idade: r.erroIdade, sexo: r.erroSexo, acr: false, altura: r.erroAltura, peso: r.erroPeso });
-      if (r.erroAltura || r.erroPeso) setDesindexadoAberto(true);
+      if (r.erroAltura || r.erroPeso) setPainel('dose');
       limparSaida();
       setResultado(r.mensagem);
       setCor(colors.inputError);
@@ -65,7 +65,6 @@ export default function CKDEPICalculator() {
     setResultado(r.texto);
     setCor(r.cor);
     setAvisos(r.avisos);
-    setEnvioAjuste({ tipo: r.tipoParaAjuste, valor: r.valorParaAjuste });
     // Mesmos nomes de chave do app original: o Ajuste de Dose lê "ultimoGFR" para pré-preencher.
     // "ultimoGFR_tipo" (novo, CKD-3) registra se o valor é indexado ou absoluto.
     gravarLocal('ultimoGFR', r.valorParaAjuste);
@@ -90,7 +89,6 @@ export default function CKDEPICalculator() {
       setResultado(s.resultadoTexto);
       setCor(corTfg(s.gfrIndexado));
       setAvisos(s.avisos ?? []);
-      setEnvioAjuste(s.tipoParaAjuste && s.valorParaAjuste ? { tipo: s.tipoParaAjuste, valor: s.valorParaAjuste } : null);
     } else {
       limparSaida();
       setResultado('Nenhum resultado salvo anteriormente.');
@@ -99,8 +97,8 @@ export default function CKDEPICalculator() {
   };
 
   const limpar = () => {
-    setCreatinina(''); setIdade(''); setSexo(''); setAltura(''); setPeso(''); setDrc(false); setAcr('');
-    setResultado(''); setCor('#22c55e'); setDesindexadoAberto(false); limparSaida();
+    setCreatinina(''); setIdade(''); setSexo(''); setAltura(''); setPeso(''); setPainel(null); setAcr('');
+    setResultado(''); setCor('#22c55e'); limparSaida();
     setErros(SEM_ERROS);
   };
 
@@ -136,20 +134,21 @@ G3b: 30-44
 G4: 15-29
 G5: <15`}</BlocoMono>
           <p>
-            A1-A3 com base na albuminúria (relação albumina/creatinina), informada para pacientes com DRC. Ela complementa
-            a classificação da DRC, mas não entra no cálculo da TFG:
+            A1-A3 com base na albuminúria (relação albumina/creatinina). É opcional: sem ela o resultado aparece normalmente,
+            só com o estágio G. Ela complementa a classificação da DRC, mas não entra no cálculo da TFG:
           </p>
           <BlocoMono>{`A1: <30 mg/g
 A2: 30-300 mg/g
 A3: >300 mg/g`}</BlocoMono>
           <p>Limitações incluem precisão reduzida em extremos de idade, peso ou condições como gravidez, desnutrição ou doenças agudas.</p>
-          <TituloInfo>Desindexação para ajuste de dose</TituloInfo>
+          <TituloInfo>Quando usar o "Ajuste de dose" (TFG desindexada)</TituloInfo>
           <p>
-            A TFG da CKD-EPI é indexada para 1.73m² de superfície corporal. Para ajuste posológico de medicamentos, as
-            diretrizes atuais (FDA/NKF 2024-2025) recomendam o <strong>valor absoluto (desindexado)</strong>, calculado como:
+            O resultado principal (mL/min/1,73 m²) serve para <strong>classificar a DRC</strong>. Para <strong>ajustar a dose de
+            medicamentos</strong>, a TFG deve ser em mL/min, sem a padronização pela superfície corporal. Informe altura e peso
+            e o app calcula a <strong>TFG absoluta (desindexada)</strong>:
           </p>
           <BlocoMono>TFG absoluta = TFG (CKD-EPI) × (Superfície corporal do paciente / 1.73)</BlocoMono>
-          <p>Isso é especialmente importante em pacientes obesos ou caquéticos para evitar super/subdose.</p>
+          <p>A diferença importa principalmente em pacientes muito grandes (obesos) ou muito magros, para evitar super ou subdose. Em pessoas de tamanho médio, os dois valores são parecidos.</p>
           <TituloInfo>Viés e limitações</TituloInfo>
           <ul className="space-y-1">
             <li>• CKD-EPI 2021: mais precisa em TFG &gt;60 mL/min/1.73m²; pode superestimar em idosos frágeis ou subestimar em pacientes com massa muscular muito alta.</li>
@@ -180,30 +179,31 @@ A3: >300 mg/g`}</BlocoMono>
         {botaoSexo('f', 'Feminino', 'venus')}
       </div>
 
-      {/* Opções extras como "chips" discretos: a tela fica enxuta e só mostra o que for pedido */}
-      <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Opções adicionais">
-        <button type="button" onClick={() => setDesindexadoAberto((a) => !a)} aria-expanded={desindexadoAberto}
-          title="Altura e peso: valor absoluto recomendado para ajuste de dose"
-          className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold"
-          style={{ backgroundColor: desindexadoAberto ? colors.button : colors.inputBg, color: desindexadoAberto ? colors.buttonText : colors.text,
-            border: `1px solid ${desindexadoAberto ? colors.button : colors.inputBorder}` }}>
-          <span aria-hidden className="font-bold">{desindexadoAberto ? '−' : '+'}</span>
-          Valor desindexado
-        </button>
-        <label className="flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold"
-          style={{ backgroundColor: drc ? colors.button : colors.inputBg, color: drc ? colors.buttonText : colors.text,
-            border: `1px solid ${drc ? colors.button : colors.inputBorder}` }}>
-          <input type="checkbox" aria-label="Paciente com DRC" checked={drc} onChange={(e) => setDrc(e.target.checked)} className="sr-only" />
-          <span aria-hidden className="font-bold">{drc ? '−' : '+'}</span>
-          <span>Paciente com DRC</span>
-        </label>
+      {/* Dois opcionais lado a lado (chips); abrir um fecha o outro */}
+      <div className="mb-3 flex flex-wrap justify-center gap-2" role="group" aria-label="Opções adicionais">
+        {([['dose', 'Ajuste de dose', 'Ajuste de dose (valor desindexado)', 'Altura e peso: TFG absoluta (mL/min), usada para ajustar a dose de medicamentos'],
+          ['drc', 'Paciente com DRC', 'Paciente com DRC', 'Informar a albuminúria para classificar também o estágio A']] as const).map(([id, rotulo, nome, dica]) => {
+          const ativo = painel === id;
+          return (
+            <button key={id} type="button" onClick={() => setPainel(ativo ? null : id)} aria-expanded={ativo} aria-label={nome} title={dica}
+              className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold"
+              style={{ backgroundColor: ativo ? colors.button : colors.inputBg, color: ativo ? colors.buttonText : colors.text,
+                border: `1px solid ${ativo ? colors.button : colors.inputBorder}` }}>
+              {rotulo}
+              <Icone nome="chevron-down" tamanho={12} cor={ativo ? colors.buttonText : colors.text}
+                className={`transition-transform ${ativo ? 'rotate-180' : ''}`} />
+            </button>
+          );
+        })}
       </div>
-      {desindexadoAberto && (
-        <p className="-mt-1 mb-3 text-sm" style={{ color: colors.text, opacity: 0.7 }}>
-          Informe altura e peso para obter o valor absoluto (recomendado para ajuste de dose).
+      {doseAberto && (
+        <p className="-mt-1 mb-3 text-center text-sm" style={{ color: colors.text, opacity: 0.7 }}>
+          <strong>Desindexar</strong> é tirar a padronização pela superfície corporal de 1,73 m². Informe altura e peso para obter a
+          TFG absoluta (em mL/min), o valor usado para ajustar a dose de medicamentos, principalmente em pacientes muito grandes ou muito
+          magros. Para classificar a DRC, não precisa preencher.
         </p>
       )}
-      {desindexadoAberto && (
+      {doseAberto && (
         <>
           <Campo icone="ruler-vertical" placeholder="Altura (cm)" dica="Altura em centímetros (ex.: 170)" inputMode="decimal"
             valor={altura} erro={erros.altura} tentativa={tentativa}
@@ -215,17 +215,17 @@ A3: >300 mg/g`}</BlocoMono>
       )}
 
       {drc && (
-        <Campo icone="flask" placeholder="Relação Albumina/Creatinina (mg/g)" inputMode="decimal" valor={acr} erro={erros.acr} tentativa={tentativa}
+        <Campo icone="flask" placeholder="Relação Albumina/Creatinina (mg/g) — opcional" inputMode="decimal" valor={acr} erro={erros.acr} tentativa={tentativa}
           onChange={(v) => { setAcr(normalizarNumero(v)); setErros((e) => ({ ...e, acr: false })); }} />
       )}
 
       <div className="mt-4 flex gap-3">
         <BotaoPrimario onClick={calcular}>Calcular</BotaoPrimario>
-        <BotaoSecundario onClick={recarregar} aria-label="Recarregar último resultado">
+        <BotaoSecundario onClick={recarregar} aria-label="Recarregar último resultado" title="Último cálculo">
           <span className="relative"><Icone nome="history" tamanho={20} cor={colors.buttonText} />
             {temSalvo && <span className="absolute -right-2 -top-2 size-2 rounded-full bg-green-500" />}</span>
         </BotaoSecundario>
-        <BotaoSecundario onClick={limpar} aria-label="Limpar campos"><Icone nome="trash-alt" tamanho={20} cor={colors.buttonText} /></BotaoSecundario>
+        <BotaoSecundario onClick={limpar} aria-label="Limpar campos" title="Limpar campos"><Icone nome="trash-alt" tamanho={20} cor={colors.buttonText} /></BotaoSecundario>
       </div>
 
       {avisos.length > 0 && (
@@ -246,18 +246,6 @@ A3: >300 mg/g`}</BlocoMono>
 
       {resultado && <CartaoResultado texto={resultado} cor={cor} />}
 
-      {resultado && envioAjuste && (
-        <p data-testid="envio-ajuste" className="mt-3 rounded-lg p-3 text-center text-sm"
-          style={{ backgroundColor: colors.cardBg, color: colors.text, border: `1px solid ${colors.inputBorder}` }}>
-          Valor enviado ao Ajuste de Dose:{' '}
-          <strong>
-            {envioAjuste.valor} {envioAjuste.tipo === 'absoluto' ? 'mL/min (ABSOLUTO)' : 'mL/min/1.73m² (INDEXADO)'}
-          </strong>
-          {envioAjuste.tipo === 'indexado' && (
-            <> — para ajuste de dose, o recomendado é o valor absoluto (informe altura e peso).</>
-          )}
-        </p>
-      )}
     </CalculadoraLayout>
   );
 }

@@ -33,8 +33,15 @@ describe('CKD-EPI 2021 — novo x original (com divergências aprovadas CKD-1/2/
       } else if (novo.ok) {
         // aceito nos dois → resultado idêntico (os campos novos são apenas acréscimos)
         expect(motivoDeRecusa(e), ctx).toBe(false);
-        const { avisos, tipoParaAjuste, ...compartilhado } = novo;
-        expect(compartilhado, ctx).toEqual(orig);
+        // Textos, classificação e erroAcr mudaram de propósito (albuminúria opcional, rótulos novos); o resto é idêntico.
+        const { avisos, tipoParaAjuste, texto, classificacao, erroAcr, ...compartilhado } = novo;
+        const { texto: _t, classificacao: classOrig, erroAcr: _e, ...restoOrig } = orig;
+        expect(compartilhado, ctx).toEqual(restoOrig);
+        expect(texto, ctx).toContain(`${novo.gfrIndexado.toFixed(1)} mL/min/1.73m²`);
+        if (classOrig && parseFloat(e.acr.replace(',', '.')) > 0) expect(classificacao, ctx).toBe(classOrig); // com albuminúria válida: mesma classificação G+A
+        else if (e.drc) expect(classificacao, ctx).toMatch(/^G[1-5]a?b?$/); // sem albuminúria: só o estágio G
+        else expect(classificacao, ctx).toBeUndefined();
+        expect(erroAcr, ctx).toBe(e.drc && e.acr.trim() !== '' && !(parseFloat(e.acr.replace(',', '.')) > 0));
         expect(tipoParaAjuste, ctx).toBe(orig.gfrAbsoluto ? 'absoluto' : 'indexado');
         expect(Array.isArray(avisos)).toBe(true);
       } else {
@@ -125,5 +132,32 @@ describe('CKD-EPI 2021 — novo x original (com divergências aprovadas CKD-1/2/
       expect(r.ok && r.tipoParaAjuste).toBe('absoluto');
       expect(r.ok && r.valorParaAjuste).toBe('64.4');
     });
+  });
+});
+
+describe('Albuminúria opcional', () => {
+  it('DRC marcado sem albuminúria calcula e mostra só o estágio G, sem erro', () => {
+    const r = calcularCkdEpi({ ...base, creatinina: '2.3', idade: '70', drc: true, acr: '' });
+    expect(r.ok && r.erroAcr).toBe(false);
+    expect(r.ok && r.classificacao).toBe('G4');
+    expect(r.ok && r.texto).toContain('Estágio da DRC pela TFG: G4');
+  });
+  it('albuminúria válida completa a classificação; inválida marca o campo mas calcula', () => {
+    const ok = calcularCkdEpi({ ...base, creatinina: '2.3', idade: '70', drc: true, acr: '120' });
+    expect(ok.ok && ok.classificacao).toBe('G4 A2');
+    const ruim = calcularCkdEpi({ ...base, creatinina: '2.3', idade: '70', drc: true, acr: 'abc' });
+    expect(ruim.ok && ruim.erroAcr).toBe(true);
+    expect(ruim.ok && ruim.classificacao).toBe('G4');
+  });
+  it('sem DRC marcado ignora a albuminúria', () => {
+    const r = calcularCkdEpi({ ...base, drc: false, acr: 'abc' });
+    expect(r.ok && r.erroAcr).toBe(false);
+    expect(r.ok && r.classificacao).toBeUndefined();
+  });
+  it('texto distingue TFG para classificar e TFG absoluta para dose', () => {
+    const r = calcularCkdEpi({ ...base, altura: '170', peso: '70' });
+    expect(r.ok && r.texto).toContain('para classificar a DRC');
+    expect(r.ok && r.texto).toContain('TFG absoluta (desindexada)');
+    expect(r.ok && r.texto).toContain('para ajustar dose de medicamentos');
   });
 });

@@ -66,17 +66,29 @@ describe('CKD-EPI 2021 Creatinina + Cistatina C — novo x original (CYS-1/CYS-2
       const orig = creatCisOriginal(e);
       const novo = calcularCreatCistatina(e);
       const ctx = JSON.stringify(e);
-      if (!orig.ok) {
+      const soAcr = !orig.ok && orig.erroAcr && !orig.erroCreatinina && !orig.erroCistatina && !orig.erroIdade && !orig.erroSexo;
+      if (soAcr) {
+        // O original bloqueava só por causa da albuminúria; agora ela é opcional → calcula (salvo recusa de faixa).
+        if (novo.ok) {
+          aceitos++;
+          expect(novo.avisos.length > 0, ctx).toBe(num(e.idade) < 18);
+        } else {
+          const fora = !dentro(num(e.creatinina), 0.1, 30) || !dentro(num(e.cistatina), 0.1, 20) || !dentro(num(e.idade), 1, 120);
+          expect(fora, ctx).toBe(true);
+        }
+      } else if (!orig.ok) {
         expect(novo.ok, ctx).toBe(false);
         if (!novo.ok) {
-          expect(novo.mensagem, ctx).toBe(orig.mensagem);
-          expect([novo.erroCreatinina, novo.erroCistatina, novo.erroIdade, novo.erroSexo, novo.erroAcr], ctx)
-            .toEqual([orig.erroCreatinina, orig.erroCistatina, orig.erroIdade, orig.erroSexo, orig.erroAcr]);
+          if (!orig.erroAcr) expect(novo.mensagem, ctx).toBe(orig.mensagem); // se o original também cobrava a albuminúria, a frase muda de propósito
+          expect([novo.erroCreatinina, novo.erroCistatina, novo.erroIdade, novo.erroSexo], ctx)
+            .toEqual([orig.erroCreatinina, orig.erroCistatina, orig.erroIdade, orig.erroSexo]);
         }
       } else if (novo.ok) {
         aceitos++;
         expect(novo.gfr, ctx).toBe(orig.gfr);
-        expect(novo.texto, ctx).toBe(orig.texto);
+        // com albuminúria válida o texto é idêntico; sem ela, acrescenta só o estágio G
+        if (e.drc && e.acr.trim() !== '' && !isNaN(num(e.acr)) && num(e.acr) > 0) expect(novo.texto, ctx).toBe(orig.texto);
+        else expect(novo.texto.startsWith(orig.texto), ctx).toBe(true);
         expect(novo.cor, ctx).toBe(orig.cor);
         expect(novo.avisos.length > 0, ctx).toBe(num(e.idade) < 18);
       } else {
@@ -85,6 +97,14 @@ describe('CKD-EPI 2021 Creatinina + Cistatina C — novo x original (CYS-1/CYS-2
       }
     }
     expect(aceitos).toBeGreaterThan(500);
+  });
+  it('albuminúria opcional: DRC sem ACR calcula e mostra o estágio G', () => {
+    const r = calcularCreatCistatina({ creatinina: '1', cistatina: '1', idade: '50', sexo: 'm', drc: true, acr: '' });
+    expect(r.ok && r.erroAcr).toBe(false);
+    expect(r.ok && r.classificacao).toBe('G2');
+    expect(r.ok && r.texto).toContain('Estágio da DRC pela TFG: G2');
+    const ruim = calcularCreatCistatina({ creatinina: '1', cistatina: '1', idade: '50', sexo: 'm', drc: true, acr: 'x' });
+    expect(ruim.ok && ruim.erroAcr).toBe(true);
   });
   // homem, 50 anos, Cr 1,0, CisC 1,0: 135 × (1/0,9)^-0,544 × (1/0,8)^-0,778 × 0,9961^50 ≈ 88,1 (conta à mão)
   it('homem 50 anos, Cr 1,0 e Cis C 1,0 ≈ 88,1', () => {

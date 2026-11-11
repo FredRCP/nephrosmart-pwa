@@ -105,19 +105,20 @@ describe('CKD-EPI Creatinina + Cistatina C (interface)', () => {
     const u = userEvent.setup();
     renderComTema(<CKDEPICistatinaCalculator />);
     await preencher(u);
-    await u.click(screen.getByLabelText('Paciente com DRC'));
-    await u.type(screen.getByPlaceholderText('Relação Albumina/Creatinina (mg/g)'), '45');
+    await u.click(screen.getByLabelText(/Paciente com DRC/));
+    await u.type(screen.getByPlaceholderText(/Relação Albumina\/Creatinina/), '45');
     await calcular(u);
     expect(screen.getByRole('status').textContent).toBe('eGFR: 88.1 mL/min/1.73m²\nClassificação DRC: G2 A2');
   });
-  it('DRC marcado sem ACR: mensagem do original, campo marcado', async () => {
+  it('DRC marcado sem ACR: calcula normalmente e mostra o estágio G (albuminúria opcional)', async () => {
     const u = userEvent.setup();
     renderComTema(<CKDEPICistatinaCalculator />);
     await preencher(u);
-    await u.click(screen.getByLabelText('Paciente com DRC'));
+    await u.click(screen.getByLabelText(/Paciente com DRC/));
     await calcular(u);
-    expect(screen.getByRole('status').textContent).toBe('Por favor, insira uma relação albumina/creatinina válida.');
-    expect(screen.getByPlaceholderText('Relação Albumina/Creatinina (mg/g)').getAttribute('aria-invalid')).toBe('true');
+    expect(screen.getByRole('status').textContent).toContain('eGFR: 88.1 mL/min/1.73m²');
+    expect(screen.getByRole('status').textContent).toContain('Estágio da DRC pela TFG: G2');
+    expect(screen.getByPlaceholderText(/Relação Albumina\/Creatinina/).getAttribute('aria-invalid')).not.toBe('true');
   });
   it('vazio: lista as pendências como o original', async () => {
     const u = userEvent.setup();

@@ -103,3 +103,45 @@ describe('selo Premium na lista de ferramentas', () => {
     await waitFor(() => expect(screen.queryAllByLabelText('Ferramenta Premium').length).toBe(0));
   });
 });
+
+describe('ferramentas restritas (em validação)', () => {
+  const todas = () => (['equivalencia-de-diureticos', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas'] as const)
+    .map((s) => porSlug(s)!) as Ferramenta[];
+  it('administrador vê as três no menu; usuário comum e visitante não', async () => {
+    h.cliente.auth.getSession.mockResolvedValue({ data: { session: { user: { id: 'a', email: 'FredRCPmed@gmail.com' } } } });
+    perfil('free');
+    montar(<ListaFerramentas ferramentas={todas()} />);
+    await waitFor(() => expect(screen.getAllByRole('link')).toHaveLength(3));
+    cleanup();
+    logado(); perfil('premium');
+    montar(<ListaFerramentas ferramentas={todas()} />);
+    await waitFor(() => expect(screen.queryAllByRole('link')).toHaveLength(0));
+    cleanup();
+    h.cliente.auth.getSession.mockResolvedValue({ data: { session: null } });
+    montar(<ListaFerramentas ferramentas={todas()} />);
+    await waitFor(() => expect(screen.queryAllByRole('link')).toHaveLength(0));
+  });
+  it('endereço direto: usuário comum (mesmo premium) vê "em validação"; administrador abre', async () => {
+    logado(); perfil('premium');
+    montar(<PortaoPremium slug="intoxicacoes-exogenas"><p>CONTEÚDO</p></PortaoPremium>);
+    await screen.findByRole('heading', { name: 'Ferramenta em validação' });
+    expect(screen.queryByText('CONTEÚDO')).toBeNull();
+    cleanup();
+    h.cliente.auth.getSession.mockResolvedValue({ data: { session: { user: { id: 'a', email: 'fredrcpmed@gmail.com' } } } });
+    perfil('free');
+    montar(<PortaoPremium slug="intoxicacoes-exogenas"><p>CONTEÚDO</p></PortaoPremium>);
+    expect(await screen.findByText('CONTEÚDO')).toBeTruthy();
+  });
+  it('enquanto verifica o login não mostra a ferramenta', () => {
+    h.cliente.auth.getSession.mockReturnValue(new Promise(() => {}));
+    montar(<PortaoPremium slug="sofa-restrita-teste"><p>CONTEÚDO</p></PortaoPremium>);
+    expect(screen.queryByText('CONTEÚDO')).toBeNull();
+  });
+});
+
+describe('lista de restritas', () => {
+  it('inclui diuréticos, IRA, intoxicações e as duas entradas de vacinas', async () => {
+    const { SLUGS_RESTRITOS } = await import('@/lib/access/restritas');
+    expect([...SLUGS_RESTRITOS].sort()).toEqual(['equivalencia-de-diureticos', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas', 'vacinas-adultos', 'vacinas-drc']);
+  });
+});

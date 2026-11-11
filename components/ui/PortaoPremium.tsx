@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { canAccess } from '@/lib/access/canAccess';
 import { eGratuita, PREMIUM_ENABLED } from '@/lib/access/plans';
+import { eRestrita, podeVer } from '@/lib/access/restritas';
 import { useSessao } from '@/lib/auth/useSessao';
 import Icone from './Icone';
 
@@ -15,6 +16,23 @@ export default function PortaoPremium({ slug, children }: { slug: string; childr
   const sessao = useSessao();
   const { colors } = useTheme();
 
+  if (eRestrita(slug)) {
+    if (sessao.carregando) {
+      return <p role="status" className="mt-10 text-center text-sm" style={{ color: colors.text }}>Verificando acesso…</p>;
+    }
+    if (!podeVer(slug, sessao.email)) {
+      return (
+        <div className="mx-auto mt-6 w-full max-w-md rounded-2xl p-6 text-center shadow"
+          style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.inputBorder}` }}>
+          <Icone nome="lock" tamanho={36} cor={colors.icon} />
+          <h1 className="mt-3 text-xl font-extrabold" style={{ color: colors.text }}>Ferramenta em validação</h1>
+          <p className="mt-2 text-sm" style={{ color: colors.text }}>Esta ferramenta ainda está sendo revisada e será liberada em breve.</p>
+          <p className="mt-5 text-sm"><Link href="/ferramentas" className="underline" style={{ color: colors.text }}>Ver as ferramentas</Link></p>
+        </div>
+      );
+    }
+    return <>{children}</>;
+  }
   if (!PREMIUM_ENABLED || eGratuita(slug)) return <>{children}</>;
   if (sessao.carregando) {
     return <p role="status" className="mt-10 text-center text-sm" style={{ color: colors.text }}>Verificando acesso…</p>;

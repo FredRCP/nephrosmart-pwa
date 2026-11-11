@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { canAccess } from '@/lib/access/canAccess';
+import { podeVer } from '@/lib/access/restritas';
 import { useSessao } from '@/lib/auth/useSessao';
 import { filtrarFerramentas } from '@/lib/tools/catalogo';
 import { FILTROS, corDaCategoria } from '@/lib/tools/categorias';
@@ -43,7 +44,8 @@ export default function ListaFerramentas({ ferramentas }: { ferramentas: Ferrame
     gravarLocal(CHAVE_FAVORITOS, JSON.stringify(novo));
   };
 
-  const lista = useMemo(() => filtrarFerramentas(ferramentas, filtro, busca), [ferramentas, filtro, busca]);
+  const visiveis = useMemo(() => ferramentas.filter((f) => podeVer(f.slug, sessao.email)), [ferramentas, sessao.email]);
+  const lista = useMemo(() => filtrarFerramentas(visiveis, filtro, busca), [visiveis, filtro, busca]);
   const favs = lista.filter((f) => favoritos.includes(f.slug));
   const outras = lista.filter((f) => !favoritos.includes(f.slug));
 

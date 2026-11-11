@@ -49,9 +49,9 @@ describe('Menu de ferramentas', () => {
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
       'Anemia na DRC (KDIGO 2026)', 'Ânion Gap', 'Cálcio (Hipo/Hipercalcemia e Correção)', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
-      'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Equivalência de Diuréticos', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
-      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'IMC', 'Injúria Renal Aguda (IRA)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
-      'Reposição de Bicarbonato', 'Sódio (Hipo/Hipernatremia e Calculadoras)', 'SOFA-2', 'Vacinas do Adulto',
+      'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
+      'Função Renal esperada p/ idade', 'Gasometria Arterial', 'IMC', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
+      'Reposição de Bicarbonato', 'Sódio (Hipo/Hipernatremia e Calculadoras)', 'SOFA-2',
     ]);
   });
   it('busca sem acento', async () => {
@@ -69,7 +69,7 @@ describe('Menu de ferramentas', () => {
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
     expect(screen.getAllByRole('link').length).toBe(6);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
-    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Intoxicações exógenas', 'Kt/V e Taxa de UF (Hemodiálise)']);
+    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Anemia na DRC (KDIGO 2026)', 'Kt/V e Taxa de UF (Hemodiálise)']);
   });
   it('ao voltar de uma ferramenta, o menu reabre na mesma categoria e com a mesma busca', async () => {
     const u = userEvent.setup();
@@ -94,8 +94,8 @@ describe('Menu de ferramentas', () => {
     expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['Todos', 'Eletrólitos', 'Ácido-base', 'IRA e emergência', 'Diálise', 'DRC', 'Outros']);
     await u.click(screen.getByRole('tab', { name: 'Ácido-base' }));
     expect(screen.getAllByRole('link')).toHaveLength(5);
-    await u.click(screen.getByRole('tab', { name: 'IRA e emergência' }));
-    expect(screen.getByText('Injúria Renal Aguda (IRA)')).toBeTruthy();
+    await u.click(screen.getByRole('tab', { name: 'IRA e emergência' })); // IRA está restrita a administradores: a aba fica vazia
+    expect(screen.queryByText('Injúria Renal Aguda (IRA)')).toBeNull();
     await u.click(screen.getByRole('tab', { name: 'Outros' }));
     expect(screen.getByText('IMC')).toBeTruthy();
     await u.click(screen.getByRole('tab', { name: 'DRC' }));

@@ -3,7 +3,7 @@
 //   CYS-1: faixas de plausibilidade (idade, creatinina, cistatina C)
 //   CYS-2: aviso (não bloqueia) para menores de 18 anos
 //   CYS-3: ao recarregar, informa se o último TFG guardado é absoluto (vindo do CKD-EPI com altura e peso)
-import { classificarDRC, corTfg, type Sexo } from './ckdepi';
+import { classificarDRC, corTfg, estagioG, type Sexo } from './ckdepi';
 import { juntarPendencias } from './cockcroft';
 import { dentroDaFaixa, FAIXAS, fmt } from './faixas';
 import { normalizarNumero } from './numeros';
@@ -28,7 +28,7 @@ export interface EntradaCreatCis { creatinina: string; cistatina: string; idade:
 
 export type ResultadoCreatCis =
   | { ok: false; erroCreatinina: boolean; erroCistatina: boolean; erroIdade: boolean; erroSexo: boolean; erroAcr: boolean; mensagem: string }
-  | { ok: true; gfr: number; texto: string; cor: string; avisos: string[]; classificacao?: string };
+  | { ok: true; erroAcr: boolean; gfr: number; texto: string; cor: string; avisos: string[]; classificacao?: string };
 
 export const AVISO_PEDIATRICO_CYS =
   'Esta fórmula foi desenvolvida para adultos (18 anos ou mais). Em crianças e adolescentes, use o Clearance Pediátrico (Schwartz).';
@@ -43,15 +43,16 @@ export function calcularCreatCistatina(e: EntradaCreatCis): ResultadoCreatCis {
   const erroCistatina = !e.cistatina || isNaN(cys) || cys <= 0;
   const erroIdade = !e.idade || isNaN(age) || age <= 0;
   const erroSexo = !e.sexo;
-  const erroAcr = e.drc && (!e.acr || isNaN(acrValue) || acrValue <= 0);
-  if (erroCreatinina || erroCistatina || erroIdade || erroSexo || erroAcr) {
+  // Albuminúria opcional: não bloqueia. Só marca o campo se algo inválido foi digitado.
+  const acrValida = !isNaN(acrValue) && acrValue > 0;
+  const erroAcr = e.drc && e.acr.trim() !== '' && !acrValida;
+  if (erroCreatinina || erroCistatina || erroIdade || erroSexo) {
     const erros: string[] = [];
     if (erroCreatinina) erros.push('uma creatinina válida');
     if (erroCistatina) erros.push('uma cistatina C válida');
     if (erroIdade) erros.push('uma idade válida');
     if (erroSexo) erros.push('o sexo');
-    if (erroAcr) erros.push('uma relação albumina/creatinina válida');
-    return { ok: false, erroCreatinina, erroCistatina, erroIdade, erroSexo, erroAcr, mensagem: juntarPendencias(erros) };
+    return { ok: false, erroCreatinina, erroCistatina, erroIdade, erroSexo, erroAcr: false, mensagem: juntarPendencias(erros) };
   }
 
   // Faixas de plausibilidade (CYS-1)
@@ -72,13 +73,16 @@ export function calcularCreatCistatina(e: EntradaCreatCis): ResultadoCreatCis {
   const gfr = tfgCreatCistatina(cr, cys, age, e.sexo as Sexo);
   let texto = `eGFR: ${gfr.toFixed(1)} mL/min/1.73m²`;
   let classificacao: string | undefined;
-  if (e.drc && e.acr && !isNaN(acrValue)) {
+  if (e.drc && e.acr.trim() !== '' && acrValida) {
     classificacao = classificarDRC(gfr, acrValue);
     texto += `\nClassificação DRC: ${classificacao}`;
+  } else if (e.drc) {
+    classificacao = estagioG(gfr);
+    texto += `\nEstágio da DRC pela TFG: ${classificacao} (informe a albuminúria para classificar também o A)`;
   }
   const avisos: string[] = [];
   if (age < 18) avisos.push(AVISO_PEDIATRICO_CYS);
-  return { ok: true, gfr, texto, cor: corTfg(gfr), avisos, classificacao };
+  return { ok: true, erroAcr, gfr, texto, cor: corTfg(gfr), avisos, classificacao };
 }
 
 /** Texto/cor do botão "recarregar". `tipo` vem de ultimoGFR_tipo (CKD-EPI creatinina grava "absoluto" quando há altura e peso). */

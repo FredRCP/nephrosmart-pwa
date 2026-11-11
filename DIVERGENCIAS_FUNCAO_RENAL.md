@@ -17,3 +17,8 @@ Para desfazer qualquer uma: é só remover o bloco de faixas / aviso em `lib/cli
 ## Pediatria (PED-1 a PED-4): RESOLVIDO por redesenho
 A aba "Chen", o sexo não exigido e as constantes 0,70/0,55 foram substituídos pela tela nova (CKiD U25 + estadiamento KDIGO de LRA).
 Detalhes e itens a conferir: `REVISAO_CLINICA_PEDIATRIA.md`.
+
+## Beta fechado (nov/2026)
+- ALB-1: a relação albumina/creatinina é OPCIONAL no CKD-EPI (creatinina) e no CKD-EPI (creatinina + cistatina C). Sem ela, mostra só o estágio G; só marca o campo se algo inválido for digitado. O original bloqueava (cistatina) ou marcava em vermelho (creatinina). O Cockcroft-Gault nunca teve esse campo.
+- DES-1: tela do CKD-EPI reorganizada: "Ajuste de dose (altura e peso)" no lugar de "Valor desindexado"; resultado separa "para classificar a DRC" (mL/min/1,73 m²) de "TFG absoluta, para ajustar dose" (mL/min).
+- ACE-1: ferramentas em validação (equivalência de diuréticos, IRA, intoxicações) ocultas para quem não é administrador (lib/access/restritas.ts). Oculta no menu, na busca e no endereço direto, mas o código continua no pacote do app (barreira de interface, como o bloqueio Premium).
