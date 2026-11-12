@@ -5,29 +5,11 @@ import { useTheme } from '@/context/ThemeContext';
 import { CLASSES_DIURETICO, GUIA_DIURETICOS, type ClasseDiuretico, type GuiaDiuretico } from '@/lib/content/diureticos';
 import CalculadoraLayout from '@/components/archetypes/CalculadoraLayout';
 import ConversorDiureticos from '@/components/calculators/ConversorDiureticos';
+import AbasSublinhadas from '@/components/ui/AbasSublinhadas';
 import Icone from '@/components/ui/Icone';
 import { TituloInfo } from '@/components/ui/InfoDialog';
 
 type Aba = 'guia' | 'equivalencia';
-
-/** Abas simples (sublinhado), mais leves que botões grandes. */
-function Abas<T extends string>({ valor, onChange, opcoes }: { valor: T; onChange: (v: T) => void; opcoes: { valor: T; texto: string }[] }) {
-  const { colors } = useTheme();
-  return (
-    <div role="tablist" className="mb-4 flex border-b" style={{ borderColor: colors.inputBorder }}>
-      {opcoes.map((o) => {
-        const ativo = valor === o.valor;
-        return (
-          <button key={o.valor} role="tab" aria-selected={ativo} type="button" onClick={() => onChange(o.valor)}
-            className="-mb-px flex-1 border-b-2 px-2 py-2.5 text-base font-semibold"
-            style={{ borderColor: ativo ? colors.button : 'transparent', color: ativo ? colors.button : colors.text, opacity: ativo ? 1 : 0.7 }}>
-            {o.texto}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
 
 function Bloco({ titulo, itens, destaque = false }: { titulo: string; itens: string[]; destaque?: boolean }) {
   const { colors } = useTheme();
@@ -45,13 +27,14 @@ function Cartao({ d }: { d: GuiaDiuretico }) {
   const { colors } = useTheme();
   const classe = CLASSES_DIURETICO.find((c) => c.id === d.classe)!;
   return (
-    <details data-testid={`diuretico-${d.id}`} className="group rounded-xl" style={{ backgroundColor: colors.inputBg, border: `1px solid ${colors.inputBorder}` }}>
+    <details data-testid={`diuretico-${d.id}`} className="group rounded-xl shadow-md" style={{ backgroundColor: colors.inputBg, borderLeft: `4px solid ${classe.cor}` }}>
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3">
         <span className="min-w-0">
           <span className="block text-lg font-bold leading-6" style={{ color: colors.text }}>{d.generico}</span>
           <span className="block truncate text-sm" style={{ color: colors.text, opacity: 0.75 }}>
-            {d.comerciais.length ? d.comerciais.join(' · ') : 'Só em associação'} <span aria-hidden>·</span> {classe.nome}
+            {d.comerciais.length ? d.comerciais.join(' · ') : 'Só em associação'}
           </span>
+          <span className="mt-0.5 block text-xs font-semibold" style={{ color: classe.cor }}>{classe.nome}</span>
         </span>
         <span className="shrink-0 transition-transform group-open:rotate-180"><Icone nome="chevron-down" tamanho={16} cor={colors.icon} /></span>
       </summary>
@@ -72,9 +55,9 @@ export default function DiureticosHub({ inicial = 'guia' }: { inicial?: Aba }) {
   const { colors } = useTheme();
   const [aba, setAba] = useState<Aba>(inicial);
   const [classe, setClasse] = useState<ClasseDiuretico | 'todas'>('todas');
-  const lista = GUIA_DIURETICOS.filter((d) => classe === 'todas' || d.classe === classe);
+  const lista = [...GUIA_DIURETICOS].sort((a, b) => a.generico.localeCompare(b.generico, 'pt-BR')).filter((d) => classe === 'todas' || d.classe === classe);
   const info = CLASSES_DIURETICO.find((c) => c.id === classe);
-  const chips: { id: ClasseDiuretico | 'todas'; nome: string }[] = [{ id: 'todas', nome: 'Todas' }, ...CLASSES_DIURETICO.map((c) => ({ id: c.id, nome: c.nome }))];
+  const chips: { id: ClasseDiuretico | 'todas'; nome: string; cor?: string }[] = [{ id: 'todas', nome: 'Todas' }, ...CLASSES_DIURETICO.map((c) => ({ id: c.id, nome: c.nome, cor: c.cor }))];
 
   return (
     <CalculadoraLayout reforcado titulo="Diuréticos" info={
@@ -93,7 +76,7 @@ export default function DiureticosHub({ inicial = 'guia' }: { inicial?: Aba }) {
         <p>As bulas mudam; confira a bula vigente do produto antes de prescrever. O app não substitui o julgamento clínico.</p>
       </>
     }>
-      <Abas valor={aba} onChange={setAba} opcoes={[{ valor: 'guia', texto: 'Guia' }, { valor: 'equivalencia', texto: 'Equivalência de dose' }]} />
+      <AbasSublinhadas valor={aba} onChange={setAba} opcoes={[{ valor: 'guia', texto: 'Guia' }, { valor: 'equivalencia', texto: 'Equivalência de dose' }]} />
       {aba === 'equivalencia' ? <ConversorDiureticos /> : (
         <>
           <div role="group" aria-label="Classe" className="-mx-1 mb-3 flex gap-2 overflow-x-auto px-1 pb-1">
@@ -102,7 +85,7 @@ export default function DiureticosHub({ inicial = 'guia' }: { inicial?: Aba }) {
               return (
                 <button key={c.id} type="button" aria-pressed={ativo} onClick={() => setClasse(c.id)}
                   className="shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold"
-                  style={{ backgroundColor: ativo ? colors.button : 'transparent', color: ativo ? colors.buttonText : colors.text, border: `1px solid ${ativo ? colors.button : colors.inputBorder}` }}>
+                  style={{ backgroundColor: ativo ? (c.cor ?? colors.button) : 'transparent', color: ativo ? '#fff' : colors.text, border: `1px solid ${ativo ? (c.cor ?? colors.button) : (c.cor ?? colors.inputBorder)}` }}>
                   {c.nome}
                 </button>
               );

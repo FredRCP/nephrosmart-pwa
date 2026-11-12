@@ -34,3 +34,8 @@ NÃO migrado: REIN Score.
 - Critérios de Pei 2009 (15–39: ≥3; 40–59: ≥2 por rim; ≥60: ≥4 por rim) conferidos. Os "critérios negativos" do app antigo estavam errados: corrigido (≥40 anos: <2 cistos exclui; 30–39: ausência de cistos; 15–29: US exclui mal).
 - Corrigidas citações (Mayo = Irazabal 2015, JASN 26:160). Removida afirmação sobre faixa de TFG para tolvaptana. Cálculo de Mayo continua só como link externo ao site da Mayo (não há cálculo local).
 - Equipe: conferir os intervalos de crescimento anual de cada classe (1A <1,5%; 1B 1,5–3; 1C 3–4,5; 1D 4,5–6; 1E >6%) antes de exibi-los no app.
+
+## Nefrolitíase (app antigo → PWA)
+- "Rastreio do tipo de cálculo": removido; sugeria estruvita só por pH > 7,5 e calciúria < 200 (sem cultura) e tipos de cálculo por faixas arbitrárias. Substituído por "Investigar causa", que mostra achados fora da faixa e causas a considerar, sem "adivinhar" o tipo.
+- "Escore de Recorrência (ROKS simplificado)": removido; pontuações e percentuais não correspondem ao ROKS publicado.
+- Conteúdo dos tipos de cálculo mantido, com HU revisadas, e a cólica aguda enxugada (sem posologias de prescrição).

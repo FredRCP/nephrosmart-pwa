@@ -7,6 +7,7 @@ import PediatricoCalculator from '@/components/calculators/PediatricoCalculator'
 import ConteudoPagina from '@/components/archetypes/ConteudoPagina';
 import SodioHub from '@/components/hubs/SodioHub';
 import AcidoBaseHub from '@/components/hubs/AcidoBaseHub';
+import NefrolitiaseHub from '@/components/hubs/NefrolitiaseHub';
 import IraHub from '@/components/hubs/IraHub';
 import FracoesHub from '@/components/hubs/FracoesHub';
 import FuncaoRenalEsperada from '@/components/calculators/FuncaoRenalEsperada';
@@ -63,6 +64,7 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'depuracao-de-creatinina-24h': () => <Clearance24h />,
   'estadiamento-da-drc-kdigo': () => <EstadiamentoDrc />,
   'equivalencia-de-diureticos': () => <DiureticosHub />,
+  nefrolitiase: () => <NefrolitiaseHub />,
   // Onda 8
   'conversor-de-dose': () => <ConversorInfusao />,
   'kt-v-hemodialise': () => <HemodialiseHub inicial="ktv" />,

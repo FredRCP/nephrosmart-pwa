@@ -1,5 +1,5 @@
 // Equivalência de diuréticos (Onda 7, ferramenta nova). Função pura. Equivalência APROXIMADA de dose: não é prescrição.
-// Alça (base = furosemida 40 mg VO): furosemida IV 20 · bumetanida 1 · torasemida 20 · ácido etacrínico 50.
+// Alça (base = furosemida 40 mg VO): furosemida IV 20 · bumetanida 1 · torasemida 20.
 // Tiazídicos (base = hidroclorotiazida 25 mg): clortalidona 12,5.
 export type GrupoDiuretico = 'alca' | 'tiazidico';
 export interface Diuretico { id: string; nome: string; grupo: GrupoDiuretico; /** dose (mg) equivalente à dose-base do grupo */ equivalente: number; nota?: string }
@@ -9,7 +9,6 @@ export const DIURETICOS: Diuretico[] = [
   { id: 'furosemida-iv', nome: 'Furosemida IV', grupo: 'alca', equivalente: 20 },
   { id: 'bumetanida', nome: 'Bumetanida (VO ou IV)', grupo: 'alca', equivalente: 1 },
   { id: 'torasemida', nome: 'Torasemida (VO ou IV)', grupo: 'alca', equivalente: 20, nota: 'Alguns serviços usam 10–20 mg para 40 mg de furosemida VO.' },
-  { id: 'acido-etacrinico', nome: 'Ácido etacrínico VO', grupo: 'alca', equivalente: 50, nota: 'Opção para alergia a sulfonamidas.' },
   { id: 'hidroclorotiazida', nome: 'Hidroclorotiazida', grupo: 'tiazidico', equivalente: 25 },
   { id: 'clortalidona', nome: 'Clortalidona', grupo: 'tiazidico', equivalente: 12.5, nota: 'Mais potente e de ação mais longa que a hidroclorotiazida.' },
 ];

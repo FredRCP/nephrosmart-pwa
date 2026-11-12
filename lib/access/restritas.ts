@@ -1,6 +1,6 @@
 // Ferramentas em validação: ficam no código, mas só os administradores as veem (menu, busca e endereço direto).
 // Para liberar a todos, tire o slug da lista.
-export const SLUGS_RESTRITOS: readonly string[] = ['equivalencia-de-diureticos', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas', 'vacinas-drc', 'vacinas-adultos', 'anemia-drc-dialise'];
+export const SLUGS_RESTRITOS: readonly string[] = ['nefrolitiase', 'injuria-renal-aguda-ira', 'intoxicacoes-exogenas', 'vacinas-drc', 'vacinas-adultos', 'anemia-drc-dialise'];
 
 export const EMAILS_ADMIN: readonly string[] = ['fredrcpmed@gmail.com'];
 

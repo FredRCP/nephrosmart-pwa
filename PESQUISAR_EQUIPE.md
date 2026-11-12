@@ -92,6 +92,15 @@ Confirmado com fonte: Butantan-DV licenciada para 12–59 anos, SUS 15–59 (FAQ
 ## Diuréticos e PREVENT (12/11/2026)
 - Guia de diuréticos: dados das bulas lidos em bula.com.br/Fresenius (Lasix, Burinax, Arelix, Clorana, Higroton, Natrilix 2,5 mg, Moduretic, Iguassina, Aldactone, Inspra, Firialta, Diamox, Manitol). **Conferir na bula vigente (Bulário Anvisa) antes de liberar**: Natrilix SR 1,5 mg (dose lida de memória, não da bula), Diurix/Furozix (nomes vistos só em listagens), nomes comerciais da amilorida isolada (não achei) e do triantereno isolado (só em associação).
 - "Fora da bula" (literatura, conferir fonte): início/duração de espironolactona, amilorida isolada e triantereno; CLICK (clortalidona em DRC 4); indapamida tiazídico-símile.
-- Torasemida e ácido etacrínico ainda estão no conversor (equivalência de alça) mas não confirmei comercialização no Brasil: decidir se saem.
+- Torasemida ainda está no conversor (equivalência de alça) mas não confirmei comercialização no Brasil: decidir se sai. (Ácido etacrínico já removido.)
 - Equivalência indapamida/piretanida × tiazídico/alça: sem valor consolidado, não incluída.
 - PREVENT: coeficientes do pacote `preventr` 0.12.2 (inclui erratum de 14/10/2026 só dos modelos com HbA1c). Implementados só base e base+UACR (10 e 30 anos). Conferir contra a calculadora oficial da AHA com 2–3 casos reais. Decidir se queremos o modelo com HbA1c (com o erratum) e mostrar CHD/AVC separados.
+
+## Nefrolitíase (guia novo, restrito a admin) — conferir antes de liberar
+- Limiares usados (AUA 2014/EAU): calciúria > 250 mg (F) / > 300 mg (M); oxalato > 40 mg (≥ 80 = "marcado", corte NOSSO, sem fonte única); citrato < 320 mg; ácido úrico > 750 (F) / > 800 (M); sódio > 200 mEq; volume alvo ≥ 2,5 L; Ca sérico > 10,5 mg/dL; PTH > 65 pg/mL (depende do método); bicarbonato < 22 mEq/L; pH urinário < 5,5 / > 6,5 / > 7,0. Conferir cada um com a equipe.
+- Faixas de HU por tipo (< 500 úrico; 500–1000 cistina/estruvita/apatita; > 1000 cálcio) são aproximadas e se sobrepõem; as faixas do app antigo (ex.: oxalato 400–1700 HU) estavam muito largas e não foram migradas.
+- Regra "acidose + pH urinário > 5,5 → acidose tubular distal" é triagem; confirmar com teste de acidificação. Excluir urease.
+- Citrato de potássio no fosfato de cálcio: texto de cautela é opinião de literatura, validar.
+- Terapia expulsiva com tansulosina: ensaios recentes (SUSPEND, STONE) não mostraram benefício; texto diz "decisão compartilhada". Confirmar a linha editorial.
+- Não migrei: (1) o "Escore de Recorrência" do app antigo (nome ROKS, mas as pontuações e % não batem com o ROKS publicado); (2) o "Rastreio do tipo de cálculo" antigo (regras como pH > 7,5 + calciúria < 200 → estruvita sem cultura); (3) doses de prescrição de alta. Quem quiser ROKS real precisa do artigo (Rule of Kidney Stones, Rule et al.).
+- Doses de tratamento preventivo não foram incluídas de propósito (só classes). Se quiser, usar AUA 2014: HCTZ 25 mg 2×/dia ou 50 mg/dia, clortalidona 25 mg/dia, indapamida 2,5 mg/dia, citrato de potássio 30–60 mEq/dia fracionado, alopurinol 100–300 mg/dia. Conferir antes.

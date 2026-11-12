@@ -11,7 +11,7 @@ export default function Diureticos() {
       <>
         <TituloInfo>Equivalências usadas (dose oral, referência)</TituloInfo>
         <ul className="space-y-1">
-          <li>• Alça: furosemida VO 40 mg ≈ furosemida IV 20 mg ≈ bumetanida 1 mg ≈ torasemida 20 mg ≈ ácido etacrínico 50 mg.</li>
+          <li>• Alça: furosemida VO 40 mg ≈ furosemida IV 20 mg ≈ bumetanida 1 mg ≈ torasemida 20 mg.</li>
           <li>• Tiazídicos: hidroclorotiazida 25 mg ≈ clortalidona 12,5 mg.</li>
         </ul>
         <TituloInfo>Limites</TituloInfo>

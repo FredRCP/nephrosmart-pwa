@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import MenuConfiguracoes from '@/components/shell/MenuConfiguracoes';
 import { PLANS } from '@/lib/access/plans';
@@ -33,6 +33,7 @@ export default function Home() {
   const [ola, setOla] = useState('Olá');
   const [fase, setFase] = useState<Fase>(introJaVista ? 'pronto' : 'titulo');
   const [animar, setAnimar] = useState(false);
+  const somPendente = useRef(!introJaVista);
 
   useEffect(() => {
     const atualizar = () => setOla(saudacaoPara(new Date()));
@@ -59,23 +60,29 @@ export default function Home() {
     // Roda uma vez: depender de `fase` cancelava o segundo timer quando a fase mudava para "saindo" (tela presa no título).
   }, []);
 
-  // Som de abertura. Navegadores (principalmente iPhone) só liberam áudio depois de um toque do usuário:
-  // tenta tocar sozinho; se for bloqueado, toca no primeiro toque/tecla da sessão.
+  // Som de abertura: toca assim que a abertura começa (sem espera). Navegadores (principalmente iPhone) só liberam
+  // áudio depois de um toque do usuário: tenta tocar na hora; se for bloqueado, toca no primeiro toque/tecla.
   useEffect(() => {
-    if (!animar) return;
+    if (!somPendente.current) return;
+    somPendente.current = false;
+    let vista = false;
+    try { vista = window.sessionStorage.getItem(CHAVE_INTRO) === '1'; } catch { /* sem armazenamento */ }
+    if (vista) return;
     let tocou = false;
+    const a = new Audio('/sounds/start.mp3');
+    a.preload = 'auto';
     const fim = () => { document.removeEventListener('pointerdown', gesto); document.removeEventListener('keydown', gesto); };
     const tocar = () => {
-      if (tocou) return Promise.resolve(false);
-      try {
-        const a = new Audio('/sounds/start.mp3');
-        return a.play().then(() => { tocou = true; fim(); return true; }, () => false);
-      } catch { return Promise.resolve(false); }
+      if (tocou) return;
+      tocou = true;
+      try { void a.play().then(fim, () => { tocou = false; /* bloqueado: espera o gesto */ }); } catch { tocou = false; }
     };
-    function gesto() { void tocar(); }
-    const t = setTimeout(() => { void tocar().then((ok) => { if (!ok && !tocou) { document.addEventListener('pointerdown', gesto); document.addEventListener('keydown', gesto); } }); }, 1000);
-    return () => { clearTimeout(t); fim(); };
-  }, [animar]);
+    function gesto() { tocar(); }
+    document.addEventListener('pointerdown', gesto);
+    document.addEventListener('keydown', gesto);
+    tocar();
+    return () => fim();
+  }, []);
 
   const botao = 'flex h-16 w-full items-center justify-center rounded-2xl px-6 text-center text-lg font-bold text-white shadow-[0_8px_18px_rgba(30,58,110,0.30)] transition-transform active:scale-[0.98]';
   const estadoIntro = fase !== 'pronto' ? 'espera' : animar ? 'anima' : 'parado';

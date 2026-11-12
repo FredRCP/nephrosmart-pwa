@@ -31,7 +31,7 @@ export default function ConversorDiureticos() {
   return (
     <>
       <Seletor rotulo="Diurético atual" valor={de} onChange={(v) => { setDe(v); setResultado(''); setErro(false); }} erro={erro && !de}
-        opcoes={DIURETICOS.map((d) => ({ valor: d.id, texto: d.nome }))} />
+        opcoes={[...DIURETICOS].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')).map((d) => ({ valor: d.id, texto: d.nome }))} />
       <Campo icone="pills" placeholder="Dose (mg)" inputMode="decimal" valor={dose} erro={erro && !!de} tentativa={tentativa} onChange={(t) => { setDose(normalizarNumero(t)); setErro(false); }} />
       <div className="mt-4 flex gap-3">
         <BotaoPrimario onClick={converter}>Converter</BotaoPrimario>

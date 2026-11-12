@@ -4,13 +4,14 @@
 
 export type ClasseDiuretico = 'alca' | 'tiazidico' | 'poupador' | 'mineralocorticoide' | 'anidrase' | 'osmotico';
 
-export const CLASSES_DIURETICO: { id: ClasseDiuretico; nome: string; resumo: string }[] = [
-  { id: 'alca', nome: 'Alça', resumo: 'Inibem o cotransportador Na-K-2Cl (NKCC2) no ramo ascendente espesso da alça de Henle. Maior potência.' },
-  { id: 'tiazidico', nome: 'Tiazídicos e similares', resumo: 'Inibem o cotransportador Na-Cl (NCC) no túbulo contorcido distal. Perdem eficácia na TFG baixa (ver cada fármaco).' },
-  { id: 'poupador', nome: 'Poupadores de potássio', resumo: 'Bloqueiam o canal epitelial de sódio (ENaC) no túbulo coletor. Risco de hipercalemia.' },
-  { id: 'mineralocorticoide', nome: 'Antagonistas mineralocorticoides', resumo: 'Bloqueiam o receptor de mineralocorticoide no túbulo coletor. Risco de hipercalemia, sobretudo na DRC.' },
-  { id: 'anidrase', nome: 'Inibidor da anidrase carbônica', resumo: 'Inibe a anidrase carbônica no túbulo proximal: bicarbonatúria e acidose metabólica hiperclorêmica.' },
-  { id: 'osmotico', nome: 'Osmótico', resumo: 'Filtrado e não reabsorvido: aumenta a osmolaridade tubular e plasmática. Uso hospitalar, IV.' },
+/** Em ordem alfabética (pelo nome). `cor` identifica a classe nos cartões, como as categorias na lista de ferramentas. */
+export const CLASSES_DIURETICO: { id: ClasseDiuretico; nome: string; cor: string; resumo: string }[] = [
+  { id: 'alca', nome: 'Alça', cor: '#3b82f6', resumo: 'Inibem o cotransportador Na-K-2Cl (NKCC2) no ramo ascendente espesso da alça de Henle. Maior potência.' },
+  { id: 'anidrase', nome: 'Anidrase carbônica', cor: '#0d9488', resumo: 'Inibe a anidrase carbônica no túbulo proximal: bicarbonatúria e acidose metabólica hiperclorêmica.' },
+  { id: 'mineralocorticoide', nome: 'Antagonistas mineralocorticoides', cor: '#8b5cf6', resumo: 'Bloqueiam o receptor de mineralocorticoide no túbulo coletor. Risco de hipercalemia, sobretudo na DRC.' },
+  { id: 'osmotico', nome: 'Osmótico', cor: '#ef4444', resumo: 'Filtrado e não reabsorvido: aumenta a osmolaridade tubular e plasmática. Uso hospitalar, IV.' },
+  { id: 'poupador', nome: 'Poupadores de potássio', cor: '#f59e0b', resumo: 'Bloqueiam o canal epitelial de sódio (ENaC) no túbulo coletor. Risco de hipercalemia.' },
+  { id: 'tiazidico', nome: 'Tiazídicos e similares', cor: '#16a34a', resumo: 'Inibem o cotransportador Na-Cl (NCC) no túbulo contorcido distal. Perdem eficácia na TFG baixa (ver cada fármaco).' },
 ];
 
 export interface GuiaDiuretico {
