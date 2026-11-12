@@ -125,9 +125,9 @@ describe('Estadiamento da DRC', () => {
 describe('Equivalência de diuréticos', () => {
   const eq = (de: string, dose: string) => { const r = converterDiuretico({ de, dose }); if (!r.ok) throw new Error(r.mensagem); return Object.fromEntries(r.equivalentes.map((e) => [e.id, e.dose])); };
   it('furosemida VO 40 mg', () => {
-    expect(eq('furosemida-vo', '40')).toEqual({ 'furosemida-iv': 20, bumetanida: 1, torasemida: 20 });
+    expect(eq('furosemida-vo', '40')).toEqual({ 'furosemida-iv': 20, bumetanida: 1 });
   });
-  it('torasemida 40 → furosemida VO 80', () => { expect(eq('torasemida', '40')['furosemida-vo']).toBe(80); });
+  it('bumetanida 2 → furosemida VO 80', () => { expect(eq('bumetanida', '2')['furosemida-vo']).toBe(80); });
   it('tiazídicos só convertem entre si', () => {
     expect(eq('hidroclorotiazida', '50')).toEqual({ clortalidona: 25 });
     expect(eq('clortalidona', '25')).toEqual({ hidroclorotiazida: 50 });

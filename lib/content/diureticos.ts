@@ -33,7 +33,7 @@ export interface GuiaDiuretico {
 
 export const GUIA_DIURETICOS: GuiaDiuretico[] = [
   {
-    id: 'furosemida', classe: 'alca', generico: 'Furosemida', comerciais: ['Lasix®', 'Furozix®'],
+    id: 'furosemida', classe: 'alca', generico: 'Furosemida', comerciais: ['Lasix®'],
     apresentacoes: ['Comprimido 40 mg', 'Injetável 10 mg/mL (ampola de 2 mL = 20 mg), IV ou IM'],
     dose: ['VO: início 20–80 mg/dia; manutenção 20–40 mg/dia (máximo conforme resposta); em jejum.',
       'IV/IM: 20–40 mg; se necessário, aumentar 20 mg a cada 2 h até diurese adequada, e repetir a dose eficaz 1–2×/dia.',
@@ -67,7 +67,7 @@ export const GUIA_DIURETICOS: GuiaDiuretico[] = [
     drc: ['Ureia e creatinina podem subir durante o tratamento; sem ajuste específico na bula. Monitorar potássio, glicemia e ácido úrico.'],
   },
   {
-    id: 'hidroclorotiazida', classe: 'tiazidico', generico: 'Hidroclorotiazida', comerciais: ['Clorana®', 'Diurix®'],
+    id: 'hidroclorotiazida', classe: 'tiazidico', generico: 'Hidroclorotiazida', comerciais: ['Clorana®'],
     associacoes: ['Moduretic®/Amiretic® (com amilorida)', 'Iguassina® (com triantereno)', 'Aldazida® (com espironolactona)'],
     apresentacoes: ['Comprimido 25 mg e 50 mg'],
     dose: ['Hipertensão: início 50–100 mg/dia, dose única pela manhã ou fracionada; reavaliar após 1 semana.', 'Edema: início 50–100 mg 1–2×/dia até o peso seco; manutenção 25–200 mg/dia ou em dias alternados. A bula não define máximo diário (maior valor citado: 200 mg/dia).'],
@@ -83,16 +83,16 @@ export const GUIA_DIURETICOS: GuiaDiuretico[] = [
     inicioDuracao: ['Diurese inicia 2–3 h após a dose, com pico entre 4 e 24 h, e pode durar 2–3 dias.', 'Meia-vida média de eliminação ~50 h; edema melhora em ~2 dias, perda de peso pode levar até 2 semanas.'],
     riscos: ['Hipocalemia dose-dependente (queda média de ~0,5 mmol/L com 25–50 mg/dia): dosar potássio no início e após 3–4 semanas.', 'Hiponatremia; hiperuricemia (reduz a depuração de ácido úrico); hipercalcemia refratária contraindica.', 'Contraindicada em anúria, insuficiência hepática grave, ClCr < 30 mL/min, hipocalemia/hiponatremia/hipercalcemia refratárias e hiperuricemia sintomática.'],
     drc: ['Pela bula: cautela na insuficiência renal grave (ClCr < 30 mL/min), com risco de azotemia e acúmulo; sem ajuste inicial na insuficiência leve a moderada; abaixo de 30 mL/min o efeito diurético se perde.'],
-    fora: ['O estudo CLICK (Agarwal R et al., N Engl J Med 2021;385:2507) mostrou redução da pressão arterial com clortalidona em DRC estágio 4 (TFG 15 a < 30), com mais hipocalemia e piora transitória da creatinina. É uso fora do que a bula orienta.'],
+    fora: ['CLICK (Agarwal R et al., N Engl J Med 2021;385:2507): DRC estágio 4 (TFG 15–29) com hipertensão não controlada; clortalidona iniciada com 12,5 mg/dia e dobrada a cada 4 semanas até 50 mg, por 12 semanas, reduziu a pressão arterial versus placebo, com mais hipocalemia, hiponatremia, hiperglicemia, hipotensão ortostática, queda da TFG e lesão renal aguda. É uso fora do que a bula orienta.'],
   },
   {
-    id: 'indapamida', classe: 'tiazidico', generico: 'Indapamida', comerciais: ['Natrilix®', 'Natrilix SR®'],
-    apresentacoes: ['Drágea 2,5 mg (Natrilix)', 'Comprimido de liberação prolongada 1,5 mg (Natrilix SR)'],
-    dose: ['Hipertensão essencial: 1 drágea/dia de 2,5 mg, de preferência pela manhã, sem exceder 2,5 mg/dia (Natrilix).', 'Natrilix SR: 1 comprimido de 1,5 mg ao dia (conferir a bula vigente).'],
+    id: 'indapamida', classe: 'tiazidico', generico: 'Indapamida', comerciais: ['Natrilix®', 'Natrilix SR®', 'Flux SR®'],
+    apresentacoes: ['Drágea 2,5 mg (Natrilix)', 'Comprimido de liberação prolongada 1,5 mg (Natrilix SR, Flux SR)'],
+    dose: ['Hipertensão essencial: 1 drágea/dia de 2,5 mg, de preferência pela manhã, sem exceder 2,5 mg/dia (Natrilix).', 'Natrilix SR / Flux SR (1,5 mg, liberação prolongada): 1 comprimido ao dia, de preferência pela manhã, engolido inteiro com água (não mastigar, partir ou abrir).'],
     inicioDuracao: ['A bula consultada não informa início e duração; a posologia é de dose única diária.'],
     riscos: ['Hipocalemia e hiponatremia (frequência desconhecida na bula); monitorar sódio, potássio e cálcio.', 'Reações cutâneas e alérgicas; angioedema ou reação cutânea grave exige suspensão imediata.', 'Contraindicada em alergia a sulfonamidas, doença renal grave, doença hepática grave/encefalopatia, hipocalemia e crianças.'],
     drc: ['Contraindicada na doença renal grave; a bula não traz ajuste de dose para a insuficiência renal.'],
-    fora: ['É um diurético tiazídico-símile (sulfonamida, não tiazídico), com efeito anti-hipertensivo duradouro. Não há equivalência de dose consolidada com a hidroclorotiazida.'],
+    fora: ['É um diurético tiazídico-símile (como a clortalidona; revisão da ESH 2019), com duração de ação de 24–34 h. Não há equivalência de dose consolidada com a hidroclorotiazida.'],
   },
   {
     id: 'amilorida', classe: 'poupador', generico: 'Amilorida', comerciais: [], associacoes: ['Moduretic®/Amiretic® e genéricos (hidroclorotiazida 25 mg + amilorida 2,5 mg, ou 50 mg + 5 mg)'],
@@ -101,7 +101,7 @@ export const GUIA_DIURETICOS: GuiaDiuretico[] = [
     inicioDuracao: ['A bula consultada não informa.'],
     riscos: ['Hipercalemia: a bula contraindica o uso com potássio já elevado ou com outros fármacos/suplementos que o aumentem; cautela com IECA/BRA e outros poupadores.', 'Cefaleia, fraqueza, náuseas, exantema; fotossensibilidade.'],
     drc: ['A bula do paciente contraindica em doença renal; a bula não traz ajuste por função renal.'],
-    fora: ['Isolada: efeito natriurético fraco; o início de ação é de ~2 h e a duração de cerca de 24 h na literatura. Usada para hipocalemia induzida por diuréticos e síndrome de Liddle.'],
+    fora: ['Isolada: efeito natriurético fraco; duração de ação > 24 h (revisão da ESH 2019). O início de ação não foi confirmado em fonte. Usada para hipocalemia induzida por diuréticos e síndrome de Liddle.'],
   },
   {
     id: 'triantereno', classe: 'poupador', generico: 'Triantereno', comerciais: [], associacoes: ['Iguassina® (hidroclorotiazida 50 mg + triantereno 50 mg)'],
@@ -110,7 +110,7 @@ export const GUIA_DIURETICOS: GuiaDiuretico[] = [
     inicioDuracao: ['A bula consultada não informa.'],
     riscos: ['Hipercalemia (monitorar potássio, sobretudo em uso prolongado do tiazídico); contraindicado no 1º trimestre de gestação.'],
     drc: ['Contraindicado na insuficiência renal grave ou terminal; usado em retenção hídrica com insuficiência renal leve a moderada, sem ajuste na bula.'],
-    fora: ['Na literatura o triantereno tem início em 2–4 h e duração de 7–9 h; pode formar cálculos e piora da função renal quando associado a AINEs.'],
+    fora: ['Na literatura o triantereno tem duração de ação < 24 h (revisão da ESH 2019); o início de ação não foi confirmado em fonte.'],
   },
   {
     id: 'espironolactona', classe: 'mineralocorticoide', generico: 'Espironolactona', comerciais: ['Aldactone®'], associacoes: ['Aldazida® (com hidroclorotiazida)'],
@@ -120,7 +120,7 @@ export const GUIA_DIURETICOS: GuiaDiuretico[] = [
     inicioDuracao: ['A bula consultada não informa; recomenda manter por no mínimo 2 semanas para avaliar a hipertensão.'],
     riscos: ['Hipercalemia: reação muito comum (> 10%); pode ser fatal, sobretudo com IECA e outros poupadores de potássio.', 'Ginecomastia e dor mamária em homens (comum).', 'Contraindicada em insuficiência renal aguda, redução significativa da função renal, anúria, hipercalemia, doença de Addison e uso com eplerenona.'],
     drc: ['Sem tabela de ajuste na bula; contraindicada em IRA/redução significativa da função renal; insuficiência renal aguda é reação comum. Monitorar potássio e creatinina.'],
-    fora: ['Na literatura o efeito máximo leva ~2–3 dias e persiste por 2–3 dias após suspender.'],
+    fora: ['Na literatura algum efeito aparece em 3–4 h e o efeito máximo leva até 2 dias; os metabólitos ativos têm meia-vida de 10–12 h (Deranged Physiology). A duração de ação anti-hipertensiva é de 24–34 h (ESH 2019).'],
   },
   {
     id: 'eplerenona', classe: 'mineralocorticoide', generico: 'Eplerenona', comerciais: ['Inspra®'],

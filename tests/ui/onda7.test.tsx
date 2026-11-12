@@ -52,11 +52,11 @@ describe('Ferramentas novas (Onda 7)', () => {
     expect(ativas).toHaveLength(1);
     expect(ativas[0].getAttribute('aria-label')).toBe('G3b A2: Risco muito alto');
   });
-  it('diuréticos: torasemida 40 mg → furosemida VO 80 mg', async () => {
+  it('diuréticos: bumetanida 2 mg → furosemida VO 80 mg', async () => {
     const u = userEvent.setup();
     renderComTema(<Diureticos />);
-    await u.selectOptions(screen.getByLabelText('Diurético atual'), 'torasemida');
-    await u.type(screen.getByPlaceholderText('Dose (mg)'), '40');
+    await u.selectOptions(screen.getByLabelText('Diurético atual'), 'bumetanida');
+    await u.type(screen.getByPlaceholderText('Dose (mg)'), '2');
     await u.click(screen.getByRole('button', { name: 'Converter' }));
     expect(resultado()).toMatch(/Furosemida VO.*80/);
   });

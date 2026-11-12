@@ -1,5 +1,5 @@
 // Equivalência de diuréticos (Onda 7, ferramenta nova). Função pura. Equivalência APROXIMADA de dose: não é prescrição.
-// Alça (base = furosemida 40 mg VO): furosemida IV 20 · bumetanida 1 · torasemida 20.
+// Alça (base = furosemida 40 mg VO): furosemida IV 20 · bumetanida 1.
 // Tiazídicos (base = hidroclorotiazida 25 mg): clortalidona 12,5.
 export type GrupoDiuretico = 'alca' | 'tiazidico';
 export interface Diuretico { id: string; nome: string; grupo: GrupoDiuretico; /** dose (mg) equivalente à dose-base do grupo */ equivalente: number; nota?: string }
@@ -8,7 +8,6 @@ export const DIURETICOS: Diuretico[] = [
   { id: 'furosemida-vo', nome: 'Furosemida VO', grupo: 'alca', equivalente: 40, nota: 'Biodisponibilidade oral variável (10–100%, média ~50%).' },
   { id: 'furosemida-iv', nome: 'Furosemida IV', grupo: 'alca', equivalente: 20 },
   { id: 'bumetanida', nome: 'Bumetanida (VO ou IV)', grupo: 'alca', equivalente: 1 },
-  { id: 'torasemida', nome: 'Torasemida (VO ou IV)', grupo: 'alca', equivalente: 20, nota: 'Alguns serviços usam 10–20 mg para 40 mg de furosemida VO.' },
   { id: 'hidroclorotiazida', nome: 'Hidroclorotiazida', grupo: 'tiazidico', equivalente: 25 },
   { id: 'clortalidona', nome: 'Clortalidona', grupo: 'tiazidico', equivalente: 12.5, nota: 'Mais potente e de ação mais longa que a hidroclorotiazida.' },
 ];
@@ -34,7 +33,7 @@ export function converterDiuretico(e: { de: string; dose: string }): ResultadoDi
   const avisos = ['Equivalência aproximada entre doses; ajuste pela resposta clínica (diurese, peso, pressão, eletrólitos).'];
   if (d.grupo === 'alca') {
     avisos.push('Na TFG baixa ou na insuficiência cardíaca, o diurético de alça tem limiar: doses abaixo dele não produzem diurese. Não extrapole para doses menores nem pressuponha efeito linear.');
-    avisos.push('A passagem de IV para VO costuma dobrar a dose de furosemida (biodisponibilidade ~50%); bumetanida e torasemida têm absorção oral mais previsível.');
+    avisos.push('A passagem de IV para VO costuma dobrar a dose de furosemida (biodisponibilidade ~50%); a bumetanida tem absorção oral mais previsível.');
   } else avisos.push('Tiazídicos perdem efeito com TFG muito baixa (a clortalidona mantém algum efeito); associar a um diurético de alça tem efeito sinérgico (bloqueio sequencial) e risco de hipocalemia/hiponatremia.');
   return { ok: true, origem: `${d.nome}: ${fmt(dose)} mg`, equivalentes, avisos, texto: `${d.nome} ${fmt(dose)} mg ≈\n${equivalentes.map((q) => q.texto).join('\n')}` };
 }

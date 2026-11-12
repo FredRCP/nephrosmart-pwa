@@ -16,7 +16,7 @@
 - Aviso de encaminhamento: G4/G5 ou A3.
 
 ## 4. Equivalência de diuréticos
-- Alça (base furosemida VO 40 mg): furosemida IV 20, bumetanida 1, torasemida 20. CONFIRMAR torasemida (algumas fontes: 10–20 mg). Ácido etacrínico removido (sem comercialização no Brasil).
+- Alça (base furosemida VO 40 mg): furosemida IV 20, bumetanida 1, (torasemida removida em 12/11/2026, a pedido). Ácido etacrínico removido (sem comercialização no Brasil).
 - Tiazídicos: hidroclorotiazida 25 = clortalidona 12,5. CONFIRMAR (a equivalência é muito debatida).
 - Não converte entre grupos (alça ↔ tiazídico). Sensibilidade "alta" (dose).
 

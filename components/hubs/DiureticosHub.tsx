@@ -93,7 +93,7 @@ export default function DiureticosHub({ inicial = 'guia' }: { inicial?: Aba }) {
           </div>
           {info && <p className="mb-3 px-1 text-sm leading-5" style={{ color: colors.text, opacity: 0.8 }}>{info.resumo}</p>}
           <div className="space-y-2.5">{lista.map((d) => <Cartao key={d.id} d={d} />)}</div>
-          <p className="mt-4 px-1 text-xs leading-5" style={{ color: colors.text, opacity: 0.65 }}>Fonte: bulas Lasix, Burinax, Arelix, Clorana, Higroton, Natrilix, Moduretic, Iguassina, Aldactone, Inspra, Firialta, Diamox e Manitol (Fresenius Kabi), conferidas em 12/11/2026.</p>
+          <p className="mt-4 px-1 text-xs leading-5" style={{ color: colors.text, opacity: 0.65 }}>Fonte: bulas Lasix, Burinax, Arelix, Clorana, Higroton, Natrilix, Flux SR, Moduretic, Iguassina, Aldactone, Inspra, Firialta, Diamox e Manitol (Fresenius Kabi), conferidas em 12/11/2026.</p>
         </>
       )}
     </CalculadoraLayout>
