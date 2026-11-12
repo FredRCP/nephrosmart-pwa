@@ -110,13 +110,14 @@ export default function Home() {
 
       <div className="mb-8 mt-[calc(2rem+30px)] w-full text-center">
         {/* Tema escuro: versão do logotipo com texto claro e brilho suave, sem caixa branca atrás */}
-        <h1 className="intro-item intro-logo mx-auto w-fit">
+        {/* A caixa do logo tem altura fixa (a do tamanho anterior): o logo pode encolher sem mexer na posição dos botões */}
+        <h1 className={`intro-item intro-logo mx-auto flex w-fit items-center justify-center ${theme === 'dark' ? 'h-[196px] md:h-[235px]' : 'h-[182px] md:h-[209px]'}`}>
           <img src={theme === 'dark' ? '/images/ns1a-escuro.webp' : '/images/ns1a.webp'} alt="NephroSmart" width={300} height={250}
-            className={`mx-auto h-auto ${theme === 'dark' ? 'w-[204px] md:w-[245px]' : 'w-[190px] md:w-[218px]'}`} />
+            className={`mx-auto h-auto ${theme === 'dark' ? 'w-[173px] md:w-[208px]' : 'w-[161px] md:w-[185px]'}`} />
         </h1>
-        <div className="intro-item mx-auto mt-4 flex w-full max-w-md items-center gap-3" style={atraso(1)} data-testid="selo-beta">
+        <div className="intro-item mx-auto mt-4 flex h-[26px] w-full max-w-md items-center gap-3" style={atraso(1)} data-testid="selo-beta">
           <span aria-hidden className="h-px flex-1" style={{ backgroundColor: LINHA }} />
-          <p className="rounded-full px-4 py-0.5 text-sm font-bold tracking-widest opacity-85"
+          <p className="rounded-full px-3 py-0.5 text-xs font-bold tracking-widest opacity-85"
             style={{ color: colors.text, border: `1px solid ${colors.inputBorder}` }}>VERSÃO BETA</p>
           <span aria-hidden className="h-px flex-1" style={{ backgroundColor: LINHA }} />
         </div>
@@ -137,7 +138,8 @@ export default function Home() {
 
       <p className="intro-item mt-14 text-center text-sm leading-5" style={{ color: colors.text, opacity: 0.85, ...atraso(2.8) }}>
         <span data-testid="fontes-home" className="hidden md:inline">Principais fontes: KDIGO 2024 (DRC) · CKD-EPI 2021 (Inker, NEJM) · SBN<br /></span>
-        Uso exclusivo para profissionais de saúde · <Link href="/termodeuso" className="underline">Termo de Uso</Link>
+        Uso exclusivo para profissionais de saúde<br />
+        <Link href="/termodeuso" className="underline">Termo de Uso</Link>
       </p>
     </div>
   );
