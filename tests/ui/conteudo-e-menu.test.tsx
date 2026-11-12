@@ -49,9 +49,9 @@ describe('Menu de ferramentas', () => {
     const titulos = screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent);
     expect(titulos).toEqual([
       'Ânion Gap', 'Cálcio (Hipo/Hipercalcemia e Correção)', 'CKD-EPI (Creat + Cistatina C)', 'CKD-EPI 2021', 'Clearance de Creatinina (Ped)', 'Cockcroft-Gault', 'Conversor de Dose (Infusão)', 'Conversor de Unidades Laboratoriais',
-      'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
+      'Depuração de Creatinina (24 h)', 'Distúrbios Ácido-Base', 'DRPAD', 'Escala de Coma de Glasgow', 'Escore Brescia-Cimino (DOQI)', 'Estadiamento da DRC (KDIGO)', 'Fósforo (Hipo/Hiperfosfatemia)', 'Frações de Excreção',
       'Função Renal esperada p/ idade', 'Gasometria Arterial', 'IMC', 'Kt/V e Taxa de UF (Hemodiálise)', 'Magnésio (Hipo/Hipermagnesemia)', 'Osmolaridade Sérica', 'Potássio (Hipo/Hipercalemia)',
-      'Reposição de Bicarbonato', 'Sódio (Hipo/Hipernatremia e Calculadoras)', 'SOFA-2',
+      'Reposição de Bicarbonato', 'Risco Cardiovascular', 'Risco de Progressão de DRC', 'Sódio (Hipo/Hipernatremia e Calculadoras)', 'SOFA-2',
     ]);
   });
   it('busca sem acento', async () => {
@@ -69,7 +69,7 @@ describe('Menu de ferramentas', () => {
     await u.click(screen.getByRole('tab', { name: 'Eletrólitos' }));
     expect(screen.getAllByRole('link').length).toBe(6);
     await u.click(screen.getByRole('tab', { name: 'Diálise' }));
-    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Kt/V e Taxa de UF (Hemodiálise)']);
+    expect(screen.getAllByRole('link').map((a) => a.querySelector('span.truncate')?.textContent)).toEqual(['Escore Brescia-Cimino (DOQI)', 'Kt/V e Taxa de UF (Hemodiálise)']);
   });
   it('ao voltar de uma ferramenta, o menu reabre na mesma categoria e com a mesma busca', async () => {
     const u = userEvent.setup();
@@ -91,7 +91,7 @@ describe('Menu de ferramentas', () => {
   it('filtros novos: Ácido-base (5), IRA e emergência (IRA) e Outros (IMC); a ferramenta some dos filtros que não são dela', async () => {
     const u = userEvent.setup();
     renderComTema(<ListaFerramentas ferramentas={ferramentasDisponiveis} />);
-    expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['Todos', 'Eletrólitos', 'Ácido-base', 'IRA e emergência', 'Diálise', 'DRC', 'Outros']);
+    expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['Todos', 'Ácido-base', 'Diálise', 'DRC', 'Eletrólitos', 'IRA e emergência', 'Outros']);
     await u.click(screen.getByRole('tab', { name: 'Ácido-base' }));
     expect(screen.getAllByRole('link')).toHaveLength(5);
     await u.click(screen.getByRole('tab', { name: 'IRA e emergência' })); // IRA está restrita a administradores: a aba fica vazia

@@ -15,4 +15,6 @@ export const SLUGS_DISPONIVEIS = ['imc', 'ckd-epi-2021', 'cockcroft-gault', 'ckd
   // Onda 3 — eletrólitos
   'hipocalcemia-calcio', 'hipercalcemia-calcio', 'hipofosfatemia-fosforo', 'hiperfosfatemia-fosforo', 'hipomagnesemia-magnesio', 'hipermagnesemia-magnesio',
   // Onda 9
-  'anemia-drc-dialise'] as const;
+  'anemia-drc-dialise',
+  // Onda 10
+  'escala-de-coma-de-glasgow', 'escore-brescia-cimino-doqi', 'risco-cardiovascular', 'risco-de-progressao-de-drc', 'drpad'] as const;

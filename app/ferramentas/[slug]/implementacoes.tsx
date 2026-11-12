@@ -22,6 +22,11 @@ import VacinasHub from '@/components/hubs/VacinasHub';
 import IntoxicacoesHub from '@/components/hubs/IntoxicacoesHub';
 import EletrolitoHub from '@/components/hubs/EletrolitoHub';
 import AnemiaDrc from '@/components/calculators/AnemiaDrc';
+import Glasgow from '@/components/calculators/Glasgow';
+import MaturacaoFav from '@/components/calculators/MaturacaoFav';
+import RiscoCardiovascular from '@/components/calculators/RiscoCardiovascular';
+import RiscoProgressaoDrc from '@/components/calculators/RiscoProgressaoDrc';
+import Drpad from '@/components/calculators/Drpad';
 
 // slug do catálogo → tela. Ao migrar uma ferramenta, registre aqui E em lib/tools/disponiveis.ts.
 export const implementacoes: Record<string, () => ReactNode> = {
@@ -76,4 +81,10 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'hipocalemia-potassio': () => <EletrolitoHub eletrolito="potassio" inicial="hipo" />,
   // Onda 9
   'anemia-drc-dialise': () => <AnemiaDrc />,
+  // Onda 10 — escores do app antigo, revisados (ver DIVERGENCIAS_ESCORES.md)
+  'escala-de-coma-de-glasgow': () => <Glasgow />,
+  'escore-brescia-cimino-doqi': () => <MaturacaoFav />,
+  'risco-cardiovascular': () => <RiscoCardiovascular />,
+  'risco-de-progressao-de-drc': () => <RiscoProgressaoDrc />,
+  drpad: () => <Drpad />,
 };
