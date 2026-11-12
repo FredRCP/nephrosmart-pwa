@@ -135,10 +135,16 @@ describe('Home: logotipo oficial', () => {
     const imagem = within(titulo).getByRole('img', { name: 'NephroSmart' });
     expect(imagem.getAttribute('src')).toBe('/images/ns1a.webp');
   });
-  it('no tema escuro o logotipo ganha fundo claro (azul sobre escuro não se lê)', () => {
+  it('no tema escuro usa a versão do logotipo com texto claro, sem caixa branca', async () => {
     window.localStorage.setItem('theme', 'dark');
     renderComTema(<Home />);
-    return waitFor(() => expect(screen.getByRole('heading', { level: 1 }).className).toContain('bg-white'));
+    await waitFor(() => expect(within(screen.getByRole('heading', { level: 1 })).getByRole('img').getAttribute('src')).toBe('/images/ns1a-escuro.webp'));
+    expect(screen.getByRole('heading', { level: 1 }).className).not.toContain('bg-white');
+  });
+  it('tela Ajuste de Dose: título usa a cor de texto do tema (claro no escuro)', async () => {
+    const { default: Pagina } = await import('@/app/ajuste-de-dose/page');
+    renderComTema(<Pagina />);
+    expect(screen.getByRole('heading', { name: 'Ajuste de Dose' }).getAttribute('style')).toContain('var(--text)');
   });
 });
 

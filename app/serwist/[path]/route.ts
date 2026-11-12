@@ -18,6 +18,7 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
     { url: '/privacidade', revision },
     { url: '/excluir-conta', revision },
     { url: '/images/ns1a.webp', revision },
+    { url: '/images/ns1a-escuro.webp', revision },
     { url: '/images/rcp-creative.png', revision },
     // todas as ferramentas migradas ficam disponíveis offline
     ...ferramentasDisponiveis.map((f) => ({ url: `/ferramentas/${f.slug}`, revision })),

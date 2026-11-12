@@ -86,25 +86,26 @@ export default function Home() {
       )}
 
       {/* Saudação com o nome de quem está logado; a engrenagem aqui só no celular (no desktop fica no menu azul) */}
-      {/* Celular: faixa escura contínua com a barra de status (saudação e engrenagem dentro dela); desktop: saudação centralizada */}
-      <div className="intro-item relative -mx-4 -mt-6 w-[calc(100%+2rem)] px-4 pb-4 pt-4 md:mx-0 md:mt-0 md:w-full md:p-0 max-md:bg-[#1f2937]" style={atraso(1)}>
-        <div className="text-left md:text-center">
-          <p className="text-xl font-bold text-white md:[color:var(--text)]" data-testid="saudacao">
+      {/* Saudação centralizada; a engrenagem aqui só no celular (no desktop fica no menu azul) */}
+      <div className="intro-item relative w-full" style={atraso(1)}>
+        <div className="text-center">
+          <p className="text-xl font-bold" style={{ color: colors.text }} data-testid="saudacao">
             {ola}, {sessao.email ? primeiroNome(sessao.nome, sessao.email) : 'Usuário'}
           </p>
           {sessao.email && (
-            <p className="text-sm text-white/85 md:text-[var(--text)] md:opacity-85" data-testid="situacao-login">
+            <p className="text-sm" style={{ color: colors.text, opacity: 0.85 }} data-testid="situacao-login">
               Conectado · {sessao.ativo ? `Plano ${PLANS[sessao.plano].label}` : 'conta suspensa'}
             </p>
           )}
         </div>
-        <div className="absolute right-4 top-3 md:hidden"><MenuConfiguracoes variante="home" /></div>
+        <div className="absolute right-0 top-0 md:hidden"><MenuConfiguracoes variante="home" /></div>
       </div>
 
       <div className="my-8 text-center">
-        {/* O logotipo é azul sobre transparente: no tema escuro ganha um fundo claro para continuar legível */}
-        <h1 className={`intro-item intro-logo mx-auto w-fit rounded-3xl ${theme === 'dark' ? 'bg-white/95 px-6 py-3' : ''}`}>
-          <img src="/images/ns1a.webp" alt="NephroSmart" width={300} height={250} className="mx-auto h-auto w-56 md:w-64" />
+        {/* Tema escuro: versão do logotipo com texto claro e brilho suave, sem caixa branca atrás */}
+        <h1 className="intro-item intro-logo mx-auto w-fit">
+          <img src={theme === 'dark' ? '/images/ns1a-escuro.webp' : '/images/ns1a.webp'} alt="NephroSmart" width={300} height={250}
+            className={`mx-auto h-auto ${theme === 'dark' ? 'w-60 md:w-72' : 'w-56 md:w-64'}`} />
         </h1>
         <p className="intro-item mx-auto mt-4 w-fit rounded-full px-4 py-0.5 text-sm font-bold tracking-widest opacity-85"
           style={{ color: colors.text, border: `1px solid ${colors.inputBorder}`, ...atraso(1) }}>VERSÃO BETA</p>
