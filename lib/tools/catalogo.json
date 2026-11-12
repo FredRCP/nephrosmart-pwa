@@ -1077,8 +1077,8 @@
   },
   {
     "slug": "equivalencia-de-diureticos",
-    "titulo": "Equivalência de Diuréticos",
-    "descricao": "Converte doses entre diuréticos de alça e entre tiazídicos.",
+    "titulo": "Diuréticos (Guia e Equivalência)",
+    "descricao": "Guia dos diuréticos disponíveis no Brasil (nomes, dose de bula, início e duração, riscos, DRC) e conversão de dose dentro da classe.",
     "categorias": [
       "drc",
       "ira-emergencia"

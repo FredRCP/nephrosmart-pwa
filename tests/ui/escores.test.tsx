@@ -51,6 +51,7 @@ describe('Escores migrados (telas)', () => {
   it('Risco cardiovascular calcula e valida', async () => {
     const u = userEvent.setup();
     renderComTema(<RiscoCardiovascular />);
+    await u.click(screen.getByRole('button', { name: 'PCE (2013)' }));
     await u.click(screen.getByRole('button', { name: 'Calcular' }));
     expect(resultado()).toContain('Informe');
     await u.type(screen.getByPlaceholderText(/Idade/), '55');
@@ -61,6 +62,24 @@ describe('Escores migrados (telas)', () => {
     await u.click(screen.getByRole('button', { name: 'Calcular' }));
     expect(resultado()).toContain('2,1%');
     expect(resultado()).toContain('Baixo');
+  });
+  it('PREVENT é a equação padrão e reproduz o caso de referência', async () => {
+    const u = userEvent.setup();
+    renderComTema(<RiscoCardiovascular />);
+    expect(screen.getByRole('button', { name: 'PREVENT (2023)' }).getAttribute('aria-pressed')).toBe('true');
+    await u.type(screen.getByPlaceholderText(/Idade/), '50');
+    await u.click(screen.getByRole('button', { name: 'Feminino' }));
+    await u.type(screen.getByPlaceholderText(/Colesterol total/), '200');
+    await u.type(screen.getByPlaceholderText(/HDL/), '45');
+    await u.type(screen.getByPlaceholderText(/sistólica/), '160');
+    await u.type(screen.getByPlaceholderText(/IMC/), '35');
+    await u.type(screen.getByPlaceholderText(/TFG/), '90');
+    await u.click(screen.getByLabelText(/tratamento para hipertensão/));
+    await u.click(screen.getByLabelText('Diabetes'));
+    await u.click(screen.getByRole('button', { name: 'Calcular' }));
+    expect(resultado()).toContain('DCV total: 14,7%');
+    expect(resultado()).toContain('Risco em 30 anos');
+    expect(resultado()).toContain('Modelo: base');
   });
   it('KFRE mostra 2 e 5 anos e exige ACR', async () => {
     const u = userEvent.setup();

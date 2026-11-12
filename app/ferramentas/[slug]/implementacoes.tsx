@@ -14,7 +14,7 @@ import OsmolaridadeCalculator from '@/components/calculators/OsmolaridadeCalcula
 import ConversorUnidades from '@/components/calculators/ConversorUnidades';
 import Clearance24h from '@/components/calculators/Clearance24h';
 import EstadiamentoDrc from '@/components/calculators/EstadiamentoDrc';
-import Diureticos from '@/components/calculators/Diureticos';
+import DiureticosHub from '@/components/hubs/DiureticosHub';
 import ConversorInfusao from '@/components/calculators/ConversorInfusao';
 import Sofa2 from '@/components/calculators/Sofa2';
 import HemodialiseHub from '@/components/hubs/HemodialiseHub';
@@ -62,7 +62,7 @@ export const implementacoes: Record<string, () => ReactNode> = {
   'conversor-de-unidades-laboratoriais': () => <ConversorUnidades />,
   'depuracao-de-creatinina-24h': () => <Clearance24h />,
   'estadiamento-da-drc-kdigo': () => <EstadiamentoDrc />,
-  'equivalencia-de-diureticos': () => <Diureticos />,
+  'equivalencia-de-diureticos': () => <DiureticosHub />,
   // Onda 8
   'conversor-de-dose': () => <ConversorInfusao />,
   'kt-v-hemodialise': () => <HemodialiseHub inicial="ktv" />,

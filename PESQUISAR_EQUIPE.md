@@ -88,3 +88,10 @@ Confirmado com fonte: Butantan-DV licenciada para 12–59 anos, SUS 15–59 (FAQ
 
 ## Escores (12/11/2026)
 - Ver DIVERGENCIAS_ESCORES.md: REIN (reconstruir a partir do artigo de Couchoud), limite da regra dos 6 (> vs ≥), limiares KDIGO 2024 para o KFRE, KFRE de 8 variáveis, intervalos das classes de Mayo.
+
+## Diuréticos e PREVENT (12/11/2026)
+- Guia de diuréticos: dados das bulas lidos em bula.com.br/Fresenius (Lasix, Burinax, Arelix, Clorana, Higroton, Natrilix 2,5 mg, Moduretic, Iguassina, Aldactone, Inspra, Firialta, Diamox, Manitol). **Conferir na bula vigente (Bulário Anvisa) antes de liberar**: Natrilix SR 1,5 mg (dose lida de memória, não da bula), Diurix/Furozix (nomes vistos só em listagens), nomes comerciais da amilorida isolada (não achei) e do triantereno isolado (só em associação).
+- "Fora da bula" (literatura, conferir fonte): início/duração de espironolactona, amilorida isolada e triantereno; CLICK (clortalidona em DRC 4); indapamida tiazídico-símile.
+- Torasemida e ácido etacrínico ainda estão no conversor (equivalência de alça) mas não confirmei comercialização no Brasil: decidir se saem.
+- Equivalência indapamida/piretanida × tiazídico/alça: sem valor consolidado, não incluída.
+- PREVENT: coeficientes do pacote `preventr` 0.12.2 (inclui erratum de 14/10/2026 só dos modelos com HbA1c). Implementados só base e base+UACR (10 e 30 anos). Conferir contra a calculadora oficial da AHA com 2–3 casos reais. Decidir se queremos o modelo com HbA1c (com o erratum) e mostrar CHD/AVC separados.
