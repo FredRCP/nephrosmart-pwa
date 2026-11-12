@@ -123,7 +123,7 @@ export default function Home() {
       </nav>
 
       <p className="intro-item mt-8 text-center text-sm leading-5" style={{ color: colors.text, opacity: 0.85, ...atraso(2.8) }}>
-        Principais fontes: KDIGO 2024 (DRC) · CKD-EPI 2021 (Inker, NEJM) · SBN<br />
+        <span data-testid="fontes-home" className="hidden md:inline">Principais fontes: KDIGO 2024 (DRC) · CKD-EPI 2021 (Inker, NEJM) · SBN<br /></span>
         Uso exclusivo para profissionais de saúde · <Link href="/termodeuso" className="underline">Termo de Uso</Link>
       </p>
     </div>
