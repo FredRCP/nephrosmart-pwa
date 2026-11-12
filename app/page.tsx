@@ -9,7 +9,8 @@ import { primeiroNome } from '@/lib/auth/nome';
 import { useSessao } from '@/lib/auth/useSessao';
 import { saudacaoPara } from '@/lib/saudacao';
 
-const GRADIENTE = 'linear-gradient(135deg, #1e5a9c, #2b6cb0)';
+const GRADIENTE = 'linear-gradient(90deg, #2f5a96, #4272b2)'; // escuro à esquerda, mais claro à direita (app original)
+const LINHA = 'rgba(100, 116, 139, 0.45)'; // fios finos (separadores e selo Beta), visíveis nos dois temas
 const CHAVE_INTRO = 'introVista';
 // Tempos do app original: título por 2,5 s, saída em 0,8 s, logo em 1 s, depois um botão a cada 0,6 s.
 const TEMPO_TITULO = 2500;
@@ -19,6 +20,12 @@ const TEMPO_SAIDA = 800;
 let introJaVista = false;
 
 type Fase = 'titulo' | 'saindo' | 'pronto';
+
+/** Fio fino entre os botões (detalhe do app original). */
+function Separador() {
+  const { colors } = useTheme();
+  return <span aria-hidden data-testid="separador-botoes" className="mx-auto my-2 h-px w-[88%]" style={{ backgroundColor: LINHA }} />;
+}
 
 export default function Home() {
   const { colors, theme } = useTheme();
@@ -70,7 +77,7 @@ export default function Home() {
     return () => { clearTimeout(t); fim(); };
   }, [animar]);
 
-  const botao = 'flex h-16 w-full items-center justify-center rounded-xl px-6 text-center text-lg font-bold text-white shadow-md transition-transform active:scale-[0.98]';
+  const botao = 'flex h-16 w-full items-center justify-center rounded-2xl px-6 text-center text-lg font-bold text-white shadow-[0_8px_18px_rgba(30,58,110,0.30)] transition-transform active:scale-[0.98]';
   const estadoIntro = fase !== 'pronto' ? 'espera' : animar ? 'anima' : 'parado';
   const atraso = (s: number) => ({ ['--atraso' as string]: `${s}s` });
 
@@ -101,28 +108,34 @@ export default function Home() {
         <div className="absolute right-0 top-0 md:hidden"><MenuConfiguracoes variante="home" /></div>
       </div>
 
-      <div className="my-8 text-center">
+      <div className="mb-8 mt-[calc(2rem+30px)] w-full text-center">
         {/* Tema escuro: versão do logotipo com texto claro e brilho suave, sem caixa branca atrás */}
         <h1 className="intro-item intro-logo mx-auto w-fit">
           <img src={theme === 'dark' ? '/images/ns1a-escuro.webp' : '/images/ns1a.webp'} alt="NephroSmart" width={300} height={250}
-            className={`mx-auto h-auto ${theme === 'dark' ? 'w-60 md:w-72' : 'w-56 md:w-64'}`} />
+            className={`mx-auto h-auto ${theme === 'dark' ? 'w-[204px] md:w-[245px]' : 'w-[190px] md:w-[218px]'}`} />
         </h1>
-        <p className="intro-item mx-auto mt-4 w-fit rounded-full px-4 py-0.5 text-sm font-bold tracking-widest opacity-85"
-          style={{ color: colors.text, border: `1px solid ${colors.inputBorder}`, ...atraso(1) }}>VERSÃO BETA</p>
+        <div className="intro-item mx-auto mt-4 flex w-full max-w-md items-center gap-3" style={atraso(1)} data-testid="selo-beta">
+          <span aria-hidden className="h-px flex-1" style={{ backgroundColor: LINHA }} />
+          <p className="rounded-full px-4 py-0.5 text-sm font-bold tracking-widest opacity-85"
+            style={{ color: colors.text, border: `1px solid ${colors.inputBorder}` }}>VERSÃO BETA</p>
+          <span aria-hidden className="h-px flex-1" style={{ backgroundColor: LINHA }} />
+        </div>
       </div>
 
-      <nav aria-label="Módulos" className="flex w-full flex-col gap-3">
+      <nav aria-label="Módulos" className="flex w-full flex-col">
         <Link href="/funcao-renal" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(1) }}>Função Renal</Link>
+        <Separador />
         <Link href="/ajuste-de-dose" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(1.6) }}>
           <span className="flex flex-col items-center leading-tight">
             <span className="opacity-80">Ajuste de Dose</span>
             <span className="mt-0.5 text-[13px] font-semibold opacity-90">Disponível em breve para assinantes</span>
           </span>
         </Link>
+        <Separador />
         <Link href="/ferramentas" className={`intro-item ${botao}`} style={{ background: GRADIENTE, ...atraso(2.2) }}>Ferramentas Clínicas</Link>
       </nav>
 
-      <p className="intro-item mt-8 text-center text-sm leading-5" style={{ color: colors.text, opacity: 0.85, ...atraso(2.8) }}>
+      <p className="intro-item mt-14 text-center text-sm leading-5" style={{ color: colors.text, opacity: 0.85, ...atraso(2.8) }}>
         <span data-testid="fontes-home" className="hidden md:inline">Principais fontes: KDIGO 2024 (DRC) · CKD-EPI 2021 (Inker, NEJM) · SBN<br /></span>
         Uso exclusivo para profissionais de saúde · <Link href="/termodeuso" className="underline">Termo de Uso</Link>
       </p>

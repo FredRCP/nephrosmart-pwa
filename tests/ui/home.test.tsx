@@ -21,6 +21,8 @@ describe('Home', () => {
     expect(screen.getByText('Disponível em breve para assinantes')).toBeTruthy();
     expect(screen.getByText(/Principais fontes: KDIGO 2024/)).toBeTruthy();
     expect(screen.getByTestId('fontes-home').className).toContain('hidden md:inline'); // some no celular, aparece no desktop
+    expect(screen.getAllByTestId('separador-botoes')).toHaveLength(2); // fios entre os três botões
+    expect(screen.getByTestId('selo-beta').querySelectorAll('span[aria-hidden]')).toHaveLength(2); // fios ao lado do selo Beta
     expect(screen.queryByText(/anemia/i)).toBeNull(); // anemia está oculta: não aparece nas fontes
     const alturas = screen.getAllByRole('link', { name: /Função Renal|Ajuste de Dose|Ferramentas Clínicas/ }).filter((a) => a.className.includes('h-16'));
     expect(alturas).toHaveLength(3); // os três botões têm a mesma altura
